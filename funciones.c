@@ -2,37 +2,39 @@
 #include <stdlib.h>
 #include "funciones.h"
 
+static void limpiarMemoria()
+{
+    __fpurge(stdin);
+    //fflush(stdin);
+}
+
 /**
-*\brief Ingresar un caracter por el usuario
+*\brief Se solicita ingresar un caracter al usuario
 *\param caracterAuxiliar Puntero del caracter ingresado
 *\param mensaje Mensaje que se muestra al usuario para ingresar caracter
 *\return Retorna 0 si es correcto si es incorrecto retorna -1
 */
 char getCaracter(char * caracterAuxiliar,char * mensaje)
 {
-    //__fpurge(stdin);
-    fflush(stdin);
+    limpiarMemoria();
     printf(mensaje);
     scanf("%c",caracterAuxiliar);
     return 0;
-
 }
 
 /**
-*\brief Ingresar un número por el usuario
+*\brief Se solicita ingresar un número con o sin decimales al usuario
 *\param numeroAuxiliar Puntero del número ingresado
 *\return Retorna 0 si es correcto si es incorrecto retorna -1
 */
 
 float getNumero(float * numeroAuxiliar)
 {
-    //__fpurge(stdin);
-    fflush(stdin);
+    limpiarMemoria();
     printf("Ingrese un número: ");
     scanf("%f",numeroAuxiliar);
     return 0;
 }
-
 
 /**
 *\brief Sumar dos numeros ingresados por el usuario
@@ -44,14 +46,10 @@ float getNumero(float * numeroAuxiliar)
 float funcionSuma(float auxiliarUno,float auxiliarDos)
 {
     float resultado;
-     //__fpurge(stdin);
-    fflush(stdin);
     resultado = auxiliarUno + auxiliarDos;
     printf("\nEl resultado de la suma %.2f + %.2f es: %.2f",auxiliarUno,auxiliarDos,resultado);
     return resultado;
-
 }
-
 
 /**
 *\brief Restar dos numeros ingresados por el usuario
@@ -63,33 +61,25 @@ float funcionSuma(float auxiliarUno,float auxiliarDos)
 float funcionResta(float auxiliarUno,float auxiliarDos)
 {
     float resultado;
-     //__fpurge(stdin);
-    fflush(stdin);
     resultado = auxiliarUno - auxiliarDos;
     printf("\nEl resultado de la resta %.2f - %.2f es: %.2f",auxiliarUno,auxiliarDos,resultado);
     return resultado;
-
 }
-
 
 /**
 *\brief Multiplicar dos numeros ingresados por el usuario
 *\param auxiliarUno Valor del primer numero a multiplicar
 *\param auxiliarDos Valor del segundo numero a multiplicar
-*\return Retorna el resultado de la multiplición
+*\return Retorna el resultado de la multiplicación
 */
 
 float funcionMultiplicar(float auxiliarUno,float auxiliarDos)
 {
     float resultado;
-    //__fpurge(stdin);
-    fflush(stdin);
     resultado = auxiliarUno * auxiliarDos;
     printf("\nEl resultado de la multiplicación %.2f * %.2f es: %.2f",auxiliarUno,auxiliarDos,resultado);
     return resultado;
-
 }
-
 
 /**
 *\brief Dividir dos numeros ingresados por el usuario
@@ -101,42 +91,38 @@ float funcionMultiplicar(float auxiliarUno,float auxiliarDos)
 float funcionDividir(float auxiliarUno,float auxiliarDos)
 {
     float resultado;
-     //__fpurge(stdin);
-    fflush(stdin);
+
     if(auxiliarUno != 0 && auxiliarDos != 0)
-    {resultado = auxiliarUno / auxiliarDos;
-    printf("\nEl resultado de la división %.2f  / %.2f es: %.2f",auxiliarUno,auxiliarDos,resultado);
-    return resultado;
+    {
+        resultado = auxiliarUno / auxiliarDos;
+        printf("\nEl resultado de la división %.2f  / %.2f es: %.2f",auxiliarUno,auxiliarDos,resultado);
+        return resultado;
     }
     else
     {
-    printf("\nError. No se puede dividir por 0 (cero) ");
-    return -1;
+        printf("\nError. No se puede dividir por 0 (cero) ");
+        return -1;
     }
 
 }
 
 /**
-*\brief Se utiliza un numero para calcular el factorial del mismo iterando hasta llegar a uno
+*\brief Se calcula el factorial de un número ingresado por el usuario
 *\param auxiliarUno
 *\return Retorna el valor del factorial del numero ingresado
 */
 
 float funcionFactorial(float auxiliarUno)
 {
-     //__fpurge(stdin);
-    fflush(stdin);
-    float resultado;
-    //   4        =     4                  4           == 1       4 - 1
-    if(auxiliarUno==1)
+    float resultado = 0;
+
+    if(auxiliarUno==1 || auxiliarUno == 0)
     {
-    return 1;
+        return 1;
     }
+
     resultado=auxiliarUno* funcionFactorial(auxiliarUno-1);
-    printf("\nEl factorial de %.2f es: %.2f",auxiliarUno,resultado);
     return resultado;
-
-
 }
 
 /**
@@ -148,17 +134,23 @@ float funcionFactorial(float auxiliarUno)
 
 int funcionCalculos(float auxiliarUno,float auxiliarDos)
 {
+    float resultadoFactorial;
+
     funcionSuma(auxiliarUno,auxiliarDos);
     funcionResta(auxiliarUno,auxiliarDos);
     funcionMultiplicar(auxiliarUno,auxiliarDos);
     funcionDividir(auxiliarUno,auxiliarDos);
+    resultadoFactorial = funcionFactorial(auxiliarUno);
+    printf("\nEl factorial de %.2f es: %.2f",auxiliarUno,resultadoFactorial);
+    resultadoFactorial = funcionFactorial(auxiliarDos);
+    printf("\nEl factorial de %.2f es: %.2f",auxiliarDos,resultadoFactorial);
     return 0;
 }
 
 /**
-*\brief Crear un menú con 5 calculos para dos numeros ingresados por el usuario hasta que no quiera ingresar más
+*\brief Crear un menú con 5 calculos para dos números ingresados por el usuario hasta que no quiera ingresar más
 *\param void
-*\return Retorna 0 si esta bien, si no retorna -1
+*\return Retorna 0 si esta bien, sino retorna -1
 */
 
 int menuCalculosDosNumeros()
@@ -169,13 +161,13 @@ int menuCalculosDosNumeros()
 
     do
     {
-    printf("\nIngrese dos numeros para calcular\n\n1) Suma\n2) Resta\n3) Multiplicación\n4) División\n5) Factorial\n\n");
-    getNumero(&numeroUno);
-    getNumero(&numeroDos);
+        printf("\nIngrese dos numeros para calcular\n\n1) Suma\n2) Resta\n3) Multiplicación\n4) División\n5) Factorial\n\n");
+        getNumero(&numeroUno);
+        getNumero(&numeroDos);
 
-    funcionCalculos(numeroUno,numeroDos);
+        funcionCalculos(numeroUno,numeroDos);
 
-    getCaracter(&opcion,"\n\n¿Continuar? S/N ");
+        getCaracter(&opcion,"\n\n¿Continuar? S/N ");
     }while(opcion == 'S' || opcion == 's');
     return 0;
 }

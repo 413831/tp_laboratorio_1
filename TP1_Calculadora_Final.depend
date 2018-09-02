@@ -1,12 +1,12 @@
 # depslib dependency file v1.0
-1535911528 source:c:\users\alexei\documents\utn\programacion i\workspace\tp1_calculadora_final\funciones.c
+1535914700 source:c:\users\alexei\documents\utn\programacion i\workspace\tp1_calculadora_final\funciones.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
 
 1535865184 c:\users\alexei\documents\utn\programacion i\workspace\tp1_calculadora_final\funciones.h
 
-1535911445 source:c:\users\alexei\documents\utn\programacion i\workspace\tp1_calculadora_final\main.c
+1535914654 source:c:\users\alexei\documents\utn\programacion i\workspace\tp1_calculadora_final\main.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"

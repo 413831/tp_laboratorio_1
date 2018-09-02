@@ -4,18 +4,7 @@
 
 int main()
 {
-    float numeroUno;
-
-
-    getNumero(&numeroUno);
-
-
-
-   funcionFactorial(numeroUno);
-
-
-   // menuCalculosDosNumeros();
+    menuCalculosDosNumeros();
 
     printf("\nVuelva prontos...\n");
-
 }
