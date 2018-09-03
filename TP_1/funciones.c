@@ -14,7 +14,7 @@ static void limpiarMemoria()
 *\param mensaje Mensaje que se muestra al usuario para ingresar caracter
 *\return Retorna 0 si es correcto si es incorrecto retorna -1
 */
-char getCaracter(char * caracterAuxiliar,char * mensaje)
+int getCaracter(char * caracterAuxiliar,char * mensaje)
 {
     limpiarMemoria();
     printf(mensaje);
@@ -28,7 +28,7 @@ char getCaracter(char * caracterAuxiliar,char * mensaje)
 *\return Retorna 0 si es correcto si es incorrecto retorna -1
 */
 
-float getNumero(float * numeroAuxiliar)
+int getNumero(float * numeroAuxiliar)
 {
     limpiarMemoria();
     printf("Ingrese un número: ");
@@ -112,9 +112,9 @@ float funcionDividir(float auxiliarUno,float auxiliarDos)
 *\return Retorna el valor del factorial del numero ingresado
 */
 
-float funcionFactorial(float auxiliarUno)
+double funcionFactorial(float auxiliarUno)
 {
-    float resultado = 0;
+    double resultado = 0;
 
     if(auxiliarUno==1 || auxiliarUno == 0)
     {
@@ -122,6 +122,7 @@ float funcionFactorial(float auxiliarUno)
     }
 
     resultado=auxiliarUno* funcionFactorial(auxiliarUno-1);
+
     return resultado;
 }
 
@@ -134,16 +135,16 @@ float funcionFactorial(float auxiliarUno)
 
 int funcionCalculos(float auxiliarUno,float auxiliarDos)
 {
-    float resultadoFactorial;
+    double resultadoFactorial;
 
     funcionSuma(auxiliarUno,auxiliarDos);
     funcionResta(auxiliarUno,auxiliarDos);
     funcionMultiplicar(auxiliarUno,auxiliarDos);
     funcionDividir(auxiliarUno,auxiliarDos);
     resultadoFactorial = funcionFactorial(auxiliarUno);
-    printf("\nEl factorial de %.2f es: %.2f",auxiliarUno,resultadoFactorial);
+    printf("\nEl factorial de %f es: %.2lf",auxiliarUno,resultadoFactorial);
     resultadoFactorial = funcionFactorial(auxiliarDos);
-    printf("\nEl factorial de %.2f es: %.2f",auxiliarDos,resultadoFactorial);
+    printf("\nEl factorial de %f es: %.2lf",auxiliarDos,resultadoFactorial);
     return 0;
 }
 
@@ -169,5 +170,6 @@ int menuCalculosDosNumeros()
 
         getCaracter(&opcion,"\n\n¿Continuar? S/N ");
     }while(opcion == 'S' || opcion == 's');
+
     return 0;
 }
