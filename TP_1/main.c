@@ -5,6 +5,4 @@
 int main()
 {
     menuCalculosDosNumeros();
-
-    printf("\nVuelva prontos...\n");
 }
