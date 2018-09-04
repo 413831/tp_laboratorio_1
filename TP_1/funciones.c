@@ -1,12 +1,32 @@
-#include <stdio.h>
+#include <stdio_ext.h>
 #include <stdlib.h>
 #include "funciones.h"
+
+/**
+*\brief Se limpia el buffer del teclado
+*\param void
+*\return void
+*/
 
 static void limpiarMemoria()
 {
     __fpurge(stdin);
     //fflush(stdin);
 }
+
+/**
+*\brief Se limpia la pantalla
+*\param void
+*\return void
+*/
+
+static void limpiarPantalla()
+{
+    system("clear");
+    //system("cls");
+}
+
+
 
 /**
 *\brief Se solicita ingresar un caracter al usuario
@@ -30,10 +50,22 @@ int getCaracter(char * caracterAuxiliar,char * mensaje)
 
 int getNumero(float * numeroAuxiliar)
 {
-    limpiarMemoria();
-    printf("Ingrese un número: ");
-    scanf("%f",numeroAuxiliar);
+    int numeroCorrecto;
+
+        limpiarMemoria();
+        printf("Ingrese un numero: ");
+        numeroCorrecto = scanf("%f",numeroAuxiliar);
+    while(!numeroCorrecto)
+    {
+        printf("\nError.Dato invalido");
+        limpiarMemoria();
+        printf("\nIngrese un numero: ");
+        numeroCorrecto = scanf("%f",numeroAuxiliar);
+    }
+
     return 0;
+
+
 }
 
 /**
@@ -77,7 +109,7 @@ float funcionMultiplicar(float auxiliarUno,float auxiliarDos)
 {
     float resultado;
     resultado = auxiliarUno * auxiliarDos;
-    printf("\nEl resultado de la multiplicación %.2f * %.2f es: %.2f",auxiliarUno,auxiliarDos,resultado);
+    printf("\nEl resultado de la multiplicacion %.2f * %.2f es: %.2f",auxiliarUno,auxiliarDos,resultado);
     return resultado;
 }
 
@@ -95,7 +127,7 @@ float funcionDividir(float auxiliarUno,float auxiliarDos)
     if(auxiliarUno != 0 && auxiliarDos != 0)
     {
         resultado = auxiliarUno / auxiliarDos;
-        printf("\nEl resultado de la división %.2f  / %.2f es: %.2f",auxiliarUno,auxiliarDos,resultado);
+        printf("\nEl resultado de la division %.2f  / %.2f es: %.2f",auxiliarUno,auxiliarDos,resultado);
         return resultado;
     }
     else
@@ -162,13 +194,14 @@ int menuCalculosDosNumeros()
 
     do
     {
-        printf("\nIngrese dos numeros para calcular\n\n1) Suma\n2) Resta\n3) Multiplicación\n4) División\n5) Factorial\n\n");
+        printf("\nIngrese dos numeros para calcular\n\n1) Suma\n2) Resta\n3) Multiplicacion\n4) Division\n5) Factorial\n\n");
         getNumero(&numeroUno);
         getNumero(&numeroDos);
 
         funcionCalculos(numeroUno,numeroDos);
 
-        getCaracter(&opcion,"\n\n¿Continuar? S/N ");
+        getCaracter(&opcion,"\n\nContinuar? S/N ");
+        limpiarPantalla();
     }while(opcion == 'S' || opcion == 's');
 
     return 0;
