@@ -201,13 +201,12 @@ int menuCalculosDosNumeros()
         funcionCalculos(numeroUno,numeroDos);
 
         getCaracter(&opcion,"\n\nContinuar? S/N ");
-
         while(!(opcion == 'S' || opcion == 's' || opcion == 'N' || opcion == 'n'))
         {
-            printf("Ingrese una opcion valida");
-            limpiarMemoria();
-            getCaracter(&opcion,"\n\nContinuar? S/N ");
-            limpiarPantalla();
+        printf("Ingrese una opcion valida");
+        limpiarMemoria();
+        getCaracter(&opcion,"\n\nContinuar? S/N ");
+        limpiarPantalla();
         }
         limpiarPantalla();
 
