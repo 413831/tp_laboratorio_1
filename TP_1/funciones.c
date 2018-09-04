@@ -34,7 +34,7 @@ static void limpiarPantalla()
 *\param mensaje Mensaje que se muestra al usuario para ingresar caracter
 *\return Retorna 0 si es correcto si es incorrecto retorna -1
 */
-int getCaracter(char * caracterAuxiliar,char * mensaje)
+int getCaracter(char * caracterAuxiliar,char mensaje[50])
 {
     limpiarMemoria();
     printf(mensaje);
