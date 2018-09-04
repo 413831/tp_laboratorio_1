@@ -37,7 +37,7 @@ static void limpiarPantalla()
 int getCaracter(char * caracterAuxiliar,char mensaje[50])
 {
     limpiarMemoria();
-    printf(mensaje);
+    printf("%s",mensaje);
     scanf("%c",caracterAuxiliar);
     return 0;
 }
