@@ -1,0 +1,39 @@
+# depslib dependency file v1.0
+1538341125 source:/home/alexei/Documents/UTN/tp_laboratorio_2/employee.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+	"employee.h"
+
+1538284954 /home/alexei/Documents/UTN/tp_laboratorio_2/utn.h
+
+1538340621 /home/alexei/Documents/UTN/tp_laboratorio_2/employee.h
+
+1538327115 source:/home/alexei/Documents/UTN/tp_laboratorio_2/input.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1537492029 source:/home/alexei/Documents/UTN/tp_laboratorio_2/sort.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1538327385 source:/home/alexei/Documents/UTN/tp_laboratorio_2/validacion.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"utn.h"
+
+1538340739 source:/home/alexei/Documents/UTN/tp_laboratorio_2/main.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"employee.h"
+	"utn.h"
+
