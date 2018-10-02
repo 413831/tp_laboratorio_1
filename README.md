@@ -1,2 +1,2 @@
 # tp_laboratorio_1
-Trabajo práctico Programación/Laboratorio I
+Trabajos prácticos Programación/Laboratorio I
