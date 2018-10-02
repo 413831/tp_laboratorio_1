@@ -458,7 +458,7 @@ int employe_menu(Employee array[],int size)
             break;
 
             case 2 :
-                if(flag == 1)
+                if(flag == 1 && contadorEmpleados >0)
                 {
                     printf("\n--MODIFICAR--\n");
                     employee_listar(array,size);
@@ -477,7 +477,7 @@ int employe_menu(Employee array[],int size)
             break;
 
             case 3 :
-                if(flag == 1)
+                if(flag == 1 && contadorEmpleados >0)
                 {
                     printf("\n--BAJA--\n");
                     employee_listar(array,size);
@@ -497,7 +497,7 @@ int employe_menu(Employee array[],int size)
             break;
 
             case 4 :
-                if(flag == 1)
+                if(flag == 1 && contadorEmpleados >0)
                 {
                     totalSalario = 0;
                     promedioSalario = 0;
