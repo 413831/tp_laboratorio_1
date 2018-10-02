@@ -37,3 +37,28 @@
 	"employee.h"
 	"utn.h"
 
+1538341781 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_2/input.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1538341781 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_2/utn.h
+
+1538341781 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_2/main.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"employee.h"
+	"utn.h"
+
+1538341781 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_2/employee.h
+
+1538341781 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_2/validacion.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"utn.h"
+

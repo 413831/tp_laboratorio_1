@@ -484,6 +484,7 @@ int employe_menu(Employee array[],int size)
                     input_ScanInt("\nIngrese ID de empleado: ",&idIngresado);
                     empleadoSeleccionado = employee_getByID(array,size,idIngresado);
                     employee_eliminar(empleadoSeleccionado,size);
+                    contadorEmpleados--;
                 }
                 else
                 {
