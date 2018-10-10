@@ -1,0 +1,163 @@
+# depslib dependency file v1.0
+1538667363 source:/home/alumno/Documentos/Parcial_01_Posta/Afiches_Parcial/input.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1538667363 /home/alumno/Documentos/Parcial_01_Posta/Afiches_Parcial/utn.h
+
+1538667363 source:/home/alumno/Documentos/Parcial_01_Posta/Afiches_Parcial/validacion.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"utn.h"
+
+1538698685 source:/home/alumno/Documentos/Parcial_01_Posta/Afiches_Parcial/clientes.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"utn.h"
+	"clientes.h"
+
+1538694530 /home/alumno/Documentos/Parcial_01_Posta/Afiches_Parcial/clientes.h
+
+1538700226 source:/home/alumno/Documentos/Parcial_01_Posta/Afiches_Parcial/main.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"clientes.h"
+	"ventas.h"
+	"utn.h"
+
+1538700031 /home/alumno/Documentos/Parcial_01_Posta/Afiches_Parcial/ventas.h
+
+1538700008 source:/home/alumno/Documentos/Parcial_01_Posta/Afiches_Parcial/ventas.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"utn.h"
+	"ventas.h"
+
+1539095603 source:/home/alexei/Documents/UTN/Programacion_1_Clases/Afiches_Parcial/clientes.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"utn.h"
+	"clientes.h"
+
+1538704043 /home/alexei/Documents/UTN/Programacion_1_Clases/Afiches_Parcial/utn.h
+
+1538925711 /home/alexei/Documents/UTN/Programacion_1_Clases/Afiches_Parcial/clientes.h
+
+1538874206 source:/home/alexei/Documents/UTN/Programacion_1_Clases/Afiches_Parcial/input.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1538792550 source:/home/alexei/Documents/UTN/Programacion_1_Clases/Afiches_Parcial/validacion.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"utn.h"
+
+1539098064 source:/home/alexei/Documents/UTN/Programacion_1_Clases/Afiches_Parcial/ventas.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"utn.h"
+	"ventas.h"
+
+1538870051 /home/alexei/Documents/UTN/Programacion_1_Clases/Afiches_Parcial/ventas.h
+
+1539109048 source:/home/alexei/Documents/UTN/Programacion_1_Clases/Afiches_Parcial/main.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"clientes.h"
+	"ventas.h"
+	"utn.h"
+	"informar.h"
+
+1539108577 source:/home/alexei/Documents/UTN/Programacion_1_Clases/Afiches_Parcial/informar.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	"utn.h"
+	"clientes.h"
+	"ventas.h"
+	"informar.h"
+
+1539108374 /home/alexei/Documents/UTN/Programacion_1_Clases/Afiches_Parcial/informar.h
+	"ventas.h"
+	"clientes.h"
+
+1539109480 source:/home/alumno/Documentos/Planes/Parcial_01_Afiches/clientes.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"utn.h"
+	"clientes.h"
+
+1539109480 /home/alumno/Documentos/Planes/Parcial_01_Afiches/utn.h
+
+1539109480 /home/alumno/Documentos/Planes/Parcial_01_Afiches/clientes.h
+
+1539131958 source:/home/alumno/Documentos/Planes/Parcial_01_Afiches/informar.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	"utn.h"
+	"clientes.h"
+	"ventas.h"
+	"informar.h"
+
+1539109480 /home/alumno/Documentos/Planes/Parcial_01_Afiches/ventas.h
+
+1539129117 /home/alumno/Documentos/Planes/Parcial_01_Afiches/informar.h
+	"ventas.h"
+	"clientes.h"
+
+1539109480 source:/home/alumno/Documentos/Planes/Parcial_01_Afiches/input.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1539126710 source:/home/alumno/Documentos/Planes/Parcial_01_Afiches/main.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"clientes.h"
+	"ventas.h"
+	"utn.h"
+	"informar.h"
+
+1539109480 source:/home/alumno/Documentos/Planes/Parcial_01_Afiches/validacion.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"utn.h"
+
+1539127673 source:/home/alumno/Documentos/Planes/Parcial_01_Afiches/ventas.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"utn.h"
+	"ventas.h"
+
