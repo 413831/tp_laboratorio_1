@@ -1,0 +1,432 @@
+# depslib dependency file v1.0
+1533062952 source:/home/mauro/Descargas/Practica_Pair_v1.2/Linux_64/Employee.c
+
+1533063050 source:/home/mauro/Descargas/Practica_Pair_v1.2/Linux_64/main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+
+1541068049 h"
+
+1532354323 /home/mauro/Descargas/Practica_Pair_v1.2/Linux_64/LinkedList.h
+
+1533062926 /home/mauro/Descargas/Practica_Pair_v1.2/Linux_64/Employee.h
+
+1533063080 source:/home/mauro/Descargas/Practica_Pair_v1.2/Linux_64/parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+
+1533062952 source:/home/mauro/Descargas/TP3/Linux_64/Employee.c
+
+1533066103 source:/home/mauro/Descargas/TP3/Linux_64/main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+
+1532354323 /home/mauro/Descargas/TP3/Linux_64/LinkedList.h
+
+1533066103 /home/mauro/Descargas/TP3/Linux_64/Employee.h
+
+1533063080 source:/home/mauro/Descargas/TP3/Linux_64/parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+
+1533145792 source:/home/mauro/Descargas/TP3-20180801T173619Z-001/TP3/Linux_64/Controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+
+1533118898 /home/mauro/Descargas/TP3-20180801T173619Z-001/TP3/Linux_64/LinkedList.h
+
+1533118898 /home/mauro/Descargas/TP3-20180801T173619Z-001/TP3/Linux_64/Employee.h
+
+1533118898 source:/home/mauro/Descargas/TP3-20180801T173619Z-001/TP3/Linux_64/Employee.c
+
+1533145890 source:/home/mauro/Descargas/TP3-20180801T173619Z-001/TP3/Linux_64/parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+
+1540515878 source:/home/alumno/Documentos/Planes/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/Controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1540934284 
+
+1533133022 /home/alumno/Documentos/Planes/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/LinkedList.h
+
+1540516281 /home/alumno/Documentos/Planes/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/Employee.h
+
+1540516273 source:/home/alumno/Documentos/Planes/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/Employee.c
+	"Employee.h"
+	"LinkedList.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1540516175 source:/home/alumno/Documentos/Planes/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+
+1533133022 /home/alumno/Documentos/Planes/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/Controller.h
+
+1540510306 source:/home/alumno/Documentos/Planes/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1533133022 /home/alumno/Documentos/Planes/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/parser.h
+
+1540503471 source:/home/alumno/Documentos/Planes/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/input.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1540503471 /home/alumno/Documentos/Planes/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/utn.h
+
+1540503471 source:/home/alumno/Documentos/Planes/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/validacion.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"utn.h"
+
+1540660603 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/Controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1540590832 /home/alexei/Documents/UTN/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/LinkedList.h
+
+1540654432 /home/alexei/Documents/UTN/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/Employee.h
+
+1540590832 /home/alexei/Documents/UTN/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/parser.h
+
+1540654304 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/input.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1540590832 /home/alexei/Documents/UTN/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/utn.h
+
+1540661248 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+
+1540590832 /home/alexei/Documents/UTN/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/Controller.h
+
+1540660641 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1540599512 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/validacion.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"utn.h"
+
+1540661293 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/CASCARA_TP3/TP3/Linux_64/Employee.c
+	"Employee.h"
+	"LinkedList.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1540767800 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/input.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1540767816 /home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/utn.h
+
+1540776183 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"utn.h"
+
+1540590832 /home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/LinkedList.h
+
+1540590832 /home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/Controller.h
+
+1540767453 /home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/Employee.h
+
+1540599512 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/validacion.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"utn.h"
+
+1540768658 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/Controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1540703358 /home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/parser.h
+
+1540773620 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/Employee.c
+	"Employee.h"
+	"LinkedList.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1540772093 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1540948390 source:/home/alumno/Documentos/Planes/ejercicios_programacion_1/Workspace/Linked_List/Controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1540937198 /home/alumno/Documentos/Planes/ejercicios_programacion_1/Workspace/Linked_List/LinkedList.h
+
+1540948481 /home/alumno/Documentos/Planes/ejercicios_programacion_1/Workspace/Linked_List/Employee.h
+
+1540935563 /home/alumno/Documentos/Planes/ejercicios_programacion_1/Workspace/Linked_List/parser.h
+
+1540948481 source:/home/alumno/Documentos/Planes/ejercicios_programacion_1/Workspace/Linked_List/Employee.c
+	"Employee.h"
+	"LinkedList.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1540939723 /home/alumno/Documentos/Planes/ejercicios_programacion_1/Workspace/Linked_List/utn.h
+
+1540941002 source:/home/alumno/Documentos/Planes/ejercicios_programacion_1/Workspace/Linked_List/input.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1540935563 source:/home/alumno/Documentos/Planes/ejercicios_programacion_1/Workspace/Linked_List/validacion.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"utn.h"
+
+1540946599 source:/home/alumno/Documentos/Planes/ejercicios_programacion_1/Workspace/Linked_List/main.c
+	<stdio_ext.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"utn.h"
+
+1540935563 /home/alumno/Documentos/Planes/ejercicios_programacion_1/Workspace/Linked_List/Controller.h
+
+1540948031 source:/home/alumno/Documentos/Planes/ejercicios_programacion_1/Workspace/Linked_List/parser.c
+	<stdio_ext.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1541082508 source:c:\documents and settings\usuario\mis documentos\2018c2-master\ejercicios_programacion_1-master\cascara_tp3\tp3\win_32\controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1540934284 c:\documents and settings\usuario\mis documentos\2018c2-master\ejercicios_programacion_1-master\cascara_tp3\tp3\win_32\linkedlist.h
+
+1541082347 c:\documents and settings\usuario\mis documentos\2018c2-master\ejercicios_programacion_1-master\cascara_tp3\tp3\win_32\employee.h
+
+1540934284 c:\documents and settings\usuario\mis documentos\2018c2-master\ejercicios_programacion_1-master\cascara_tp3\tp3\win_32\parser.h
+
+1541082477 source:c:\documents and settings\usuario\mis documentos\2018c2-master\ejercicios_programacion_1-master\cascara_tp3\tp3\win_32\employee.c
+	"Employee.h"
+	"LinkedList.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1541005322 c:\documents and settings\usuario\mis documentos\2018c2-master\ejercicios_programacion_1-master\cascara_tp3\tp3\win_32\utn.h
+
+1541072127 source:c:\documents and settings\usuario\mis documentos\2018c2-master\ejercicios_programacion_1-master\cascara_tp3\tp3\win_32\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"utn.h"
+
+1541068049 c:\documents and settings\usuario\mis documentos\2018c2-master\ejercicios_programacion_1-master\cascara_tp3\tp3\win_32\controller.h
+	"Employee.h"
+
+1541070327 source:c:\documents and settings\usuario\mis documentos\2018c2-master\ejercicios_programacion_1-master\cascara_tp3\tp3\win_32\parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1540934284 source:c:\documents and settings\usuario\mis documentos\2018c2-master\ejercicios_programacion_1-master\cascara_tp3\tp3\win_32\validacion.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"utn.h"
+
+1541005362 source:c:\documents and settings\usuario\mis documentos\2018c2-master\ejercicios_programacion_1-master\cascara_tp3\tp3\win_32\input.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1541196383 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/Controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1541196383 /home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/LinkedList.h
+
+1541196383 /home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/Employee.h
+
+1540703358 /home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/parser.h
+
+1541196383 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/Employee.c
+	"Employee.h"
+	"LinkedList.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1541196383 /home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/utn.h
+
+1541196383 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"utn.h"
+
+1541196383 /home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/Controller.h
+	"Employee.h"
+
+1541196383 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1540599512 source:/home/alexei/Documents/UTN/ejercicios_programacion_1/Workspace/Linked_List/validacion.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"utn.h"
+
+1541267548 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_3/Controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1541196383 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_3/LinkedList.h
+
+1541267640 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_3/Employee.h
+
+1540703358 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_3/parser.h
+
+1541268982 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_3/Employee.c
+	"Employee.h"
+	"LinkedList.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1541196383 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_3/utn.h
+
+1541268916 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_3/main.c
+	<stdio_ext.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"utn.h"
+
+1541196383 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_3/Controller.h
+	"Employee.h"
+
+1541266539 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_3/parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"parser.h"
+
+1540599512 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_3/validacion.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"utn.h"
+
+1541268930 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_3/input.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+

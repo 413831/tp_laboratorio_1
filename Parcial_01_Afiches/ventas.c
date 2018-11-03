@@ -44,8 +44,6 @@ static int generateID()
 
 //__________________
 
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -155,7 +153,6 @@ int venta_alta(Venta* array,int size,int idIngresado)
 
         retorno = 0;
     }
-
     return retorno;
 }
 
@@ -174,7 +171,6 @@ int venta_modificar(Venta* array)
 
     if(array != NULL && !strcmp(array->status,STATUS_1))
     {
-
         if( !input_getLetras(auxZona,50,"\nIngrese ZONA (CABA - GBA SUR - GBA OESTE): ","\nError,dato invalido.",2)&&
             !venta_validarZona(auxZona) &&
             !input_getNumeros(&auxCantidad,7,"\nIngrese el cantidad: ","\nError,dato invalido.",0,10000,2))
@@ -183,13 +179,11 @@ int venta_modificar(Venta* array)
             array->cantidad = auxCantidad;
             retorno = 0;
         }
-
     }
     else
     {
         printf("\nCasillero vacio");
     }
-
     return retorno;
 }
 
@@ -254,7 +248,6 @@ int venta_ordenar(Venta array[],int size)
 
     if(array != NULL && size > 0)
     {
-
         while(flag)
         {
             flag = 0;
@@ -274,11 +267,9 @@ int venta_ordenar(Venta array[],int size)
                     swap(array+i,array+j);
                     flag = 1;
                 }
-
             }
         }
         retorno = 0;
-
     }
     return retorno;
 }
@@ -297,7 +288,6 @@ int venta_listar(Venta array[],int size)
     int retorno = -1;
     int i;
 
-
     if(array != NULL && size > 0)
     {
         for(i=0;i<size;i++)
@@ -308,7 +298,6 @@ int venta_listar(Venta array[],int size)
                 printf("\nZONA-- %s",array[i].zona);
                 printf("\nCANTIDAD-- %d",array[i].cantidad);
                 printf("\nID -- %d",array[i].id);
-
 
                 retorno = 0;
             }
@@ -341,12 +330,9 @@ int venta_mostrar(Venta array[],int size,int idIngresado)
                 printf("\nZONA PUBLICACION-- %s",array[i].zona);
                 printf("\nCANTIDAD DE DIAS DE PUBLICACION-- %d",array[i].cantidad);
                 contadorVentas++;
-
                 retorno = 0;
             }
-
         }
-
         printf("\n\nCANTIDAD DE VENTAS A COBRAR: %d",contadorVentas);
     }
     return retorno;
@@ -369,7 +355,6 @@ int venta_cobradas(Venta array[],int size,int idIngresado)
     {
         for(i=0;i<size;i++)
         {
-
             if(!strcmp(array[i].status,STATUS_2) && array[i].idCliente == idIngresado)
             {
                 printf("\n\nNOMBRE ARCHIVO -- %s ",array[i].nombreAfiche);
@@ -379,9 +364,7 @@ int venta_cobradas(Venta array[],int size,int idIngresado)
 
                 retorno = 0;
             }
-
         }
-
         printf("\n\nCANTIDAD DE VENTAS COBRADAS: %d",contadorVentas);
     }
     return retorno;
@@ -424,9 +407,7 @@ int venta_ingresoForzado(Venta array[],
         strncpy(array[indice].status,STATUS_1,LENGHT_STAT);
 
         array[indice].id = generateID();//SE PASA ID ASIGNADO A LA ESTRUCTURA
-
     }
-
     return retorno;
 }
 
@@ -435,15 +416,15 @@ int venta_validarZona(char zona[])
 {
     int retorno = -1;
 
-        if(!strcasecmp(zona,"CABA") ||
-           !strcasecmp(zona,"GBA SUR") ||
-           !strcasecmp(zona,"GBA OESTE"))
-        {
-            retorno = 0;
-        }
-        else
-        {
-            printf("\nError.Dato invalido)");
-        }
+    if(!strcasecmp(zona,"CABA") ||
+       !strcasecmp(zona,"GBA SUR") ||
+       !strcasecmp(zona,"GBA OESTE"))
+    {
+        retorno = 0;
+    }
+    else
+    {
+        printf("\nError.Dato invalido)");
+    }
     return retorno;
 }

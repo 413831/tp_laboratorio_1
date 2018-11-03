@@ -84,7 +84,6 @@ int cliente_init(Cliente array[],int size,int valor)
         {
         array[i].isEmpty = valor;
         }
-
     }
     return retorno;
 }
@@ -129,7 +128,6 @@ int cliente_alta(Cliente* array,int size,int* index)
     char auxNombre[50];
     char auxApellido[50];
     char auxCuit[15];
-    //-----------
     int retorno = -1;
     int indice;
 
@@ -147,7 +145,6 @@ int cliente_alta(Cliente* array,int size,int* index)
         *index = indice;
         retorno = 0;
     }
-
     return retorno;
 }
 
@@ -226,7 +223,6 @@ int cliente_ordenar(Cliente array[],int size)
 
     if(array != NULL && size > 0)
     {
-
         while(flag)
         {
             flag = 0;
@@ -235,7 +231,7 @@ int cliente_ordenar(Cliente array[],int size)
             {
                 j=i+1;
 
-                 if(array[i].apellido < array[i+1].apellido)//Ordena por apellido
+                if(array[i].apellido < array[i+1].apellido)//Ordena por apellido
                 {
                      swap(array+i,array+j);
                      flag = 1;
@@ -246,11 +242,9 @@ int cliente_ordenar(Cliente array[],int size)
                     swap(array+i,array+j);
                     flag = 1;
                 }
-
             }
         }
         retorno = 0;
-
     }
     return retorno;
 }
@@ -296,10 +290,10 @@ int cliente_listar(Cliente array[],int size)
         {
             if(!array[i].isEmpty)
             {
-                    printf("\n\nNOMBRE -- %s ",array[i].nombre);
-                    printf("\nAPELLIDO -- %s",array[i].apellido);
-                    printf("\nCUIT -- %s",array[i].cuit);
-                    printf("\nID -- %d",array[i].id);
+                printf("\n\nNOMBRE -- %s ",array[i].nombre);
+                printf("\nAPELLIDO -- %s",array[i].apellido);
+                printf("\nCUIT -- %s",array[i].cuit);
+                printf("\nID -- %d",array[i].id);
 
                 retorno = 0;
             }
@@ -335,7 +329,6 @@ int cliente_ingresoForzado(Cliente array[],int size,char auxNombre[],char auxApe
         array[indice].isEmpty = 0;
         array[indice].id = generateID();
     }
-
     return retorno;
 }
 

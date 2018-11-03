@@ -9,37 +9,21 @@
 
 #define QTY_CLIENTES 10
 
-/*
-static void swapVentas(Venta* valorA,Venta* valorB)
-{
-    Venta auxiliar;//TIPO pantalla
-    auxiliar = *valorA;
-    *valorA = *valorB;
-    *valorB = auxiliar;
-}
 
-static void swapClientes(Venta* valorA,Venta* valorB)
-{
-    Venta auxiliar;//TIPO pantalla
-    auxiliar = *valorA;
-    *valorA = *valorB;
-    *valorB = auxiliar;
-}
-*/
 
 /**
 *\brief Lista todas las ventas a cobrar de cada cliente
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\return Retorna 0 si los arrays y los limites son validos sino retorna -1
 */
 
-int informar_ClientesPendientes(Cliente arrayUno[],
-                                       int sizeUno,
-                                       Venta arrayDos[],
-                                       int sizeDos,
+int informar_ClientesPendientes(Cliente arrayClientes[],
+                                       int limiteClientes,
+                                       Venta arrayVentas[],
+                                       int limiteVentas,
                                        int contadorClientes,
                                        int contadorVentas)
 {
@@ -47,63 +31,59 @@ int informar_ClientesPendientes(Cliente arrayUno[],
     Cliente* clienteSeleccionado;
     int i;
 
-    if(arrayUno != NULL && arrayDos != NULL && sizeUno > 0 && sizeDos > 0 && contadorClientes > 0 && contadorVentas > 0)
+    if(arrayClientes != NULL && arrayVentas != NULL && limiteClientes > 0 && limiteVentas > 0 && contadorClientes > 0 && contadorVentas > 0)
     {
-
             if(contadorClientes > 0 && contadorVentas > 0)
             {
                 printf("\n--IMPRIMIR CLIENTES--\n");
 
-
                 for(i=0;i<QTY_CLIENTES;i++)
                 {
-                    clienteSeleccionado = cliente_getByID(arrayUno,sizeUno,arrayUno[i].id);
+                    clienteSeleccionado = cliente_getByID(arrayClientes,limiteClientes,arrayClientes[i].id);
 
                     if(clienteSeleccionado != NULL)
                     {
                         cliente_mostrar(clienteSeleccionado);
-                        printf("\n\n>>VENTAS A COBRAR<<\nID CLIENTE: %d",arrayUno[i].id);
-                        venta_mostrar(arrayDos,sizeDos,arrayUno[i].id);
+                        printf("\n\n>>VENTAS A COBRAR<<\nID CLIENTE: %d",arrayClientes[i].id);
+                        venta_mostrar(arrayVentas,limiteVentas,arrayClientes[i].id);
                     }
-
                 }
                 printf("\nIngrese cualquier tecla para continuar...");
                 limpiarMemoria();
                 getchar();
             }
-                    retorno = 0;
-
+                retorno = 0;
     }
         return retorno;
 }
 /**
 *\brief Lista todas las ventas segun CUIT
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\return Retorna 0 si se encuentran los clientes sino retorna -1
 */
 
-int informar_ventasPorCuit(Cliente arrayUno[],
-                                 Venta arrayDos[],
-                                int sizeUno,
-                                int sizeDos)
+int informar_ventasPorCuit(Cliente arrayClientes[],
+                                 Venta arrayVentas[],
+                                int limiteClientes,
+                                int limiteVentas)
 {
     int retorno = -1;
     char cuitIngresado[13];
     Cliente* clienteSeleccionado;
 
-    if(arrayUno != NULL && arrayDos != NULL && sizeUno > 0 && sizeDos > 0)
+    if(arrayClientes != NULL && arrayVentas != NULL && limiteClientes > 0 && limiteVentas > 0)
     {
         if(!input_getCuit(cuitIngresado,13,"\nIngrese numero de CUIT: ","Error.Numero invalido",2))//Se ingresa CUIT
         {
-            clienteSeleccionado = informar_buscarClienteCuit(arrayUno,sizeUno,cuitIngresado);
+            clienteSeleccionado = informar_buscarClienteCuit(arrayClientes,limiteClientes,cuitIngresado);
             if( clienteSeleccionado != NULL)//Se busca ID cliente
             {
                 cliente_mostrar(clienteSeleccionado);//Se muestran datos del cliente
-                venta_mostrar(arrayDos,sizeDos,clienteSeleccionado->id);//Ventas a cobrar
-                venta_cobradas(arrayDos,sizeDos,clienteSeleccionado->id);//Ventas cobradas
+                venta_mostrar(arrayVentas,limiteVentas,clienteSeleccionado->id);//Ventas a cobrar
+                venta_cobradas(arrayVentas,limiteVentas,clienteSeleccionado->id);//Ventas cobradas
                 retorno = 0;
             }
         }
@@ -115,18 +95,18 @@ int informar_ventasPorCuit(Cliente arrayUno[],
 
 /**
 *\brief Lista todas las ventas segun CUIT y Zona
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\param opcion Es la opcion de zona a listar
 *\return Retorna 0 si se encuentran los clientes sino retorna -1
 */
 
-int informar_ventasPorCuitZona(Cliente arrayUno[],
-                                 Venta arrayDos[],
-                                int sizeUno,
-                                int sizeDos,
+int informar_ventasPorCuitZona(Cliente arrayClientes[],
+                                 Venta arrayVentas[],
+                                int limiteClientes,
+                                int limiteVentas,
                                 int opcion)
 {
     int retorno = -1;
@@ -136,11 +116,11 @@ int informar_ventasPorCuitZona(Cliente arrayUno[],
     Cliente* clienteSeleccionado;
 
 
-    if(arrayUno != NULL && arrayDos != NULL && sizeUno > 0 && sizeDos > 0)
+    if(arrayClientes != NULL && arrayVentas != NULL && limiteClientes > 0 && limiteVentas > 0)
     {
         if(!input_getCuit(cuitIngresado,13,"\nIngrese numero de CUIT: ","Error.Numero invalido",2))//Se ingresa CUIT
         {
-            clienteSeleccionado = informar_buscarClienteCuit(arrayUno,sizeUno,cuitIngresado);//Se busca cliente
+            clienteSeleccionado = informar_buscarClienteCuit(arrayClientes,limiteClientes,cuitIngresado);//Se busca cliente
 
             if(clienteSeleccionado != NULL)
             {
@@ -149,38 +129,38 @@ int informar_ventasPorCuitZona(Cliente arrayUno[],
                 switch(opcion)
                 {
                     case 1 :
-                        for(i=0;i<sizeDos;i++)
+                        for(i=0;i<limiteVentas;i++)
                         {
-                            if(arrayDos[i].idCliente == idCliente &&
-                               !strcmp(arrayDos[i].zona,"CABA"))//Se buscan ventas del cliente en zona CABA
+                            if(arrayVentas[i].idCliente == idCliente &&
+                               !strcmp(arrayVentas[i].zona,"CABA"))//Se buscan ventas del cliente en zona CABA
                             {
                                 cliente_mostrar(clienteSeleccionado);
-                                venta_mostrar(arrayDos,sizeDos,idCliente);
-                                venta_cobradas(arrayDos,sizeDos,idCliente);
+                                venta_mostrar(arrayVentas,limiteVentas,idCliente);
+                                venta_cobradas(arrayVentas,limiteVentas,idCliente);
                             }
                         }
                     break;
                     case 2 :
-                        for(i=0;i<sizeDos;i++)
+                        for(i=0;i<limiteVentas;i++)
                         {
-                            if(arrayDos[i].idCliente == idCliente &&
-                               !strcmp(arrayDos[i].zona,"GBA OESTE"))//Se buscan ventas del cliente en zona GBA OESTE
+                            if(arrayVentas[i].idCliente == idCliente &&
+                               !strcmp(arrayVentas[i].zona,"GBA OESTE"))//Se buscan ventas del cliente en zona GBA OESTE
                             {
                                 cliente_mostrar(clienteSeleccionado);
-                                venta_mostrar(arrayDos,sizeDos,idCliente);
-                                venta_cobradas(arrayDos,sizeDos,idCliente);
+                                venta_mostrar(arrayVentas,limiteVentas,idCliente);
+                                venta_cobradas(arrayVentas,limiteVentas,idCliente);
                             }
                         }
                     break;
                     case 3 :
-                        for(i=0;i<sizeDos;i++)
+                        for(i=0;i<limiteVentas;i++)
                         {
-                            if(arrayDos[i].idCliente == idCliente &&
-                               !strcmp(arrayDos[i].zona,"GBA SUR"))//Se buscan ventas del cliente en zona GBA SUR
+                            if(arrayVentas[i].idCliente == idCliente &&
+                               !strcmp(arrayVentas[i].zona,"GBA SUR"))//Se buscan ventas del cliente en zona GBA SUR
                             {
                                 cliente_mostrar(clienteSeleccionado);
-                                venta_mostrar(arrayDos,sizeDos,idCliente);
-                                venta_cobradas(arrayDos,sizeDos,idCliente);
+                                venta_mostrar(arrayVentas,limiteVentas,idCliente);
+                                venta_cobradas(arrayVentas,limiteVentas,idCliente);
                             }
                         }
                     break;
@@ -190,9 +170,7 @@ int informar_ventasPorCuitZona(Cliente arrayUno[],
 
                 retorno = 0;
             }
-
         }
-
     }
 
 
@@ -232,8 +210,6 @@ int informar_statusVentas(Venta array[],
                         printf("\nSTATUS-- %s",array[i].status);
                     }
                 }
-
-
             break;
 
             case 2 :
@@ -248,7 +224,6 @@ int informar_statusVentas(Venta array[],
                         printf("\nID CANTIDAD DE AFICHES-- %d",array[i].cantidad);
                         printf("\nID ZONA-- %s",array[i].zona);
                         printf("\nID STATUS-- %s",array[i].status);
-
                     }
                 }
             break;
@@ -256,8 +231,6 @@ int informar_statusVentas(Venta array[],
         }
         retorno = 0;
     }
-
-
     return retorno;
 }
 
@@ -309,12 +282,9 @@ int informar_ventasPromedioAfiches(Venta array[],
                      printf("\n%s",array[i].zona);
                      printf("\n%d",array[i].cantidad);
                      printf("\n%d",array[i].idCliente);
-
                 }
             }
-
             break;
-
         }
         retorno = 0;
     }
@@ -527,18 +497,18 @@ int informar_calculoVentasZona(Venta array[],
 
 /**
 *\brief Lista todos los clientes por zona y total de ventas por zona
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\param opcion Es la opcion de zona a listar
 *\return Retorna 0 si se encuentran los clientes sino retorna -1
 */
 
-int informar_calculoClientesZona(Cliente arrayUno[],
-                                 Venta arrayDos[],
-                                int sizeUno,
-                                int sizeDos,
+int informar_calculoClientesZona(Cliente arrayClientes[],
+                                 Venta arrayVentas[],
+                                int limiteClientes,
+                                int limiteVentas,
                                 int opcion)
 {
     int retorno = -1;
@@ -549,26 +519,26 @@ int informar_calculoClientesZona(Cliente arrayUno[],
     int i;
     int j;
 
-    if(arrayUno != NULL &&
-       arrayDos != NULL &&
-       sizeUno > 0 &&
-       sizeDos > 0)
+    if(arrayClientes != NULL &&
+       arrayVentas != NULL &&
+       limiteClientes > 0 &&
+       limiteVentas > 0)
     {
         switch(opcion)
         {
             case 1 :
                 contadorClientes = 0;
 
-                for(i=0;i<sizeUno;i++)//Recorro array clientes
+                for(i=0;i<limiteClientes;i++)//Recorro array clientes
                 {
-                    if(!arrayUno[i].isEmpty)
+                    if(!arrayClientes[i].isEmpty)
                     {
                         contadorVentas = 0;
 
-                        for(j=0;j<sizeDos;j++)//Recorro array ventas
+                        for(j=0;j<limiteVentas;j++)//Recorro array ventas
                         {
-                            if(arrayDos[j].idCliente == arrayUno[i].id &&
-                               !strcasecmp(arrayDos[j].zona,"CABA"))//Si encuentra ventas del cliente a cobrar o cobradas entra
+                            if(arrayVentas[j].idCliente == arrayClientes[i].id &&
+                               !strcasecmp(arrayVentas[j].zona,"CABA"))//Si encuentra ventas del cliente a cobrar o cobradas entra
                             {
                                 contadorVentas++;
                                 totalVentas+=contadorVentas;
@@ -579,12 +549,12 @@ int informar_calculoClientesZona(Cliente arrayUno[],
 
                         if(flag == 1)
                         {
-                            cliente_mostrar(arrayUno+i);//Se muestra cliente de CABA
+                            cliente_mostrar(arrayClientes+i);//Se muestra cliente de CABA
                             contadorClientes++;
                         }
 
 
-                        printf("\nCLIENTE-> %s -- ZONA-> CABA -- VENTAS-> %d",arrayUno[i].cuit,contadorVentas);
+                        printf("\nCLIENTE-> %s -- ZONA-> CABA -- VENTAS-> %d",arrayClientes[i].cuit,contadorVentas);
 
                     }
 
@@ -596,16 +566,16 @@ int informar_calculoClientesZona(Cliente arrayUno[],
             case 2 :
                 contadorClientes = 0;
 
-                for(i=0;i<sizeUno;i++)//Recorro array clientes
+                for(i=0;i<limiteClientes;i++)//Recorro array clientes
                 {
-                    if(!arrayUno[i].isEmpty)
+                    if(!arrayClientes[i].isEmpty)
                     {
                         contadorVentas = 0;
 
-                        for(j=0;j<sizeDos;j++)//Recorro array ventas
+                        for(j=0;j<limiteVentas;j++)//Recorro array ventas
                         {
-                            if(arrayDos[j].idCliente == arrayUno[i].id &&
-                               !strcasecmp(arrayDos[j].zona,"GBA SUR"))//Si encuentra ventas del cliente a cobrar o cobradas entra
+                            if(arrayVentas[j].idCliente == arrayClientes[i].id &&
+                               !strcasecmp(arrayVentas[j].zona,"GBA SUR"))//Si encuentra ventas del cliente a cobrar o cobradas entra
                             {
                                 contadorVentas++;
                                 totalVentas+=contadorVentas;
@@ -616,12 +586,12 @@ int informar_calculoClientesZona(Cliente arrayUno[],
 
                         if(flag == 1)
                         {
-                            cliente_mostrar(arrayUno+i);//Se muestra cliente de GBA SUR
+                            cliente_mostrar(arrayClientes+i);//Se muestra cliente de GBA SUR
                             contadorClientes++;
                         }
 
 
-                        printf("\nCLIENTE-> %s -- ZONA-> GBA SUR -- VENTAS-> %d",arrayUno[i].cuit,contadorVentas);
+                        printf("\nCLIENTE-> %s -- ZONA-> GBA SUR -- VENTAS-> %d",arrayClientes[i].cuit,contadorVentas);
 
                     }
 
@@ -633,16 +603,16 @@ int informar_calculoClientesZona(Cliente arrayUno[],
             case 3 :
                 contadorClientes = 0;
 
-                for(i=0;i<sizeUno;i++)//Recorro array clientes
+                for(i=0;i<limiteClientes;i++)//Recorro array clientes
                 {
-                    if(!arrayUno[i].isEmpty)
+                    if(!arrayClientes[i].isEmpty)
                     {
                         contadorVentas = 0;
 
-                        for(j=0;j<sizeDos;j++)//Recorro array ventas
+                        for(j=0;j<limiteVentas;j++)//Recorro array ventas
                         {
-                            if(arrayDos[j].idCliente == arrayUno[i].id &&
-                               !strcasecmp(arrayDos[j].zona,"GBA OESTE"))//Si encuentra ventas del cliente a cobrar o cobradas entra
+                            if(arrayVentas[j].idCliente == arrayClientes[i].id &&
+                               !strcasecmp(arrayVentas[j].zona,"GBA OESTE"))//Si encuentra ventas del cliente a cobrar o cobradas entra
                             {
                                 contadorVentas++;
                                 totalVentas+=contadorVentas;
@@ -653,12 +623,12 @@ int informar_calculoClientesZona(Cliente arrayUno[],
 
                         if(flag == 1)
                         {
-                            cliente_mostrar(arrayUno+i);//Se muestra cliente de GBA OESTE
+                            cliente_mostrar(arrayClientes+i);//Se muestra cliente de GBA OESTE
                             contadorClientes++;
                         }
 
 
-                        printf("\nCLIENTE-> %s -- ZONA-> GBA OESTE -- VENTAS-> %d",arrayUno[i].cuit,contadorVentas);
+                        printf("\nCLIENTE-> %s -- ZONA-> GBA OESTE -- VENTAS-> %d",arrayClientes[i].cuit,contadorVentas);
 
                     }
 
@@ -684,10 +654,10 @@ int informar_calculoClientesZona(Cliente arrayUno[],
 
 /**
 *\brief Lista cantidad de afiches vendidos por zona
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\param opcion Es la opcion de zona a listar
 *\return Retorna 0 si se encuentran los clientes sino retorna -1
 */
@@ -758,15 +728,15 @@ int informar_calculoAfichesZona(Venta array[], int size)
 
 /**
 *\brief Lista los clientes con mas ventas
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\return Retorna 0 si existen los arrays y son validos los limites sino retorna -1
 */
 
-int informar_clienteMasVentas(Cliente arrayUno[],Venta arrayDos[],
-                                int sizeUno,int sizeDos)
+int informar_clienteMasVentas(Cliente arrayClientes[],Venta arrayVentas[],
+                                int limiteClientes,int limiteVentas)
 {
     int retorno = -1;
     int i;
@@ -776,23 +746,23 @@ int informar_clienteMasVentas(Cliente arrayUno[],Venta arrayDos[],
     int contadorClientes = 0;
     int totalVentas;
     int mayorCantidad;
-    Cliente arrayClientesVenta[sizeUno];
+    Cliente arrayClientesVenta[limiteClientes];
     Venta* ventaSeleccionada;
 
-    if(arrayUno != NULL && arrayDos != NULL && sizeUno > 0 && sizeDos > 0)
+    if(arrayClientes != NULL && arrayVentas != NULL && limiteClientes > 0 && limiteVentas > 0)
     {
 
-        for(i=0;i<sizeUno;i++)//Recorro array clientes
+        for(i=0;i<limiteClientes;i++)//Recorro array clientes
         {
             contadorVentasUno = 0;
             contadorVentasDos = 0;
 
-            ventaSeleccionada = venta_getByID(arrayDos,sizeDos,arrayUno[i].id);
+            ventaSeleccionada = venta_getByID(arrayVentas,limiteVentas,arrayClientes[i].id);
 
-            if(!arrayUno[i].isEmpty && ventaSeleccionada != NULL)
+            if(!arrayClientes[i].isEmpty && ventaSeleccionada != NULL)
             {
-                contadorVentasUno = informar_calculoTotalVentas(arrayDos,sizeDos,arrayUno[i].id,STATUS_1);
-                contadorVentasDos = informar_calculoTotalVentas(arrayDos,sizeDos,arrayUno[i].id,STATUS_2);
+                contadorVentasUno = informar_calculoTotalVentas(arrayVentas,limiteVentas,arrayClientes[i].id,STATUS_1);
+                contadorVentasDos = informar_calculoTotalVentas(arrayVentas,limiteVentas,arrayClientes[i].id,STATUS_2);
                 totalVentas = contadorVentasUno + contadorVentasDos;
             }
 
@@ -801,7 +771,7 @@ int informar_clienteMasVentas(Cliente arrayUno[],Venta arrayDos[],
                totalVentas == mayorCantidad)//Guardo el dato de mayor cantidad de ventas
             {
                 mayorCantidad = totalVentas;
-                arrayClientesVenta[i] = arrayUno[i];
+                arrayClientesVenta[i] = arrayClientes[i];
                 contadorClientes++;
                 flag = 0;
             }
@@ -826,15 +796,15 @@ int informar_clienteMasVentas(Cliente arrayUno[],Venta arrayDos[],
 
 /**
 *\brief Lista los clientes con mas ventas pendientes
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\return Retorna 0 si existen los arrays y son validos los limites sino retorna -1
 */
 
-int informar_clienteMasVentasPendientes(Cliente arrayUno[],Venta arrayDos[],
-                                int sizeUno,int sizeDos)
+int informar_clienteMasVentasPendientes(Cliente arrayClientes[],Venta arrayVentas[],
+                                int limiteClientes,int limiteVentas)
 {
     int retorno = -1;
     int i;
@@ -842,27 +812,27 @@ int informar_clienteMasVentasPendientes(Cliente arrayUno[],Venta arrayDos[],
     int contadorVentas = 0;
     int contadorClientes = 0;
     int mayorCantidad;
-    Cliente arrayClientesVenta[sizeUno];
-    int arrayCantidad[sizeUno];
+    Cliente arrayClientesVenta[limiteClientes];
+    int arrayCantidad[limiteClientes];
     Venta* ventaSeleccionada;
 
-    if(arrayUno != NULL && arrayDos != NULL && sizeUno > 0 && sizeDos > 0)
+    if(arrayClientes != NULL && arrayVentas != NULL && limiteClientes > 0 && limiteVentas > 0)
     {
 
-        for(i=0;i<sizeUno;i++)//Recorro array clientes
+        for(i=0;i<limiteClientes;i++)//Recorro array clientes
         {
             contadorVentas = 0;
-            ventaSeleccionada = venta_getByID(arrayDos,sizeDos,arrayUno[i].id);
+            ventaSeleccionada = venta_getByID(arrayVentas,limiteVentas,arrayClientes[i].id);
 
-            if(!arrayUno[i].isEmpty && ventaSeleccionada != NULL)
+            if(!arrayClientes[i].isEmpty && ventaSeleccionada != NULL)
             {
-                contadorVentas = informar_calculoTotalVentas(arrayDos,sizeDos,arrayUno[i].id,STATUS_1);
+                contadorVentas = informar_calculoTotalVentas(arrayVentas,limiteVentas,arrayClientes[i].id,STATUS_1);
             }
 
             if(flag == 1 || contadorVentas > mayorCantidad || contadorVentas == mayorCantidad)//Guardo el dato de mayor cantidad de ventas
             {
                 mayorCantidad = contadorVentas;
-                arrayClientesVenta[i] = arrayUno[i];
+                arrayClientesVenta[i] = arrayClientes[i];
                 arrayCantidad[i] = contadorVentas;
                 contadorClientes++;
 
@@ -893,8 +863,8 @@ int informar_clienteMasVentasPendientes(Cliente arrayUno[],Venta arrayDos[],
 
 /**
 *\brief Calculo total de ventas por clientes
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeDos Es el tamaño del array dos
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteVentas Es el tamaño del array dos
 *\param idIngresado Es el ID del cliente a comparar
 *\param status Es el status de la venta
 *\return Retorna 0 si existen los arrays y son validos los limites sino retorna -1
@@ -928,8 +898,8 @@ int informar_calculoTotalVentas(Venta array[],int size,int idIngresado,char stat
 
 /**
 *\brief Calculo total de afiches por cliente
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeDos Es el tamaño del array dos
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteVentas Es el tamaño del array dos
 *\param idIngresado Es el ID del cliente a comparar
 *\param status Es el status de la venta
 *\return Retorna 0 si existen los arrays y son validos los limites sino retorna -1
@@ -963,15 +933,15 @@ int informar_calculoTotalAfiches(Venta array[],int size,int idIngresado,char sta
 
 /**
 *\brief Lista los clientes con mas ventas cobradas
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\return Retorna 0 si existen los arrays y son validos los limites sino retorna -1
 */
 
-int informar_clienteMasVentasCobradas(Cliente arrayUno[],Venta arrayDos[],
-                                int sizeUno,int sizeDos)//OK
+int informar_clienteMasVentasCobradas(Cliente arrayClientes[],Venta arrayVentas[],
+                                int limiteClientes,int limiteVentas)//OK
 {
     int retorno = -1;
     int i;
@@ -984,24 +954,24 @@ int informar_clienteMasVentasCobradas(Cliente arrayUno[],Venta arrayDos[],
     Venta* ventaSeleccionada;
 
 
-    if(arrayUno != NULL && arrayDos != NULL && sizeUno > 0 && sizeDos > 0)//menor a 10
+    if(arrayClientes != NULL && arrayVentas != NULL && limiteClientes > 0 && limiteVentas > 0)//menor a 10
     {
 
-        for(i=0;i<sizeUno;i++)//Recorro array clientes
+        for(i=0;i<limiteClientes;i++)//Recorro array clientes
         {
             contadorVentas = 0;
 
-            ventaSeleccionada = venta_getByID(arrayDos,sizeDos,arrayUno[i].id);
+            ventaSeleccionada = venta_getByID(arrayVentas,limiteVentas,arrayClientes[i].id);
 
-            if(!arrayUno[i].isEmpty && ventaSeleccionada != NULL)
+            if(!arrayClientes[i].isEmpty && ventaSeleccionada != NULL)
             {
-               contadorVentas = informar_calculoTotalVentas(arrayDos,sizeDos,arrayUno[i].id,STATUS_2);
+               contadorVentas = informar_calculoTotalVentas(arrayVentas,limiteVentas,arrayClientes[i].id,STATUS_2);
             }
 
             if(contadorVentas > mayorCantidad || contadorVentas > 0)//Guardo el dato de mayor cantidad de ventas
             {
                 mayorCantidad = contadorVentas;
-                clienteSeleccionado = &arrayUno[i];
+                clienteSeleccionado = &arrayClientes[i];
                 contadorClientes++;
             }
         }
@@ -1024,15 +994,15 @@ int informar_clienteMasVentasCobradas(Cliente arrayUno[],Venta arrayDos[],
 
 /**
 *\brief Lista los clientes con menos ventas pendientes
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\return Retorna 0 si existen los arrays y son validos los limites sino retorna -1
 */
 
-int informar_clienteMenosVentasPendientes(Cliente arrayUno[],Venta arrayDos[],
-                                int sizeUno,int sizeDos)//OK
+int informar_clienteMenosVentasPendientes(Cliente arrayClientes[],Venta arrayVentas[],
+                                int limiteClientes,int limiteVentas)//OK
 {
     int retorno = -1;
     int i;
@@ -1040,18 +1010,18 @@ int informar_clienteMenosVentasPendientes(Cliente arrayUno[],Venta arrayDos[],
     int contadorVentas = 0;
     int contadorClientes = 0;
     int menorCantidad;
-    Cliente arrayClientesVenta[sizeUno];
+    Cliente arrayClientesVenta[limiteClientes];
 
-    if(arrayUno != NULL && arrayDos != NULL && sizeUno > 0 && sizeDos > 0)//menor a 10
+    if(arrayClientes != NULL && arrayVentas != NULL && limiteClientes > 0 && limiteVentas > 0)//menor a 10
     {
 
-        for(i=0;i<sizeUno;i++)//Recorro array clientes
+        for(i=0;i<limiteClientes;i++)//Recorro array clientes
         {
             contadorVentas = 0;
 
-            if(!arrayUno[i].isEmpty)
+            if(!arrayClientes[i].isEmpty)
             {
-              contadorVentas = informar_calculoTotalVentas(arrayDos,sizeDos,arrayUno[i].id,STATUS_1);
+              contadorVentas = informar_calculoTotalVentas(arrayVentas,limiteVentas,arrayClientes[i].id,STATUS_1);
             }
 
             if(flag == 1 ||
@@ -1059,7 +1029,7 @@ int informar_clienteMenosVentasPendientes(Cliente arrayUno[],Venta arrayDos[],
                contadorVentas == menorCantidad)//Guardo el dato de la menor cantidad de ventas
             {
                 menorCantidad = contadorVentas;
-                arrayClientesVenta[i] = arrayUno[i];
+                arrayClientesVenta[i] = arrayClientes[i];
                 contadorClientes++;
                 flag = 0;
             }
@@ -1084,15 +1054,15 @@ int informar_clienteMenosVentasPendientes(Cliente arrayUno[],Venta arrayDos[],
 
 /**
 *\brief Lista los clientes con menos ventas cobradas
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\return Retorna 0 si existen los arrays y son validos los limites sino retorna -1
 */
 
-int informar_clienteMenosVentasCobradas(Cliente arrayUno[],Venta arrayDos[],
-                                int sizeUno,int sizeDos)//OK
+int informar_clienteMenosVentasCobradas(Cliente arrayClientes[],Venta arrayVentas[],
+                                int limiteClientes,int limiteVentas)//OK
 {
     int retorno = -1;
     int i;
@@ -1100,18 +1070,18 @@ int informar_clienteMenosVentasCobradas(Cliente arrayUno[],Venta arrayDos[],
     int contadorVentas = 0;
     int contadorClientes = 0;
     int menorCantidad;
-    Cliente arrayClientesVenta[sizeUno];
+    Cliente arrayClientesVenta[limiteClientes];
 
-    if(arrayUno != NULL && arrayDos != NULL && sizeUno > 0 && sizeDos > 0)//menor a 10
+    if(arrayClientes != NULL && arrayVentas != NULL && limiteClientes > 0 && limiteVentas > 0)//menor a 10
     {
 
-        for(i=0;i<sizeUno;i++)//Recorro array clientes
+        for(i=0;i<limiteClientes;i++)//Recorro array clientes
         {
             contadorVentas = 0;
 
-            if(!arrayUno[i].isEmpty)
+            if(!arrayClientes[i].isEmpty)
             {
-                contadorVentas = informar_calculoTotalVentas(arrayDos,sizeDos,arrayUno[i].id,STATUS_2);
+                contadorVentas = informar_calculoTotalVentas(arrayVentas,limiteVentas,arrayClientes[i].id,STATUS_2);
             }
 
             if(flag == 1 ||
@@ -1119,7 +1089,7 @@ int informar_clienteMenosVentasCobradas(Cliente arrayUno[],Venta arrayDos[],
                contadorVentas == menorCantidad)//Guardo el dato de menor cantidad de ventas
             {
                 menorCantidad = contadorVentas;
-                arrayClientesVenta[i] = arrayUno[i];
+                arrayClientesVenta[i] = arrayClientes[i];
                 contadorClientes++;
                 flag = 0;
             }
@@ -1143,15 +1113,15 @@ int informar_clienteMenosVentasCobradas(Cliente arrayUno[],Venta arrayDos[],
 
 /**
 *\brief Lista los clientes con menos de mil afiches comprados
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\return Retorna 0 si existen los arrays y son validos los limites sino retorna -1
 */
 
-int informar_clientesAfichesMenorMil(Cliente arrayUno[],Venta arrayDos[],
-                                int sizeUno,int sizeDos)
+int informar_clientesAfichesMenorMil(Cliente arrayClientes[],Venta arrayVentas[],
+                                int limiteClientes,int limiteVentas)
 {
 
     int retorno = -1;
@@ -1161,22 +1131,22 @@ int informar_clientesAfichesMenorMil(Cliente arrayUno[],Venta arrayDos[],
     Cliente* clienteSeleccionado;
     Venta* ventaSeleccionada;
 
-    if(arrayUno != NULL && arrayDos != NULL && sizeUno > 0 && sizeDos > 0)//menor a 10
+    if(arrayClientes != NULL && arrayVentas != NULL && limiteClientes > 0 && limiteVentas > 0)//menor a 10
     {
 
-        for(i=0;i<sizeUno;i++)//Recorro array clientes
+        for(i=0;i<limiteClientes;i++)//Recorro array clientes
         {
             acumAfiches = 0;
-            ventaSeleccionada = venta_getByID(arrayDos,sizeDos,arrayUno[i].id);
+            ventaSeleccionada = venta_getByID(arrayVentas,limiteVentas,arrayClientes[i].id);
 
-            if(!arrayUno[i].isEmpty && ventaSeleccionada != NULL)
+            if(!arrayClientes[i].isEmpty && ventaSeleccionada != NULL)
             {
-              acumAfiches = informar_calculoTotalAfiches(arrayDos,sizeDos,arrayUno[i].id,STATUS_2);
+              acumAfiches = informar_calculoTotalAfiches(arrayVentas,limiteVentas,arrayClientes[i].id,STATUS_2);
             }
 
             if(acumAfiches < 1000)//Guardo el dato de mayor cantidad de afiches
             {
-                clienteSeleccionado = &arrayUno[i];
+                clienteSeleccionado = &arrayClientes[i];
                 contadorClientes++;
             }
         }
@@ -1199,15 +1169,15 @@ int informar_clientesAfichesMenorMil(Cliente arrayUno[],Venta arrayDos[],
 
 /**
 *\brief Lista los clientes con mayor cantidad de afiches a cobrar
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\return Retorna 0 si existen los arrays y son validos los limites sino retorna -1
 */
 
-int informar_clienteMasAfiches(Cliente arrayUno[],Venta arrayDos[],
-                                int sizeUno,int sizeDos)
+int informar_clienteMasAfiches(Cliente arrayClientes[],Venta arrayVentas[],
+                                int limiteClientes,int limiteVentas)
 {
 
     int retorno = -1;
@@ -1219,25 +1189,25 @@ int informar_clienteMasAfiches(Cliente arrayUno[],Venta arrayDos[],
     Cliente* clienteSeleccionado;
     Venta* ventaSeleccionada;
 
-    if(arrayUno != NULL && arrayDos != NULL && sizeUno > 0 && sizeDos > 0)//menor a 10
+    if(arrayClientes != NULL && arrayVentas != NULL && limiteClientes > 0 && limiteVentas > 0)//menor a 10
     {
 
-        for(i=0;i<sizeUno;i++)//Recorro array clientes
+        for(i=0;i<limiteClientes;i++)//Recorro array clientes
         {
             acumAfiches = 0;
 
-            ventaSeleccionada = venta_getByID(arrayDos,sizeDos,arrayUno[i].id);
+            ventaSeleccionada = venta_getByID(arrayVentas,limiteVentas,arrayClientes[i].id);
 
-            if(!arrayUno[i].isEmpty && ventaSeleccionada != NULL)
+            if(!arrayClientes[i].isEmpty && ventaSeleccionada != NULL)
             {
-                acumAfiches = informar_calculoTotalAfiches(arrayDos,sizeDos,arrayUno[i].id,STATUS_1);
+                acumAfiches = informar_calculoTotalAfiches(arrayVentas,limiteVentas,arrayClientes[i].id,STATUS_1);
             }
 
             if(flag == 1 ||
                acumAfiches > mayorCantidad)//Guardo el dato de mayor cantidad de afiches
             {
                 mayorCantidad = acumAfiches;
-                clienteSeleccionado = &arrayUno[i];
+                clienteSeleccionado = &arrayClientes[i];
                 contadorClientes++;
                 flag = 0;
             }
@@ -1261,15 +1231,15 @@ int informar_clienteMasAfiches(Cliente arrayUno[],Venta arrayDos[],
 
 /**
 *\brief Lista los clientes con mayor cantidad de afiches a cobrar
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\return Retorna 0 si existen los arrays y son validos los limites sino retorna -1
 */
 
-int informar_clienteMasAfichesPagados(Cliente arrayUno[],Venta arrayDos[],
-                                int sizeUno,int sizeDos)
+int informar_clienteMasAfichesPagados(Cliente arrayClientes[],Venta arrayVentas[],
+                                int limiteClientes,int limiteVentas)
 {
 
     int retorno = -1;
@@ -1281,23 +1251,23 @@ int informar_clienteMasAfichesPagados(Cliente arrayUno[],Venta arrayDos[],
     Cliente* clienteSeleccionado;
 
 
-    if(arrayUno != NULL && arrayDos != NULL && sizeUno > 0 && sizeDos > 0)//menor a 10
+    if(arrayClientes != NULL && arrayVentas != NULL && limiteClientes > 0 && limiteVentas > 0)//menor a 10
     {
 
-        for(i=0;i<sizeUno;i++)//Recorro array clientes
+        for(i=0;i<limiteClientes;i++)//Recorro array clientes
         {
             acumAfiches = 0;
 
-            if(!arrayUno[i].isEmpty)
+            if(!arrayClientes[i].isEmpty)
             {
-                acumAfiches = informar_calculoTotalAfiches(arrayDos,sizeDos,arrayUno[i].id,STATUS_1);
+                acumAfiches = informar_calculoTotalAfiches(arrayVentas,limiteVentas,arrayClientes[i].id,STATUS_1);
             }
 
             if(flag == 1 ||
                acumAfiches > mayorCantidad)//Guardo el dato de mayor cantidad de afiches
             {
                 mayorCantidad = acumAfiches;
-                clienteSeleccionado = &arrayUno[i];
+                clienteSeleccionado = &arrayClientes[i];
 
                 flag = 0;
             }
@@ -1322,15 +1292,15 @@ int informar_clienteMasAfichesPagados(Cliente arrayUno[],Venta arrayDos[],
 
 /**
 *\brief Lista los clientes con menor cantidad de afiches
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\return Retorna 0 si existen los arrays y son validos los limites sino retorna -1
 */
 
-int informar_clienteMenosAfiches(Cliente arrayUno[],Venta arrayDos[],
-                                int sizeUno,int sizeDos)
+int informar_clienteMenosAfiches(Cliente arrayClientes[],Venta arrayVentas[],
+                                int limiteClientes,int limiteVentas)
 {
 
     int retorno = -1;
@@ -1339,18 +1309,18 @@ int informar_clienteMenosAfiches(Cliente arrayUno[],Venta arrayDos[],
     int acumAfiches = 0;
     int contadorClientes = 0;
     int menorCantidad;
-    Cliente arrayClientesVenta[sizeUno];
+    Cliente arrayClientesVenta[limiteClientes];
 
-    if(arrayUno != NULL && arrayDos != NULL && sizeUno > 0 && sizeDos > 0)//menor a 10
+    if(arrayClientes != NULL && arrayVentas != NULL && limiteClientes > 0 && limiteVentas > 0)//menor a 10
     {
 
-        for(i=0;i<sizeUno;i++)//Recorro array clientes
+        for(i=0;i<limiteClientes;i++)//Recorro array clientes
         {
             acumAfiches = 0;
 
-            if(!arrayUno[i].isEmpty)
+            if(!arrayClientes[i].isEmpty)
             {
-                acumAfiches = informar_calculoTotalAfiches(arrayDos,sizeDos,arrayUno[i].id,STATUS_1);
+                acumAfiches = informar_calculoTotalAfiches(arrayVentas,limiteVentas,arrayClientes[i].id,STATUS_1);
             }
 
             if(flag == 1 ||
@@ -1358,7 +1328,7 @@ int informar_clienteMenosAfiches(Cliente arrayUno[],Venta arrayDos[],
                acumAfiches == menorCantidad)//Guardo el dato de menor cantidad de ventas
             {
                 menorCantidad = acumAfiches;
-                arrayClientesVenta[i] = arrayUno[i];
+                arrayClientesVenta[i] = arrayClientes[i];
                 contadorClientes++;
                 flag = 0;
             }
@@ -1382,15 +1352,15 @@ int informar_clienteMenosAfiches(Cliente arrayUno[],Venta arrayDos[],
 
 /**
 *\brief Cantidad promedio de afiches vendidos por clientes
-*\param arrayUno Es el array de cliente que recibe
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param limiteVentas Es el tamaño del array dos
 *\return Retorna 0 si existen los arrays y son validos los limites sino retorna -1
 */
 
-int informar_promedioAfichesClientes(Cliente arrayUno[],Venta arrayDos[],
-                                int sizeUno,int sizeDos)
+int informar_promedioAfichesClientes(Cliente arrayClientes[],Venta arrayVentas[],
+                                int limiteClientes,int limiteVentas)
 {
     int retorno = -1;
     int i;
@@ -1399,16 +1369,16 @@ int informar_promedioAfichesClientes(Cliente arrayUno[],Venta arrayDos[],
     float promedioAfiches = 0;
     Venta* ventaSeleccionada;
 
-    if(arrayUno != NULL && arrayDos != NULL && sizeUno > 0 && sizeDos > 0)//menor a 10
+    if(arrayClientes != NULL && arrayVentas != NULL && limiteClientes > 0 && limiteVentas > 0)//menor a 10
     {
 
-        for(i=0;i<sizeUno;i++)//Recorro array clientes
+        for(i=0;i<limiteClientes;i++)//Recorro array clientes
         {
-            ventaSeleccionada = venta_getByID(arrayDos,sizeDos,arrayDos[i].id);
+            ventaSeleccionada = venta_getByID(arrayVentas,limiteVentas,arrayVentas[i].id);
 
-            if(!arrayUno[i].isEmpty && ventaSeleccionada != NULL)
+            if(!arrayClientes[i].isEmpty && ventaSeleccionada != NULL)
             {
-                acumAfiches += informar_calculoTotalAfiches(arrayDos,sizeDos,arrayUno[i].id,STATUS_2);
+                acumAfiches += informar_calculoTotalAfiches(arrayVentas,limiteVentas,arrayClientes[i].id,STATUS_2);
                 contadorClientes++;
             }
 
@@ -1430,20 +1400,20 @@ int informar_promedioAfichesClientes(Cliente arrayUno[],Venta arrayDos[],
 
 /**
 *\brief Menu con opciones de informes
-*\param arrayUno Es el array de cliente que recibe
-*\param sizeUno Es el tamaño del array uno
-*\param arrayDos Es el array de ventas que recibe
-*\param sizeDos Es el tamaño del array dos
+*\param arrayClientes Es el array de cliente que recibe
+*\param limiteClientes Es el tamaño del array uno
+*\param arrayVentas Es el array de ventas que recibe
+*\param limiteVentas Es el tamaño del array dos
 *\return Retorna 0 si existen los arrays y son validos los limites sino retorna -1
 */
 
 
-int informar_menu(Cliente arrayClientes[],int sizeUno,Venta arrayVentas[],int sizeDos)
+int informar_menu(Cliente arrayClientes[],int limiteClientes,Venta arrayVentas[],int limiteVentas)
 {
     int retorno = -1;
     int opcion;
 
-    if(arrayClientes != NULL && sizeUno > 0 && arrayVentas != NULL && sizeDos > 0)
+    if(arrayClientes != NULL && limiteClientes > 0 && arrayVentas != NULL && limiteVentas > 0)
     {
 
         do
@@ -1463,62 +1433,62 @@ int informar_menu(Cliente arrayClientes[],int sizeUno,Venta arrayVentas[],int si
             switch(opcion)
             {
                 case 1:
-                    informar_clienteMasVentasPendientes(arrayClientes,arrayVentas,sizeUno,sizeDos);
+                    informar_clienteMasVentasPendientes(arrayClientes,arrayVentas,limiteClientes,limiteVentas);
                     printf("\nIngrese cualquier tecla para continuar...");
                     limpiarMemoria();
                     getchar();
                 break;
                 case 2:
-                    informar_clienteMasVentasCobradas(arrayClientes,arrayVentas,sizeUno,sizeDos);
+                    informar_clienteMasVentasCobradas(arrayClientes,arrayVentas,limiteClientes,limiteVentas);
                     printf("\nIngrese cualquier tecla para continuar...");
                     limpiarMemoria();
                     getchar();
                 break;
                 case 3:
-                    informar_clienteMasVentas(arrayClientes,arrayVentas,sizeUno,sizeDos);
+                    informar_clienteMasVentas(arrayClientes,arrayVentas,limiteClientes,limiteVentas);
                     printf("\nIngrese cualquier tecla para continuar...");
                     limpiarMemoria();
                     getchar();
                 break;
                 case 4:
-                    informar_clienteMasAfiches(arrayClientes,arrayVentas,sizeUno,sizeDos);
+                    informar_clienteMasAfiches(arrayClientes,arrayVentas,limiteClientes,limiteVentas);
                     printf("\nIngrese cualquier tecla para continuar...");
                     limpiarMemoria();
                     getchar();
                 break;
                 case 5:
-                    informar_clienteMasAfichesPagados(arrayClientes,arrayVentas,sizeUno,sizeDos);
+                    informar_clienteMasAfichesPagados(arrayClientes,arrayVentas,limiteClientes,limiteVentas);
                     printf("\nIngrese cualquier tecla para continuar...");
                     limpiarMemoria();
                     getchar();
                 break;
                 case 6:
-                    informar_calculoZonaMenosVenta(arrayVentas,sizeDos);
+                    informar_calculoZonaMenosVenta(arrayVentas,limiteVentas);
                     printf("\nIngrese cualquier tecla para continuar...");
                     limpiarMemoria();
                     getchar();
                 break;
                 case 7 :
-                    informar_clientesAfichesMenorMil(arrayClientes,arrayVentas,sizeUno,sizeDos);
+                    informar_clientesAfichesMenorMil(arrayClientes,arrayVentas,limiteClientes,limiteVentas);
                     printf("\nIngrese cualquier tecla para continuar...");
                     limpiarMemoria();
                     getchar();
                 break;
                 case 8:
-                    informar_calculoAfichesZona(arrayVentas,sizeDos);
+                    informar_calculoAfichesZona(arrayVentas,limiteVentas);
                     printf("\nIngrese cualquier tecla para continuar...");
                     limpiarMemoria();
                     getchar();
                 break;
                 case 9:
-                    venta_ordenar(arrayVentas,sizeDos);
-                    venta_listar(arrayVentas,sizeDos);
+                    venta_ordenar(arrayVentas,limiteVentas);
+                    venta_listar(arrayVentas,limiteVentas);
                     printf("\nIngrese cualquier tecla para continuar...");
                     limpiarMemoria();
                     getchar();
                 break;
                 case 10:
-                    informar_promedioAfichesClientes(arrayClientes,arrayVentas,sizeUno,sizeDos);
+                    informar_promedioAfichesClientes(arrayClientes,arrayVentas,limiteClientes,limiteVentas);
                     printf("\nIngrese cualquier tecla para continuar...");
                     limpiarMemoria();
                     getchar();

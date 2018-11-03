@@ -2,24 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="clientes.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="120" topLine="261" />
-		</Cursor>
-	</File>
-	<File name="ventas.c" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6305" topLine="265" />
-		</Cursor>
-	</File>
-	<File name="ventas.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1211" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="clientes.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="143" topLine="4" />
+			<Cursor1 position="1927" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="input.c" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -27,52 +12,46 @@
 			<Cursor1 position="1659" topLine="91" />
 		</Cursor>
 	</File>
-	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="informar.c" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1927" topLine="0" />
+			<Cursor1 position="1945" topLine="48" />
 		</Cursor>
 		<Folding>
-			<Collapse line="124" />
-			<Collapse line="293" />
+			<Collapse line="305" />
 		</Folding>
+	</File>
+	<File name="validacion.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="863" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="243" />
+		</Folding>
+	</File>
+	<File name="ventas.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1211" topLine="3" />
+		</Cursor>
 	</File>
 	<File name="utn.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="128" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="validacion.c" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="clientes.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2392" topLine="280" />
+			<Cursor1 position="143" topLine="4" />
 		</Cursor>
 	</File>
-	<File name="informar.c" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+	<File name="clientes.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="33274" topLine="324" />
+			<Cursor1 position="1748" topLine="25" />
 		</Cursor>
-		<Folding>
-			<Collapse line="44" />
-			<Collapse line="91" />
-			<Collapse line="130" />
-			<Collapse line="211" />
-			<Collapse line="275" />
-			<Collapse line="335" />
-			<Collapse line="370" />
-			<Collapse line="447" />
-			<Collapse line="542" />
-			<Collapse line="695" />
-			<Collapse line="769" />
-			<Collapse line="844" />
-			<Collapse line="921" />
-			<Collapse line="955" />
-			<Collapse line="1119" />
-			<Collapse line="1259" />
-			<Collapse line="1334" />
-			<Collapse line="1409" />
-			<Collapse line="1482" />
-			<Collapse line="1552" />
-			<Collapse line="1659" />
-		</Folding>
+	</File>
+	<File name="ventas.c" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="10078" topLine="408" />
+		</Cursor>
 	</File>
 	<File name="informar.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
