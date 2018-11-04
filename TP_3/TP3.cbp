@@ -44,8 +44,6 @@
 		</Unit>
 		<Unit filename="Employee.h" />
 		<Unit filename="LinkedList.h" />
-		<Unit filename="data.bin" />
-		<Unit filename="data.csv" />
 		<Unit filename="input.c">
 			<Option compilerVar="CC" />
 		</Unit>

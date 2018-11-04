@@ -16,10 +16,10 @@
 int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
-    char bufferId[1000];
-    char bufferName[1000];
-    char bufferHorasTrabajadas[1000];
-    char bufferSueldo[1000];
+    char bufferId[BUFFER];
+    char bufferName[BUFFER];
+    char bufferHorasTrabajadas[BUFFER];
+    char bufferSueldo[BUFFER];
     Employee* pEmployee;
 
     if(pFile != NULL)
@@ -27,11 +27,14 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
         while(!feof(pFile))
         {
             fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",bufferId,bufferName,bufferHorasTrabajadas,bufferSueldo);
-            pEmployee = employee_newConParametros(bufferId,bufferName,bufferHorasTrabajadas,bufferSueldo);
-            if(pEmployee != NULL && atoi(bufferId) > 0)
+            if(atoi(bufferSueldo) > 0)
             {
-                ll_add(pArrayListEmployee,pEmployee);//Se agrega ELEMENTO a LINKED LIST
-                retorno = 0;
+                pEmployee = employee_newConParametros(bufferId,bufferName,bufferHorasTrabajadas,bufferSueldo);
+                if(pEmployee != NULL && atoi(bufferId) >= 0)
+                {
+                    ll_add(pArrayListEmployee,pEmployee);//Se agrega ELEMENTO a LINKED LIST
+                    retorno = 0;
+                }
             }
         }
     }
@@ -83,7 +86,7 @@ int parser_SaveToText(FILE* pFile , LinkedList* pArrayListEmployee)
     int len;
     int index;
     int bufferId;
-    char bufferName[1000];
+    char bufferName[BUFFER];
     int bufferHorasTrabajadas;
     float bufferSueldo;
 

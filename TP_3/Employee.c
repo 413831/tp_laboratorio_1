@@ -35,7 +35,7 @@ static int isValidHoras(char* horas)
     int retorno = 0;
     int digitosIngresados = strlen(horas);
 
-    if(horas != NULL && validacion_Int(horas,digitosIngresados))
+    if(horas != NULL && validacion_Int(horas,digitosIngresados) && atoi(horas) > 0)
     {
         retorno = 1;
     }
@@ -52,7 +52,7 @@ static int isValidSueldo(char* sueldo)
     int retorno = 0;
     int digitosIngresados = strlen(sueldo);
 
-    if(sueldo != NULL && validacion_Int(sueldo,digitosIngresados))
+    if(sueldo != NULL && validacion_Int(sueldo,digitosIngresados) && atoi(sueldo) > 0)
     {
         retorno = 1;
     }
@@ -111,10 +111,10 @@ Employee* employee_newConParametros(char* id,char* nombre,char* horasTrabajadas,
     Employee* this;
     this=employee_new();
 
-    if(id != NULL &&
-       nombre != NULL &&
-       horasTrabajadas != NULL &&
-       sueldo != NULL &&
+    if(isValidId(id) &&
+       isValidName(nombre) &&
+       isValidHoras(horasTrabajadas) &&
+       isValidSueldo(sueldo) &&
        !employee_setAll(this,id,nombre,horasTrabajadas,sueldo))
     {
         return this;
