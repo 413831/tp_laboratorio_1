@@ -7,41 +7,49 @@
 			<Cursor1 position="22" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="utn.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="parser.c" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="167" topLine="0" />
+			<Cursor1 position="1525" topLine="48" />
 		</Cursor>
 	</File>
-	<File name="Employee.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Employee.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="162" topLine="0" />
+			<Cursor1 position="15210" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Controller.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="676" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Controller.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="127" topLine="147" />
+			<Cursor1 position="3314" topLine="151" />
 		</Cursor>
-		<Folding>
-			<Collapse line="210" />
-			<Collapse line="229" />
-			<Collapse line="234" />
-			<Collapse line="240" />
-			<Collapse line="249" />
-			<Collapse line="254" />
-			<Collapse line="260" />
-			<Collapse line="269" />
-			<Collapse line="275" />
-			<Collapse line="281" />
-			<Collapse line="291" />
-			<Collapse line="303" />
-			<Collapse line="314" />
-			<Collapse line="325" />
-			<Collapse line="338" />
-		</Folding>
 	</File>
-	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="input.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="773" topLine="0" />
+			<Cursor1 position="1516" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="validacion.c" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1180" topLine="12" />
+		</Cursor>
+	</File>
+	<File name="LinkedList.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1889" topLine="22" />
+		</Cursor>
+	</File>
+	<File name="Employee.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1223" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="utn.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="139" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="parser.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -49,39 +57,14 @@
 			<Cursor1 position="225" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="validacion.c" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1180" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="Employee.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="15175" topLine="51" />
-		</Cursor>
-	</File>
-	<File name="parser.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1525" topLine="46" />
-		</Cursor>
-	</File>
-	<File name="input.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1444" topLine="65" />
-		</Cursor>
-	</File>
-	<File name="LinkedList.h" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1265" topLine="26" />
-		</Cursor>
-	</File>
 	<File name="data.bin" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Controller.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="676" topLine="0" />
+			<Cursor1 position="773" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

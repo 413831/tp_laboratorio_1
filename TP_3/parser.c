@@ -8,9 +8,9 @@
 
 /** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo texto).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pFile Es el puntero a archivo para leer los datos
+ * \param pArrayListEmployee Es la LinkedList donde se guardaran los datos
+ * \return Retorna 0 si existe el archivo sino retorna -1
  *
  */
 int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
@@ -28,7 +28,7 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
         {
             fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",bufferId,bufferName,bufferHorasTrabajadas,bufferSueldo);
             pEmployee = employee_newConParametros(bufferId,bufferName,bufferHorasTrabajadas,bufferSueldo);
-            if(pEmployee != NULL)
+            if(pEmployee != NULL && atoi(bufferId) > 0)
             {
                 ll_add(pArrayListEmployee,pEmployee);//Se agrega ELEMENTO a LINKED LIST
                 retorno = 0;
@@ -40,9 +40,9 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 
 /** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pFile Es el puntero a archivo para leer los datos
+ * \param pArrayListEmployee Es la LinkedList donde se guardaran los datos
+ * \return Retorna 0 si existe el archivo sino retorna -1
  *
  */
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
@@ -61,7 +61,7 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
             if(pEmployee != NULL && cantidadLeida == 1)
             {
                 employee_setId(aux,"0");
-                ll_add(pArrayListEmployee,pEmployee);//Se agrega ELEMENTO a LINKED LIST
+                ll_add(pArrayListEmployee,pEmployee);
                 retorno = 0;
             }
         }
@@ -71,9 +71,9 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 
 /** \brief Parsea los datos del linked list al archivo data.csv (modo texto).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pFile Es el puntero a archivo para escribir los datos
+ * \param pArrayListEmployee Es la LinkedList de donde se toman los datos
+ * \return Retorna 0 si existe el archivo y el LinkedList sino retorna -1
  *
  */
 int parser_SaveToText(FILE* pFile , LinkedList* pArrayListEmployee)
@@ -102,11 +102,11 @@ int parser_SaveToText(FILE* pFile , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Parsea los datos del linked list al archivo data.csv (modo binario).
+/** \brief Parsea los datos del linked list al archivo data.bin (modo binario).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pFile Es el puntero a archivo para escribir los datos
+ * \param pArrayListEmployee Es la LinkedList de donde se toman los datos
+ * \return Retorna 0 si existe el archivo y el LinkedList sino retorna -1
  *
  */
 int parser_SaveToBinary(FILE* pFile , LinkedList* pArrayListEmployee)

@@ -48,7 +48,6 @@ int validacion_Int(char* array,int size)
     return retorno;
 }
 
-// && array[i] < minimo && array[i] > maximo
 /**
  * \brief Verifica si el string recibido es de tipo float
  * \param array Es el array para validar su tipo

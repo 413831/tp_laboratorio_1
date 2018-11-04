@@ -5,11 +5,18 @@
 
 #define BUFFER 4000
 
+
+/**
+ *\brief Limpia el buffer del archivo stdin
+*/
 static void limpiarMemoria()
 {
     //fflush(stdin);  //WINDOWS
     __fpurge(stdin);  //LINUX
 }
+/**
+ *\brief Limpia los datos mostrados en consola
+*/
 void limpiarPantalla()
 {
     //system("cls"); //WINDOWS
@@ -65,23 +72,31 @@ char input_ScanChar(char* mensaje)
 
 ///////////////////////////////////////////////////STRINGS/////////////////////////////////////////////////////////////////////////
 
-int input(char* mensaje,char* campo,int size, int (*validacion)(char*))
+/**
+ * \brief Solicita un dato al usuario
+ * \param message Es el mensaje para mostrar al usuario
+ * \param value Es la variable para retornar el dato ingresado por el usuario
+ * \param size Es el limite del dato para ingresar
+ * \param validacion Es el puntero a la funcion de validacion del dato
+ * \return Entero ingresado por el usuario
+ */
+int input(char* message,char* value,int size, int (*validation)(char*))
 {
     int retorno = -1;
-    int reintentos = 2;
+    int retry = 2;
     char* buffer = (char*)malloc(sizeof(char)*size);
 
-    if(campo != NULL)
+    if(value != NULL)
     {
         do
         {
-            printf("\nIngrese %s: ",mensaje);
+            printf("\nIngrese %s: ",message);
             input_getString(buffer,size);
-            if((*validacion)(buffer))//Validar segun tipo
+            if((*validation)(buffer))//Validar segun tipo
             {
-                buffer = (char*)realloc(buffer,(sizeof(char)*strlen(buffer)+1));//Ver realloc
-                strcpy(campo,buffer);
-                printf("\n-> %s",campo);
+                buffer = (char*)realloc(buffer,(sizeof(char)*strlen(buffer)+1));
+                strcpy(value,buffer);
+                printf("\n-> %s",value);
                 retorno = 0;
                 break;
             }
@@ -89,12 +104,11 @@ int input(char* mensaje,char* campo,int size, int (*validacion)(char*))
             {
                 printf("\nIntente nuevamente");
             }
-            reintentos--;
-        }while(reintentos > 0);
+            retry--;
+        }while(retry > 0);
     }
     return retorno;
 }
-
 
 /**
  * \brief Solicita un texto al usuario y lo devuelve
@@ -174,7 +188,7 @@ int input_getLetras(char input[],int size,char mensaje[],char msjError[],int rei
  * \return Retorna 0 si se pudo pedir y validar string si no retorna error
  */
 int input_getEnteros(int* input,char mensaje[],char msjError[],int reintentos)
-{//AGREGAR VALIDACION MINIMO, MAXIMO Y NEGATIVOS
+{
     char buffer[BUFFER];
     int retorno = 1;
 
@@ -214,7 +228,7 @@ int input_getEnteros(int* input,char mensaje[],char msjError[],int reintentos)
  */
 
 int input_getFloat(float* input,char mensaje[],char msjError[],int reintentos)
-{//NEGATIVOS
+{
     char buffer[BUFFER];
     int retorno = 1;
 
@@ -243,7 +257,7 @@ int input_getFloat(float* input,char mensaje[],char msjError[],int reintentos)
 
 
 int input_getDNI(char input[],int size,char mensaje[],char msjError[],int reintentos)
-{//AGREGAR VALIDACION MINIMO, MAXIMO Y NEGATIVOS
+{
     char buffer[size];
     int retorno = 1;
 
@@ -275,7 +289,7 @@ int input_getDNI(char input[],int size,char mensaje[],char msjError[],int reinte
 
 
 int input_getTelefono(char input[],int size,char mensaje[],char msjError[],int reintentos)
-{//AGREGAR VALIDACION MINIMO, MAXIMO Y NEGATIVOS
+{
     char buffer[size];
     int retorno = 1;
 
@@ -308,7 +322,7 @@ int input_getTelefono(char input[],int size,char mensaje[],char msjError[],int r
 
 
 int input_getCuit(char input[],int size,char mensaje[],char msjError[],int reintentos)
-{//AGREGAR VALIDACION MINIMO, MAXIMO Y NEGATIVOS
+{
     char buffer[size];
     int retorno = 1;
 
@@ -340,7 +354,7 @@ int input_getCuit(char input[],int size,char mensaje[],char msjError[],int reint
 }
 
 int input_getDireccion(char input[],int size,char mensaje[],char msjError[],int reintentos)
-{//AGREGAR VALIDACION MINIMO, MAXIMO Y NEGATIVOS
+{
     char buffer[size];
     int retorno = 1;
 
@@ -355,7 +369,7 @@ int input_getDireccion(char input[],int size,char mensaje[],char msjError[],int 
                 validacion_AlfaNumerico(buffer,size))
             {
 
-                strncpy(input,buffer,size);//Se copia string cargado a variable local
+                strncpy(input,buffer,size);
                 retorno = 0;
                 break;
 

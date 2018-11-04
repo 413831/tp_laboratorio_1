@@ -5,12 +5,11 @@
 #include "parser.h"
 #include "utn.h"
 
-
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path Ruta del archivo para leer
+ * \param pArrayListEmployee Es el LinkedList
+ * \return retorna 0 si el array no es null y el archivo existe sino retorna -1
  *
  */
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
@@ -25,11 +24,11 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Carga los datos de los empleados desde el archivo data.csv (modo binario).
+/** \brief Carga los datos de los empleados desde el archivo data.bin (modo binario).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path Ruta del archivo para leer
+ * \param pArrayListEmployee Es el LinkedList
+ * \return retorna 0 si el array no es null y el archivo existe sino retorna -1
  *
  */
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
@@ -46,9 +45,8 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 
 /** \brief Alta de empleados
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee Es el LinkedList donde se agregara el empleado
+ * \return Retorna 0 si se logra hacer el alta sino retorna -1
  *
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee)
@@ -59,7 +57,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
     if(pArrayListEmployee != NULL)
     {
         printf("\n<ALTA>");
-        if(!employee_EmployeeFromUser(pArrayListEmployee))
+        if(!employee_add(pArrayListEmployee))
         {
             printf("\nEmployee added :)");
             retorno = 0;
@@ -70,9 +68,8 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 
 /** \brief Modificar datos de empleado
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee Es el LinkedList del cual se va a editar un empleado
+ * \return Retorna 0 si se logra editar sino retorna -1
  *
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
@@ -93,19 +90,20 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 
 /** \brief Baja de empleado
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee Es la LinkedList de empleados activos
+ * \param arrayDismissed Es la LinkedList de empleados inactivos !!!!!!!!!!!!!!!!!!!!!!!!!
+ * \return Retorna 0 si se logra realizar la baja sino retorna -1
  *
  */
-int controller_removeEmployee(LinkedList* pArrayListEmployee,Employee* arrayDismissed[])
+int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
+
     limpiarPantalla();
     if(pArrayListEmployee != NULL)
     {
         printf("\n<BAJA>");
-        if(!employee_remove(pArrayListEmployee,arrayDismissed))
+        if(!employee_remove(pArrayListEmployee))
         {
             printf("\nEmployee removed :(");
             retorno = 0;
@@ -117,9 +115,8 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee,Employee* arrayDism
 
 /** \brief Listar empleados
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee Es la LinkedList de la cual se desea listar los elementos
+ * \return retorna 0 si la LinkedList es diferente a NULL sino retorna -1
  *
  */
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
@@ -144,30 +141,26 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Ordenar empleados
+/** \brief Ordenar empleados por criterio y orden
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee Es la LinkedList que se desea ordenar
+ * \return retorna 0 si se logra ordenar sino retorna -1
  *
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
-    function_type criterio;
+
     if(pArrayListEmployee != NULL)
     {
-        criterio = employee_selectorCriterio();
-        if(criterio!=NULL)
+        if(!employee_sort(pArrayListEmployee))
         {
-            printf("\n%p",criterio);
-        }
-        if(ll_sort(pArrayListEmployee,criterio,1))
-        {
-            printf("\nORDENADO!!!");
-            pause();
-            controller_ListEmployee(pArrayListEmployee);
             retorno = 0;
+            printf("\nORDENADO");
+        }
+        else
+        {
+            printf("\nError.");
         }
     }
     return retorno;
@@ -175,15 +168,16 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path Ruta donde se guardara el archivo
+ * \param pArrayListEmployee Es la LinkedList con los elementos a guardar
+ * \return Retorna 0 si se logra guardar sino retorna -1
  *
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
     FILE* pArchivo = fopen(path,"w");
     int retorno = -1;
+
     if(pArchivo != NULL && !parser_SaveToText(pArchivo,pArrayListEmployee))
     {
         printf("\n<GUARDAR TEXTO>");
@@ -193,17 +187,18 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
+/** \brief Guarda los datos de los empleados en el archivo data.bin (modo binario).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path Ruta donde se guardara el archivo
+ * \param pArrayListEmployee Es la LinkedList con los elementos a guardar
+ * \return Retorna 0 si se logra guardar sino retorna -1
  *
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
     FILE* pArchivo = fopen(path,"wb");
     int retorno = -1;
+
     if(pArchivo != NULL && !parser_SaveToBinary(pArchivo,pArrayListEmployee))
     {
         printf("\n<GUARDAR BINARIO>");
@@ -213,14 +208,18 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
+/** \brief Menu con opciones para trabajar con la LinkedList
+ *
+ * \return Retorna 0 siempre
+ *
+ */
 int controller_init()
 {
-
     int option;
     int counter = 0;
     int flag = 0;
     LinkedList* listaEmpleados = ll_newLinkedList();
-    Employee* arrayDismissed[2000];//HARDCODE
+
     do
     {
         printf("\n>>MENU<<\n1) Carga de archivo (modo texto)\n2) Carga de archivo (modo binario)");
@@ -234,12 +233,12 @@ int controller_init()
                 //BUSCAR FUNCION PARA BORRAR
                 if(flag == 1)
                 {
-                    printf("\nCarga realizada previamente modo texto");
+                    printf("\nCarga realizada previamente (modo texto)");
                     break;
                 }
                 else if(flag == 2)
                 {
-                    printf("\nCarga realizada previamente modo binario");
+                    printf("\nCarga realizada previamente (modo binario)");
                     break;
                 }
                 printf("\nSize Linked List %d",ll_len(listaEmpleados));
@@ -254,12 +253,12 @@ int controller_init()
             case 2: // CARGA BINARIO
                 if(flag == 1)
                 {
-                    printf("\nCarga realizada previamente modo texto");
+                    printf("\nCarga realizada previamente (modo texto)");
                     break;
                 }
                 else if(flag == 2)
                 {
-                    printf("\nCarga realizada previamente modo binario");
+                    printf("\nCarga realizada previamente (modo binario)");
                     break;
                 }
                 printf("\nSize Linked List %d",ll_len(listaEmpleados));
@@ -296,7 +295,7 @@ int controller_init()
             case 5: //BAJA
                 if(counter > 0)
                 {
-                    controller_removeEmployee(listaEmpleados,arrayDismissed);
+                    controller_removeEmployee(listaEmpleados);
                     printf("\nSize Linked List %d",ll_len(listaEmpleados));
                     counter = ll_len(listaEmpleados);
                 }
@@ -320,7 +319,6 @@ int controller_init()
                 if(counter > 0)
                 {
                     controller_sortEmployee(listaEmpleados);
-                    printf("\nSize Linked List %d",ll_len(listaEmpleados));
                 }
                 else
                 {
