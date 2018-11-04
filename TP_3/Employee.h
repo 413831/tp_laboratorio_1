@@ -8,6 +8,8 @@ typedef struct
     float sueldo;
 }Employee;
 
+typedef int (*function_type)(void* thisA,void* thisB);
+
 Employee* employee_new();
 Employee* employee_newConParametros(char* id,char* nombre,char* horasTrabajadas,char* sueldo);
 int employee_EmployeeFromUser(void* pArrayListEmployee);
@@ -18,7 +20,11 @@ int employee_modify(Employee* this,
                         int (*set)(Employee*,char*));
 int employee_remove(void* pArrayListEmployee,Employee* dismissed[]);
 
-int employee_sort(void* thisA,void* thisB);
+int employee_criterioNombre(void* thisA,void* thisB);
+int employee_criterioSueldo(void* thisA,void* thisB);
+int employee_criterioHoras(void* thisA,void* thisB);
+int employee_criterioId(void* thisA,void* thisB);
+
 int employee_delete(Employee* this);
 
 int employee_setId(Employee* this,char* id);
@@ -39,4 +45,6 @@ int employee_getAll(Employee* this,char* name,int* hours,float* salary,int* id);
 int employee_searchEmpty(Employee* array[]);
 int employee_show(Employee* this);
 int employee_hardcode(void* pArrayListEmployee,char *bufferName,char* bufferHorasTrabajadas,char* bufferSueldo);
+
+void* employee_selectorCriterio();
 #endif // employee_H_INCLUDED

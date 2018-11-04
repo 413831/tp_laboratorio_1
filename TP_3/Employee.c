@@ -6,7 +6,7 @@
 #include "utn.h"
 
 #define BUFFER 4000
-//El elemento.c es el manager de datos que trabaja directamente con los mismos es el "CÓMO"
+
 
 static int isValidName(char* name)
 {
@@ -51,25 +51,6 @@ static int isValidId(char* id)//CORREGIR
     if(id != NULL && validacion_Int(id,digitosIngresados) )
     {
         retorno = 1;
-    }
-    return retorno;
-}
-
-static int getNextId(LinkedList* pArrayListEmployee)////////VALIDAR ID INICIAL CONTRA ARCHIVO
-{
-    int retorno=-1;
-    int index;
-    Employee* auxEmployee;
-    int auxID;
-
-    if(pArrayListEmployee != NULL)
-    {
-        for(index=0;index<ll_len(pArrayListEmployee);index++)//Recorro todo el array hasta el LEN
-        {
-            auxEmployee = ll_get(pArrayListEmployee,index);//Obtengo el elemento del array en posicion index
-            employee_getId(auxEmployee,&auxID);//Obtengo el ID del elemento
-        }
-        retorno = auxID+1;//Retorno el ID del ultimo elemento más uno
     }
     return retorno;
 }
@@ -174,7 +155,7 @@ Employee* employee_getById(LinkedList* pArrayListEmployee,int idIngresado)
     Employee* retorno = NULL;
     int index;
     Employee* auxEmployee;
-    int auxID;
+    int auxID = 0;
 
     if(pArrayListEmployee != NULL)
     {
@@ -261,7 +242,7 @@ int employee_remove(void* pArrayListEmployee,Employee* arrayDismissed[])
         if(this != NULL)
         {
             employee_show(this);
-            input_getLetras(option,2,"\nDesea dar de baja? S/N","\nError.Dato invalido",2);
+            input_getLetras(option,2,"\nDesea dar de baja? S/N\n","\nError.Dato invalido",2);
             if(!strcasecmp("s",option))
             {
                 index = employee_searchEmpty(arrayDismissed);
@@ -336,7 +317,6 @@ int employee_edit(void* pArrayListEmployee)
              employee_show(this);
             do
             {
-
                 printf("\n1) Nombre\n2) Sueldo\n3) Horas trabajadas\n4) Volver");
                 input_getEnteros(&option,"\nIngrese opcion: ","\nError.Dato invalido",2);
                 switch(option)
@@ -550,24 +530,124 @@ int employee_searchEmpty(Employee* array[])
 *\return Retorna 1 si el primer elemento es mayor al segundo,
 *\       retorna -1 si el, sino retorna 0
 */
-int employee_sort(void* thisA,void* thisB)
+int employee_criterioNombre(void* thisA,void* thisB)
 {
     int retorno = 0;
-    char nombreEmployeeA[50];
-    char nombreEmployeeB[50];
-    employee_getNombre(thisA,nombreEmployeeA);
-    employee_getNombre(thisB,nombreEmployeeB);
+    char bufferStrA[BUFFER];
+    char bufferStrB[BUFFER];
 
-    if(strcmp(nombreEmployeeA,nombreEmployeeB) > 0 )
+    employee_getNombre(((Employee*)thisA),bufferStrA);
+    employee_getNombre(((Employee*)thisB),bufferStrB);
+
+    if(strcmp(bufferStrA,bufferStrB) > 0)
     {
+        printf("\nMAYOR");
         retorno = 1;
     }
-    else if(strcmp(nombreEmployeeA,nombreEmployeeB) < 0)
+    else if(strcmp(bufferStrA,bufferStrB) < 0)
     {
+        printf("\nMENOR");
         retorno = -1;
     }
     return retorno;
 }
+
+int employee_criterioSueldo(void* thisA,void* thisB)
+{
+    int retorno = 0;
+    float sueldoA = 0;
+    float sueldoB = 0;
+
+    employee_getSueldo(((Employee*)thisA),&sueldoA);
+    employee_getSueldo(((Employee*)thisB),&sueldoB);
+
+    if(sueldoA > sueldoB)
+    {
+        printf("\nMAYOR");
+        retorno = 1;
+    }
+    else if(sueldoA < sueldoB)
+    {
+        printf("\nMENOR");
+        retorno = -1;
+    }
+    return retorno;
+}
+
+int employee_criterioHoras(void* thisA,void* thisB)
+{
+    int retorno = 0;
+    int horasA = 0;
+    int horasB = 0;
+
+    employee_getHorasTrabajadas(((Employee*)thisA),&horasA);
+    employee_getHorasTrabajadas(((Employee*)thisB),&horasB);
+
+    if(horasA > horasB)
+    {
+        printf("\nMAYOR");
+        retorno = 1;
+    }
+    else if(horasA < horasB)
+    {
+        printf("\nMENOR");
+        retorno = -1;
+    }
+    return retorno;
+}
+
+int employee_criterioId(void* thisA,void* thisB)
+{
+    int retorno = 0;
+    int idA = 0;
+    int idB = 0;
+
+    employee_getId(((Employee*)thisA),&idA);
+    employee_getId(((Employee*)thisB),&idB);
+
+    if(idA > idB)
+    {
+        printf("\nMAYOR");
+        retorno = 1;
+    }
+    else if(idA < idB)
+    {
+        printf("\nMENOR");
+        retorno = -1;
+    }
+    return retorno;
+}
+
+void* employee_selectorCriterio()
+{
+    int opcion;
+
+    void* retorno = NULL;
+    input_getEnteros(&opcion,"\nSeleccione opcion\n1) Nombre\n2) Sueldo\n3) Horas\n4) ID\n","\nOpcion incorrecta",2);
+
+    switch(opcion)
+    {
+        case 1 :
+            printf("\nNombre");
+            retorno = employee_criterioNombre;
+            break;
+        case 2 :
+            printf("\nSueldo");
+            retorno = employee_criterioSueldo;
+            break;
+        case 3 :
+            printf("\nHoras");
+            retorno = employee_criterioHoras;
+            break;
+        case 4 :
+            printf("\nId");
+            retorno = employee_criterioId;
+            break;
+    }
+    printf("\n%p",retorno);
+    return retorno;
+}
+
 
 /**
 *\brief Base de funcion criterio para comparar campos de dos elementos

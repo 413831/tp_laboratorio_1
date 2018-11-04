@@ -3,9 +3,7 @@
 #include "LinkedList.h"
 #include "Employee.h"
 #include "parser.h"
-
-
-//El controller es quien define "QUÉ" hace el programa
+#include "utn.h"
 
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
@@ -56,10 +54,11 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
+    limpiarPantalla();
+
     if(pArrayListEmployee != NULL)
     {
         printf("\n<ALTA>");
-
         if(!employee_EmployeeFromUser(pArrayListEmployee))
         {
             printf("\nEmployee added :)");
@@ -77,9 +76,9 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
  *
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
-{//Agregar SWITCH para opciones
+{
     int retorno = -1;
-
+    limpiarPantalla();
     if(pArrayListEmployee != NULL)
     {
         printf("\n<MODIFICAR DATOS>");
@@ -102,6 +101,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 int controller_removeEmployee(LinkedList* pArrayListEmployee,Employee* arrayDismissed[])
 {
     int retorno = -1;
+    limpiarPantalla();
     if(pArrayListEmployee != NULL)
     {
         printf("\n<BAJA>");
@@ -154,11 +154,20 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
+    function_type criterio;
     if(pArrayListEmployee != NULL)
     {
-        if(!ll_sort(pArrayListEmployee,employee_sort,1))
+        criterio = employee_selectorCriterio();
+        if(criterio!=NULL)
         {
-           retorno = 0;
+            printf("\n%p",criterio);
+        }
+        if(ll_sort(pArrayListEmployee,criterio,1))
+        {
+            printf("\nORDENADO!!!");
+            pause();
+            controller_ListEmployee(pArrayListEmployee);
+            retorno = 0;
         }
     }
     return retorno;
@@ -204,3 +213,154 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
+int controller_init()
+{
+
+    int option;
+    int counter = 0;
+    int flag = 0;
+    LinkedList* listaEmpleados = ll_newLinkedList();
+    Employee* arrayDismissed[2000];//HARDCODE
+    do
+    {
+        printf("\n>>MENU<<\n1) Carga de archivo (modo texto)\n2) Carga de archivo (modo binario)");
+        printf("\n3) Alta\n4) Editar\n5) Baja\n6) Listar\n7) Ordenar");
+        printf("\n8) Guardar (modo texto)\n9) Guardar (modo binario)\n10) Salir");
+        input_getEnteros(&option,"\nIngrese opcion: ","\nDato invalido",2);
+
+        switch(option)
+        {
+            case 1: //CARGA TEXTO
+                //BUSCAR FUNCION PARA BORRAR
+                if(flag == 1)
+                {
+                    printf("\nCarga realizada previamente modo texto");
+                    break;
+                }
+                else if(flag == 2)
+                {
+                    printf("\nCarga realizada previamente modo binario");
+                    break;
+                }
+                printf("\nSize Linked List %d",ll_len(listaEmpleados));
+                if(!controller_loadFromText("data.csv",listaEmpleados))
+                {
+                    printf("\nDatos cargados");
+                    counter = ll_len(listaEmpleados);
+                    flag = 1;
+                }
+                printf("\nSize Linked List %d",ll_len(listaEmpleados));
+                break;
+            case 2: // CARGA BINARIO
+                if(flag == 1)
+                {
+                    printf("\nCarga realizada previamente modo texto");
+                    break;
+                }
+                else if(flag == 2)
+                {
+                    printf("\nCarga realizada previamente modo binario");
+                    break;
+                }
+                printf("\nSize Linked List %d",ll_len(listaEmpleados));
+                if(!controller_loadFromBinary("data.bin",listaEmpleados))
+                {
+                    printf("\nDatos cargados");
+                    counter = ll_len(listaEmpleados);
+                    flag = 2;
+                }
+                printf("\nSize Linked List %d",ll_len(listaEmpleados));
+                break;
+            case 3: //ALTA
+                if(counter > 0)
+                {
+                   controller_addEmployee(listaEmpleados);
+                    printf("\nSize Linked List %d",ll_len(listaEmpleados));
+                    counter = ll_len(listaEmpleados);
+                }
+                else
+                {
+                    printf("\nNo hay datos cargados");
+                }
+                break;
+            case 4: //MODIFICACION
+                if(counter > 0)
+                {
+                    controller_editEmployee(listaEmpleados);
+                }
+                else
+                {
+                    printf("\nNo hay datos cargados");
+                }
+                break;
+            case 5: //BAJA
+                if(counter > 0)
+                {
+                    controller_removeEmployee(listaEmpleados,arrayDismissed);
+                    printf("\nSize Linked List %d",ll_len(listaEmpleados));
+                    counter = ll_len(listaEmpleados);
+                }
+                else
+                {
+                    printf("\nNo hay datos cargados");
+                }
+                break;
+            case 6: //LISTAR
+                if(counter > 0)
+                {
+                    controller_ListEmployee(listaEmpleados);
+                    printf("\nSize Linked List %d",ll_len(listaEmpleados));
+                }
+                else
+                {
+                    printf("\nNo hay datos cargados");
+                }
+                break;
+            case 7: //ORDENAR
+                if(counter > 0)
+                {
+                    controller_sortEmployee(listaEmpleados);
+                    printf("\nSize Linked List %d",ll_len(listaEmpleados));
+                }
+                else
+                {
+                    printf("\nNo hay datos cargados");
+                }
+                break;
+            case 8: //GUARDAR TEXTO
+                if(counter > 0)
+                {
+                    if(!controller_saveAsText("data.csv",listaEmpleados))
+                    {
+                        printf("\nArchivo guardado.");
+                    }
+                }
+                else
+                {
+                    printf("\nNo hay datos cargados");
+                }
+                break;
+            case 9: //GUARDAR BINARIO
+                if(counter > 0)
+                {
+                    if(!controller_saveAsBinary("data.bin",listaEmpleados))
+                    {
+                        printf("\nArchivo guardado.");
+                    }
+                }
+                else
+                {
+                    printf("\nNo hay datos cargados");
+                }
+                break;
+            case 10: //SALIR
+                printf("\nSALIR");
+                break;
+            default :
+                printf("\nOpcion incorrecta");
+        }
+        pause();
+        limpiarPantalla();
+    }while(option != 10);
+    return 0;
+}
