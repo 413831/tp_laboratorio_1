@@ -675,12 +675,10 @@ int ll_map(LinkedList* this, int (*pFunc)(void*))
             {
                 if(!pFunc(pElement))
                 {
-                    printf("\nElement %p",pElement);
                     retorno = 0;
                 }
                 else
                 {
-                    printf("\nElement %p",pElement);
                     break;
                 }
             }

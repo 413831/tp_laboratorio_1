@@ -77,6 +77,17 @@ static int isValidId(char* id)
     return retorno;
 }
 
+
+int criterioNombre();
+
+criterioSueldo;
+
+criterioHoras;
+
+
+criterioId;
+
+
 ///////////////////////////////////////////////////PUBLIC/////////////////////////////////////////////////////////////////
 
 /**
@@ -128,22 +139,22 @@ Employee* employee_newConParametros(char* id,char* nombre,char* horasTrabajadas,
 
 /**
 *\brief Se recorre array para encontrar elemento por ID
-*\param pArrayListEmployee Es el array para recorrer
+*\param pLinkedList Es el array para recorrer
 *\param idIngresado Es ID para encontrar
 *\return Retorna el elemento sino retorna NULL
 */
-Employee* employee_getById(void* pArrayListEmployee,int idIngresado)
+Employee* employee_getById(void* pLinkedList,int idIngresado)
 {
     Employee* retorno = NULL;
     int index;
     Employee* auxEmployee;
     int auxID = 0;
 
-    if(pArrayListEmployee != NULL)
+    if(pLinkedList != NULL)
     {
-        for(index=0;index<ll_len(pArrayListEmployee);index++)//Recorro todo el array hasta el LEN
+        for(index=0;index<ll_len(pLinkedList);index++)//Recorro todo el array hasta el LEN
         {
-            auxEmployee = ll_get(pArrayListEmployee,index);//Obtengo el elemento del array en posicion index
+            auxEmployee = ll_get(pLinkedList,index);//Obtengo el elemento del array en posicion index
             employee_getId(auxEmployee,&auxID);//Obtengo el ID del elemento
             if(auxID == idIngresado)
             {
@@ -157,10 +168,10 @@ Employee* employee_getById(void* pArrayListEmployee,int idIngresado)
 
 /**
 *\brief Se realiza el alta de un elemento desde consola
-*\param pArrayListEmployee Es el array para ingresar elemento
+*\param pLinkedList Es el array para ingresar elemento
 *\return Retorna 0 si logra agregar elemento sino retorna -1
 */
-int employee_add(void* pArrayListEmployee)
+int employee_add(void* pLinkedList)
 {
     Employee* this = NULL;
     int retorno = -1;
@@ -177,7 +188,7 @@ int employee_add(void* pArrayListEmployee)
         if(this != NULL)
         {
             employee_show(this);
-            ll_add(pArrayListEmployee,this);
+            ll_add(pLinkedList,this);
             retorno = 0;;
         }
     }
@@ -189,7 +200,7 @@ int employee_add(void* pArrayListEmployee)
 *\param pArray Es el array para recorrer
 *\return Retorna 0 si existe el ID sino retorna -1
 */
-int employee_remove(void* pArrayListEmployee)
+int employee_remove(void* pLinkedList,void* pListInactive)
 {
     Employee* this = NULL;
     int retorno = -1;
@@ -199,15 +210,17 @@ int employee_remove(void* pArrayListEmployee)
 
     if(!input("ID",bufferId,BUFFER,isValidId))
     {
-        this = employee_getById(pArrayListEmployee,atoi(bufferId));
+        this = employee_getById(pLinkedList,atoi(bufferId));
         if(this != NULL)
         {
             employee_show(this);
-            input_getLetras(option,2,"\nATENCION!\nDesea eliminar datos de empleado? S/N\n","\nError.Dato invalido",2);
+            input_getLetras(option,2,"\nATENCION!\nDesea dar de baja a empleado? S/N\n","\nError.Dato invalido",2);
             if(!strcasecmp("s",option))
             {
-                index = ll_indexOf(pArrayListEmployee,this);
-                ll_pop(pArrayListEmployee,index);
+                index = ll_indexOf(pLinkedList,this);
+                this = ll_pop(pLinkedList,index);//Revisar BAJA LOGICA
+                ll_add(pListInactiv,this);
+
                 retorno = 0;
             }
         }
@@ -237,19 +250,19 @@ int employee_delete(Employee* this)
 
 /**
 *\brief Se busca elemento por ID a modificar con opciones de campos
-*\param pArrayListEmployee Es el array a recorrer
+*\param pLinkedList Es el array a recorrer
 *\return Retorna 0 si logra modificar campo sino retorna -1
 */
-int employee_edit(void* pArrayListEmployee)
+int employee_edit(void* pLinkedList)
 {
     int retorno = -1;
     int option;
     char bufferId[BUFFER];
     Employee* this = NULL;
 
-    if(pArrayListEmployee != NULL && !input("ID",bufferId,BUFFER,isValidId))
+    if(pLinkedList != NULL && !input("ID",bufferId,BUFFER,isValidId))
     {
-        this = employee_getById(pArrayListEmployee,atoi(bufferId));
+        this = employee_getById(pLinkedList,atoi(bufferId));
         if(this != NULL)
         {
              employee_show(this);
@@ -323,7 +336,7 @@ int employee_modify(Employee* this,
 *\param this Es el puntero al elemento
 *\return Retorna 0 si el elemento es diferente a NULL sino retorna -1
 */
-int employee_show(Employee* this)
+int employee_show(void* this)
 {
     int retorno = -1;
     int auxId;
@@ -353,26 +366,26 @@ int employee_show(Employee* this)
 
 /**
 *\brief Funcion para ordenar el LinkedList segun criterio y orden
-*\param pArrayListEmployee Es la LinkedList para ordenar
+*\param pLinkedList Es la LinkedList para ordenar
 *\return Retorna 0 si logra ordenar sino retorna -1
 */
-int employee_sort(void* pArrayListEmployee)
+int employee_sort(void* pLinkedList)
 {
     int retorno = -1;
     function_type criterio;
     int orden;
 
     limpiarPantalla();
-    if(pArrayListEmployee != NULL)
+    if(pLinkedList != NULL)
     {
         printf("\n<ORDENAR>");
-        criterio = employee_selectorCriterio();
+        criterio = employee_ordenCriterio();
         if(criterio != NULL)
         {
             input_getEnteros(&orden,"\n-Seleccione orden\n Descendente (0)\n Ascendente (1)","Error.",2);
             if(orden == 0 || orden == 1)
             {
-                ll_sort(pArrayListEmployee,criterio,orden);
+                ll_sort(pLinkedList,criterio,orden);
                 retorno = 0;
             }
         }
@@ -382,13 +395,13 @@ int employee_sort(void* pArrayListEmployee)
 
 /**
 *\brief Se realiza un alta forzada
-*\param pArrayListEmployee Es la LinkedList para realizar el alta
+*\param pLinkedList Es la LinkedList para realizar el alta
 *\param bufferName Es el nombre a cargar en el elemento
 *\param bufferHorasTrabajadas Es la cantidad de horas trabajadas para cargar en el elemento
 *\param bufferSueldo Es el sueldo para cargar en el elemento
 *\return Retorna 0 si el array es diferente a NULL sino retorna -1
 */
-int employee_hardcode(void* pArrayListEmployee,char *bufferName,char* bufferHorasTrabajadas,char* bufferSueldo)
+int employee_hardcode(void* pLinkedList,char *bufferName,char* bufferHorasTrabajadas,char* bufferSueldo)
 {
     Employee* this = NULL;
     int retorno = -1;
@@ -398,12 +411,35 @@ int employee_hardcode(void* pArrayListEmployee,char *bufferName,char* bufferHora
     if(this != NULL)
     {
         employee_show(this);
-        ll_add(pArrayListEmployee,this);
+        ll_add(pLinkedList,this);
         retorno = 0;;
     }
     return retorno;
 }
 
+/**
+*\brief Calcula el valor de la hora trabajada
+*\param pLinkedList Es la LinkedList para realizar el alta
+*\return Retorna el valor de la hora trabajada sino retorna -1
+*/
+int employee_calculoSueldo(void* this)
+{
+    int retorno = -1;
+    int auxHoras;
+    float auxSueldo;
+    int valorHora;
+
+    if(this != NULL)
+    {
+        employee_getHorasTrabajadas(this,&auxHoras);
+        employee_getSueldo(this,&auxSueldo);
+
+        valorHora = auxSueldo / auxHoras;
+        retorno = valorHora;
+    }
+
+    return retorno;
+}
 /////////////////////////////////////////////SETTERS & GETTERS///////////////////////////////////////////////////////////
 /**
 *\brief Se setea el ID del elemento
@@ -631,7 +667,6 @@ int employee_searchEmpty(Employee* array[])
     return retorno;
 }
 
-////////////////////////////////////////////////////SORT CRITERIOS/////////////////////////////////////////////////////////////////
 
 /**
 *\brief Funcion selector de criterio para ordenar
@@ -647,19 +682,56 @@ void* employee_selectorCriterio()
     switch(opcion)
     {
         case 1 :
-            printf("\nOrdenar por nombre");
+            printf("\nNombre");
+            retorno = criterioNombre;
+            break;
+        case 2 :
+            printf("\nSueldo");
+            retorno = criterioSueldo;
+            break;
+        case 3 :
+            printf("\nHoras Trabajadas");
+            retorno = criterioHoras;
+            break;
+        case 4 :
+            printf("\nID");
+            retorno = criterioId;
+            break;
+        default :
+            printf("\nOpcion incorrecta");
+    }
+    return retorno;
+}
+
+////////////////////////////////////////////////////SORT CRITERIOS/////////////////////////////////////////////////////////////////
+
+/**
+*\brief Funcion selector de criterio para ordenar
+*\return Retorna puntero a funcion segun criterio seleccionado si no es correcto retorna NULL
+*/
+void* employee_ordenCriterio()
+{
+    int opcion;
+
+    void* retorno = NULL;
+    input_getEnteros(&opcion,"\nSeleccione opcion\n1) Nombre\n2) Sueldo\n3) Horas\n4) ID\n","\nOpcion incorrecta",2);
+
+    switch(opcion)
+    {
+        case 1 :
+            printf("\nNombre");
             retorno = employee_criterioNombre;
             break;
         case 2 :
-            printf("\nOrdenar por sueldo");
+            printf("\nSueldo");
             retorno = employee_criterioSueldo;
             break;
         case 3 :
-            printf("\nOrdenar por horas trabajadas");
+            printf("\nHoras Trabajadas");
             retorno = employee_criterioHoras;
             break;
         case 4 :
-            printf("\nOrdenar por ID");
+            printf("\nID");
             retorno = employee_criterioId;
             break;
         default :

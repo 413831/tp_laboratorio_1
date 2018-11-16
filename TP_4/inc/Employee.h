@@ -6,6 +6,7 @@ typedef struct
     char nombre[128];
     int horasTrabajadas;
     float sueldo;
+   // char sector[128];
 }Employee;
 
 typedef int (*function_type)(void* thisA,void* thisB);
@@ -14,16 +15,18 @@ Employee* employee_new();
 Employee* employee_newConParametros(char* id,char* nombre,char* horasTrabajadas,char* sueldo);
 Employee* employee_getById(void* pArrayListEmployee,int idIngresado);
 int employee_add(void* pArrayListEmployee);
-int employee_remove(void* pArrayListEmployee);
+int employee_remove(void* pLinkedList,void* pListInactive);
 int employee_delete(Employee* this);
 int employee_edit(void* pArrayListEmployee);
 int employee_modify(Employee* this,
                         char* mensaje,
                         int (*validacion)(char*),
                         int (*set)(Employee*,char*));
-int employee_show(Employee* this);
+int employee_show(void* this);
 int employee_sort(void* pArrayListEmployee);
 int employee_hardcode(void* pArrayListEmployee,char *bufferName,char* bufferHorasTrabajadas,char* bufferSueldo);
+int employee_calculoSueldo(void* this);
+void* employee_selectorCriterio();
 
 int employee_setId(Employee* this,char* id);
 int employee_getId(Employee* this,int* id);
@@ -40,7 +43,7 @@ int employee_getSueldo(Employee* this,float* sueldo);
 int employee_setAll(Employee* this,char* id,char* name,char* hours,char* salary);
 int employee_getAll(Employee* this,char* name,int* hours,float* salary,int* id);
 
-void* employee_selectorCriterio();
+void* employee_ordenCriterio();
 int employee_criterioNombre(void* thisA,void* thisB);
 int employee_criterioSueldo(void* thisA,void* thisB);
 int employee_criterioHoras(void* thisA,void* thisB);
