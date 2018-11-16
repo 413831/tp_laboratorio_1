@@ -130,6 +130,10 @@ int controller_ListEmployee(LinkedList* pLinkedList)
         ll_map(pLinkedList,employee_show);
         printf("\nSize Linked List %d",ll_len(listaEmpleados));
     }
+    else
+    {
+        printf("\nLista inexistente");
+    }
     return retorno;
 }
 
@@ -162,6 +166,7 @@ int controller_generateNewList(LinkedList* pLinkedList,)
                 pNewLinkedList = ll_sublist(pLinkedList,from,to)
             break;
             case 2 :
+                printf("\nSeleccione criterio para filtrar")
                 criterio = employee_selectorCriterio()
                 pNewLinkedList = ll_filter(pLinkedList,criterio);
             break;
@@ -350,7 +355,7 @@ int controller_init()
             case 6: //LISTAR
                 if(counter > 0)
                 {
-                    input_getEnteros(&option,"\n\nIngrese opcion: ","\nDato invalido",2);
+                    input_getEnteros(&option,"\n1) Empleados activos\n2) Empleados inactivos \nIngrese opcion: ","\nError",2);
                     if(option == 1)
                     {
                         controller_ListEmployee(listaEmpleados);

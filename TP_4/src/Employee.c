@@ -78,15 +78,205 @@ static int isValidId(char* id)
 }
 
 
-int criterioNombre();
+static int criterioNombre(void* this)
+{
+    int retorno = -1;
+    char paramName[BUFFER];
+    char elementName[BUFFER];
 
-criterioSueldo;
+    if(this != NULL)
+    {
+        input("\n>>Filtrar listado por un nombre\nIngrese nombre: ",paramName,BUFFER,isValidName);
+        employee_getNombre(this,elementName);
+        if(!strcmp(elementName,paramName))
+        {
+            retorno = 0
+        }
+    }
+    return retorno;
+}
 
-criterioHoras;
+static int criterioSueldo(void* this)
+{
+    int retorno = -1;
+    char paramSueldo[BUFFER];
+    float elementSalary;
+
+    if(this != NULL)
+    {
+        input("\n>>Filtrar sueldos mayores a cifra\nIngrese cifra: ",paramSueldo,BUFFER,isValidSueldo);
+        employee_getSueldo(this,&elementSalary);
+        if(elementSalary > atof(paramSueldo))
+        {
+            retorno = 0;
+        }
+    }
+    return retorno;
+}
+
+static int criterioHoras(void* this)
+{
+    int retorno = -1;
+    char paramHoras[BUFFER];
+    int elementHours;
+
+    if(this != NULL)
+    {
+        input("\n>>Filtrar por horas mayores a cantidad\nIngrese cantidad: ",paramHoras,BUFFER,isValidHoras);
+        employee_getHorasTrabajadas(this,&elementHours);
+        if(elementHours > atoi(paramHoras))
+        {
+            retorno = 0;
+        }
+    }
+    return retorno;
+}
 
 
-criterioId;
+static int criterioId(void* this)
+{
+    int retorno = -1;
+    char paramId[BUFFER];
+    int elementId;
 
+    if(this != NULL)
+    {
+        input("\n>>Filtrar por ID mayor a numero\nIngrese numero: ",paramId,BUFFER,isValidHoras);
+        employee_getId(this,&elementId);
+        if(elementId > atoi(paramHoras))
+        {
+            retorno = 0;
+        }
+    }
+    return retorno;
+}
+////////////SORT CRITERIOS///////////////
+
+
+/**
+*\brief Funcion criterio por campo nombre
+*\param thisA Es el primer elemento
+*\param thisB Es el segundo elemento
+*\return Retorna 1 si el campo del primer elemento es mayor al segundo,
+*\       retorna -1 si el campo del primer elemento es menor al segundo,
+*\       retorno 0 si son iguales,
+*/
+static int employee_criterioNombre(void* thisA,void* thisB)
+{
+    int retorno = 0;
+    char bufferStrA[BUFFER];
+    char bufferStrB[BUFFER];
+
+    employee_getNombre(((Employee*)thisA),bufferStrA);
+    employee_getNombre(((Employee*)thisB),bufferStrB);
+
+    printf("\nOrdenando.");
+    if(strcmp(bufferStrA,bufferStrB) > 0)
+    {
+        printf("\nOrdenando..");
+        retorno = 1;
+    }
+    else if(strcmp(bufferStrA,bufferStrB) < 0)
+    {
+        printf("\nOrdenando...");
+        retorno = -1;
+    }
+    printf("\nOrdenando....");
+    return retorno;
+}
+
+/**
+*\brief Funcion criterio por campo sueldo
+*\param thisA Es el primer elemento
+*\param thisB Es el segundo elemento
+*\return Retorna 1 si el campo del primer elemento es mayor al segundo,
+*\       retorna -1 si el campo del primer elemento es menor al segundo,
+*\       retorno 0 si son iguales,
+*/
+static int employee_criterioSueldo(void* thisA,void* thisB)
+{
+    int retorno = 0;
+    float sueldoA = 0;
+    float sueldoB = 0;
+
+    employee_getSueldo(((Employee*)thisA),&sueldoA);
+    employee_getSueldo(((Employee*)thisB),&sueldoB);
+
+    if(sueldoA > sueldoB)
+    {
+        printf("\nOrdenando.");
+        retorno = 1;
+    }
+    else if(sueldoA < sueldoB)
+    {
+        printf("\nOrdenando..");
+        retorno = -1;
+    }
+    printf("\nOrdenando...");
+    return retorno;
+}
+
+/**
+*\brief Funcion criterio por campo horas
+*\param thisA Es el primer elemento
+*\param thisB Es el segundo elemento
+*\return Retorna 1 si el campo del primer elemento es mayor al segundo,
+*\       retorna -1 si el campo del primer elemento es menor al segundo,
+*\       retorno 0 si son iguales,
+*/
+static int employee_criterioHoras(void* thisA,void* thisB)
+{
+    int retorno = 0;
+    int horasA = 0;
+    int horasB = 0;
+
+    employee_getHorasTrabajadas(((Employee*)thisA),&horasA);
+    employee_getHorasTrabajadas(((Employee*)thisB),&horasB);
+
+    if(horasA > horasB)
+    {
+        printf("\nOrdenando.");
+        retorno = 1;
+    }
+    else if(horasA < horasB)
+    {
+        printf("\nOrdenando..");
+        retorno = -1;
+    }
+    printf("\nOrdenando...");
+    return retorno;
+}
+
+/**
+*\brief Funcion criterio por campo ID
+*\param thisA Es el primer elemento
+*\param thisB Es el segundo elemento
+*\return Retorna 1 si el campo del primer elemento es mayor al segundo,
+*\       retorna -1 si el campo del primer elemento es menor al segundo,
+*\       retorno 0 si son iguales,
+*/
+static int employee_criterioId(void* thisA,void* thisB)
+{
+    int retorno = 0;
+    int idA = 0;
+    int idB = 0;
+
+    employee_getId(((Employee*)thisA),&idA);
+    employee_getId(((Employee*)thisB),&idB);
+
+    if(idA > idB)
+    {
+        printf("\nOrdenando.");
+        retorno = 1;
+    }
+    else if(idA < idB)
+    {
+        printf("\nOrdenando..");
+        retorno = -1;
+    }
+    printf("\nOrdenando...");
+    return retorno;
+}
 
 ///////////////////////////////////////////////////PUBLIC/////////////////////////////////////////////////////////////////
 
@@ -219,7 +409,7 @@ int employee_remove(void* pLinkedList,void* pListInactive)
             {
                 index = ll_indexOf(pLinkedList,this);
                 this = ll_pop(pLinkedList,index);//Revisar BAJA LOGICA
-                ll_add(pListInactiv,this);
+                ll_add(pListInactive,this);
 
                 retorno = 0;
             }
@@ -440,6 +630,114 @@ int employee_calculoSueldo(void* this)
 
     return retorno;
 }
+
+
+/**
+* \brief Generar una lista de empleados segun filtros
+* \param this Es el puntero al LinkedList original
+* \param newList Es el puntero al LinkedList nuevo
+* \return Retorna 0 si el LinkedList no es NULL sino retorna -1
+*/
+int employee_generarLista(void* pLinkedList,)
+
+
+
+/**
+*\brief Funcion selector de criterio para filtrar
+*\return Retorna puntero a funcion segun criterio seleccionado si no es correcto retorna NULL
+*/
+void* employee_selectorCriterio()
+{
+    int opcion;
+
+    void* retorno = NULL;
+    input_getEnteros(&opcion,"\n1) Nombre\n2) Sueldo\n3) Horas\n4) ID\n","\nOpcion incorrecta",2);
+
+    switch(opcion)
+    {
+        case 1 :
+            printf("\nNombre");
+            retorno = criterioNombre;
+            break;
+        case 2 :
+            printf("\nSueldo");
+            retorno = criterioSueldo;
+            break;
+        case 3 :
+            printf("\nHoras Trabajadas");
+            retorno = criterioHoras;
+            break;
+        case 4 :
+            printf("\nID");
+            retorno = criterioId;
+            break;
+        default :
+            printf("\nOpcion incorrecta");
+    }
+    return retorno;
+}
+
+
+/**
+*\brief Funcion selector de criterio para ordenar
+*\return Retorna puntero a funcion segun criterio seleccionado si no es correcto retorna NULL
+*/
+void* employee_ordenCriterio()
+{
+    int opcion;
+
+    void* retorno = NULL;
+    input_getEnteros(&opcion,"\nSeleccione opcion\n1) Nombre\n2) Sueldo\n3) Horas\n4) ID\n","\nOpcion incorrecta",2);
+
+    switch(opcion)
+    {
+        case 1 :
+            printf("\nNombre");
+            retorno = employee_criterioNombre;
+            break;
+        case 2 :
+            printf("\nSueldo");
+            retorno = employee_criterioSueldo;
+            break;
+        case 3 :
+            printf("\nHoras Trabajadas");
+            retorno = employee_criterioHoras;
+            break;
+        case 4 :
+            printf("\nID");
+            retorno = employee_criterioId;
+            break;
+        default :
+            printf("\nOpcion incorrecta");
+    }
+    return retorno;
+}
+
+
+/**
+*\brief Se buscan empleados inhabilitados
+*\param array Es el array de empleados para recorrer
+*\param size Es el tamaño del array
+*\return Retorna el indice del elemento sino retorna -1
+*/
+int employee_searchEmpty(Employee* array[])
+{
+    int i=0;
+    int retorno =-1;
+    if(array!=NULL)
+    {
+        do
+        {
+           if(array[i]==NULL)
+            {
+                retorno=i;
+                break;
+            }
+            i++;
+        }while(array[i]!=NULL);
+    }
+    return retorno;
+}
 /////////////////////////////////////////////SETTERS & GETTERS///////////////////////////////////////////////////////////
 /**
 *\brief Se setea el ID del elemento
@@ -638,229 +936,5 @@ int employee_getAll(Employee* this,char* name,int* hours,float* salary,int* id)
         employee_getId(this,id);
         retorno = 0;
     }
-    return retorno;
-}
-
-
-/**
-*\brief Se buscan empleados inhabilitados
-*\param array Es el array de empleados para recorrer
-*\param size Es el tamaño del array
-*\return Retorna el indice del elemento sino retorna -1
-*/
-int employee_searchEmpty(Employee* array[])
-{
-    int i=0;
-    int retorno =-1;
-    if(array!=NULL)
-    {
-        do
-        {
-           if(array[i]==NULL)
-            {
-                retorno=i;
-                break;
-            }
-            i++;
-        }while(array[i]!=NULL);
-    }
-    return retorno;
-}
-
-
-/**
-*\brief Funcion selector de criterio para ordenar
-*\return Retorna puntero a funcion segun criterio seleccionado si no es correcto retorna NULL
-*/
-void* employee_selectorCriterio()
-{
-    int opcion;
-
-    void* retorno = NULL;
-    input_getEnteros(&opcion,"\nSeleccione opcion\n1) Nombre\n2) Sueldo\n3) Horas\n4) ID\n","\nOpcion incorrecta",2);
-
-    switch(opcion)
-    {
-        case 1 :
-            printf("\nNombre");
-            retorno = criterioNombre;
-            break;
-        case 2 :
-            printf("\nSueldo");
-            retorno = criterioSueldo;
-            break;
-        case 3 :
-            printf("\nHoras Trabajadas");
-            retorno = criterioHoras;
-            break;
-        case 4 :
-            printf("\nID");
-            retorno = criterioId;
-            break;
-        default :
-            printf("\nOpcion incorrecta");
-    }
-    return retorno;
-}
-
-////////////////////////////////////////////////////SORT CRITERIOS/////////////////////////////////////////////////////////////////
-
-/**
-*\brief Funcion selector de criterio para ordenar
-*\return Retorna puntero a funcion segun criterio seleccionado si no es correcto retorna NULL
-*/
-void* employee_ordenCriterio()
-{
-    int opcion;
-
-    void* retorno = NULL;
-    input_getEnteros(&opcion,"\nSeleccione opcion\n1) Nombre\n2) Sueldo\n3) Horas\n4) ID\n","\nOpcion incorrecta",2);
-
-    switch(opcion)
-    {
-        case 1 :
-            printf("\nNombre");
-            retorno = employee_criterioNombre;
-            break;
-        case 2 :
-            printf("\nSueldo");
-            retorno = employee_criterioSueldo;
-            break;
-        case 3 :
-            printf("\nHoras Trabajadas");
-            retorno = employee_criterioHoras;
-            break;
-        case 4 :
-            printf("\nID");
-            retorno = employee_criterioId;
-            break;
-        default :
-            printf("\nOpcion incorrecta");
-    }
-    return retorno;
-}
-
-/**
-*\brief Funcion criterio por campo nombre
-*\param thisA Es el primer elemento
-*\param thisB Es el segundo elemento
-*\return Retorna 1 si el campo del primer elemento es mayor al segundo,
-*\       retorna -1 si el campo del primer elemento es menor al segundo,
-*\       retorno 0 si son iguales,
-*/
-int employee_criterioNombre(void* thisA,void* thisB)
-{
-    int retorno = 0;
-    char bufferStrA[BUFFER];
-    char bufferStrB[BUFFER];
-
-    employee_getNombre(((Employee*)thisA),bufferStrA);
-    employee_getNombre(((Employee*)thisB),bufferStrB);
-
-    printf("\nOrdenando.");
-    if(strcmp(bufferStrA,bufferStrB) > 0)
-    {
-        printf("\nOrdenando..");
-        retorno = 1;
-    }
-    else if(strcmp(bufferStrA,bufferStrB) < 0)
-    {
-        printf("\nOrdenando...");
-        retorno = -1;
-    }
-    printf("\nOrdenando....");
-    return retorno;
-}
-
-/**
-*\brief Funcion criterio por campo sueldo
-*\param thisA Es el primer elemento
-*\param thisB Es el segundo elemento
-*\return Retorna 1 si el campo del primer elemento es mayor al segundo,
-*\       retorna -1 si el campo del primer elemento es menor al segundo,
-*\       retorno 0 si son iguales,
-*/
-int employee_criterioSueldo(void* thisA,void* thisB)
-{
-    int retorno = 0;
-    float sueldoA = 0;
-    float sueldoB = 0;
-
-    employee_getSueldo(((Employee*)thisA),&sueldoA);
-    employee_getSueldo(((Employee*)thisB),&sueldoB);
-
-    if(sueldoA > sueldoB)
-    {
-        printf("\nOrdenando.");
-        retorno = 1;
-    }
-    else if(sueldoA < sueldoB)
-    {
-        printf("\nOrdenando..");
-        retorno = -1;
-    }
-    printf("\nOrdenando...");
-    return retorno;
-}
-
-/**
-*\brief Funcion criterio por campo horas
-*\param thisA Es el primer elemento
-*\param thisB Es el segundo elemento
-*\return Retorna 1 si el campo del primer elemento es mayor al segundo,
-*\       retorna -1 si el campo del primer elemento es menor al segundo,
-*\       retorno 0 si son iguales,
-*/
-int employee_criterioHoras(void* thisA,void* thisB)
-{
-    int retorno = 0;
-    int horasA = 0;
-    int horasB = 0;
-
-    employee_getHorasTrabajadas(((Employee*)thisA),&horasA);
-    employee_getHorasTrabajadas(((Employee*)thisB),&horasB);
-
-    if(horasA > horasB)
-    {
-        printf("\nOrdenando.");
-        retorno = 1;
-    }
-    else if(horasA < horasB)
-    {
-        printf("\nOrdenando..");
-        retorno = -1;
-    }
-    printf("\nOrdenando...");
-    return retorno;
-}
-
-/**
-*\brief Funcion criterio por campo ID
-*\param thisA Es el primer elemento
-*\param thisB Es el segundo elemento
-*\return Retorna 1 si el campo del primer elemento es mayor al segundo,
-*\       retorna -1 si el campo del primer elemento es menor al segundo,
-*\       retorno 0 si son iguales,
-*/
-int employee_criterioId(void* thisA,void* thisB)
-{
-    int retorno = 0;
-    int idA = 0;
-    int idB = 0;
-
-    employee_getId(((Employee*)thisA),&idA);
-    employee_getId(((Employee*)thisB),&idB);
-
-    if(idA > idB)
-    {
-        printf("\nOrdenando.");
-        retorno = 1;
-    }
-    else if(idA < idB)
-    {
-        printf("\nOrdenando..");
-        retorno = -1;
-    }
-    printf("\nOrdenando...");
     return retorno;
 }
