@@ -81,17 +81,26 @@ static int isValidId(char* id)
 static int criterioNombre(void* this)
 {
     int retorno = -1;
-    char paramName[BUFFER];
+    static char paramName[BUFFER];
+    static int flag = 0;
     char elementName[BUFFER];
 
     if(this != NULL)
     {
-        input("\n>>Filtrar listado por un nombre\nIngrese nombre: ",paramName,BUFFER,isValidName);
+        if(flag == 0)
+        {
+            input("\n>>Filtrar listado por un nombre\nIngrese nombre: ",paramName,BUFFER,isValidName);
+            flag = 1;
+        }
         employee_getNombre(this,elementName);
         if(!strcmp(elementName,paramName))
         {
-            retorno = 0
+            retorno = 0;
         }
+    }
+    else
+    {
+        flag = 0;//RESET
     }
     return retorno;
 }
@@ -99,17 +108,26 @@ static int criterioNombre(void* this)
 static int criterioSueldo(void* this)
 {
     int retorno = -1;
-    char paramSueldo[BUFFER];
+    static char paramSueldo[BUFFER];
+    static int flag = 0;
     float elementSalary;
 
     if(this != NULL)
     {
-        input("\n>>Filtrar sueldos mayores a cifra\nIngrese cifra: ",paramSueldo,BUFFER,isValidSueldo);
+        if(flag == 0)
+        {
+            input("\n>>Filtrar sueldos mayores a cifra\nIngrese cifra: ",paramSueldo,BUFFER,isValidSueldo);
+            flag = 1;
+        }
         employee_getSueldo(this,&elementSalary);
         if(elementSalary > atof(paramSueldo))
         {
             retorno = 0;
         }
+    }
+    else
+    {
+        flag = 0;//RESET
     }
     return retorno;
 }
@@ -117,17 +135,26 @@ static int criterioSueldo(void* this)
 static int criterioHoras(void* this)
 {
     int retorno = -1;
-    char paramHoras[BUFFER];
+    static int flag = 0;
+    static char paramHoras[BUFFER];
     int elementHours;
 
     if(this != NULL)
     {
-        input("\n>>Filtrar por horas mayores a cantidad\nIngrese cantidad: ",paramHoras,BUFFER,isValidHoras);
+        if(flag == 0)
+        {
+            input("\n>>Filtrar por horas mayores a cantidad\nIngrese cantidad: ",paramHoras,BUFFER,isValidHoras);
+            flag = 1;
+        }
         employee_getHorasTrabajadas(this,&elementHours);
         if(elementHours > atoi(paramHoras))
         {
             retorno = 0;
         }
+    }
+    else
+    {
+        flag = 0;//RESET
     }
     return retorno;
 }
@@ -136,17 +163,26 @@ static int criterioHoras(void* this)
 static int criterioId(void* this)
 {
     int retorno = -1;
-    char paramId[BUFFER];
+    static char paramId[BUFFER];
+    static int flag = 0;
     int elementId;
 
     if(this != NULL)
     {
-        input("\n>>Filtrar por ID mayor a numero\nIngrese numero: ",paramId,BUFFER,isValidHoras);
+        if(flag == 0)
+        {
+             input("\n>>Filtrar por ID mayor a numero\nIngrese numero: ",paramId,BUFFER,isValidHoras);
+             flag = 1;
+        }
         employee_getId(this,&elementId);
-        if(elementId > atoi(paramHoras))
+        if(elementId > atoi(paramId))
         {
             retorno = 0;
         }
+    }
+    else
+    {
+        flag = 0;//RESET
     }
     return retorno;
 }
@@ -638,8 +674,47 @@ int employee_calculoSueldo(void* this)
 * \param newList Es el puntero al LinkedList nuevo
 * \return Retorna 0 si el LinkedList no es NULL sino retorna -1
 */
-int employee_generarLista(void* pLinkedList,)
+int employee_generarLista(void* pLinkedList,void* newList[])
+{
+    int retorno = -1;
+    int option;
+    int from = 0;
+    int to = 0;
+    criterio_type criterio;
+    void* auxLinkedList  = ll_newLinkedList();
+    input_getEnteros(&option,"\n1) Dividir lista\n2) Filtrar\n3) Copiar lista \n\nIngrese opcion: ","\nDato invalido",2);
 
+    switch(option)
+    {
+        case 1 :
+            input_getEnteros(&from,"\nSeleccione primer indice: ","\nDato invalido",2);
+            input_getEnteros(&to,"\nSeleccione segundo indice","\nDato invalido",2);
+            auxLinkedList  = ll_subList(pLinkedList,from,to);
+            if(auxLinkedList != NULL)
+            {
+                *newList = auxLinkedList;
+            }
+        break;
+        case 2 :
+            printf("\nSeleccione criterio para filtrar");
+            criterio = employee_selectorCriterio();
+            auxLinkedList  = ll_filter(pLinkedList,criterio);
+            if(auxLinkedList != NULL)
+            {
+                *newList = auxLinkedList;
+            }
+        break;
+        case 3 :
+            auxLinkedList = ll_clone(pLinkedList);
+            if(auxLinkedList != NULL)
+            {
+                *newList = auxLinkedList;
+            }
+        break;
+        retorno = 0;
+    }
+    return retorno;
+}
 
 
 /**

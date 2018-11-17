@@ -78,7 +78,7 @@ char input_ScanChar(char* mensaje)
  * \param value Es la variable para retornar el dato ingresado por el usuario
  * \param size Es el limite del dato para ingresar
  * \param validacion Es el puntero a la funcion de validacion del dato
- * \return Entero ingresado por el usuario
+ * \return Retorna 0 si logra cargar el dato sino retorna -1;
  */
 int input(char* message,char* value,int size, int (*validation)(char*))
 {

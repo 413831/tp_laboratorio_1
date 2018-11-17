@@ -641,7 +641,7 @@ LinkedList* ll_filter(LinkedList* this,int (*pFunc)(void*))
     if(this != NULL && pFunc != NULL)
     {
         subList = ll_newLinkedList();
-        for(i=0;ll_len(this)-1;i++)
+        for(i=0;i<ll_len(this);i++)
         {
             pElement = ll_get(this,i);
             if(!pFunc(pElement))

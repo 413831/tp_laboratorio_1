@@ -6,6 +6,8 @@
 #include "../inc/utn.h"
 #include "../inc/parser.h"
 
+#define BUFFER 4000
+
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
  *
  * \param path Ruta del archivo para leer
@@ -128,7 +130,7 @@ int controller_ListEmployee(LinkedList* pLinkedList)
     {
         printf("\n<LISTAR>");
         ll_map(pLinkedList,employee_show);
-        printf("\nSize Linked List %d",ll_len(listaEmpleados));
+        printf("\nSize Linked List %d",ll_len(pLinkedList));
     }
     else
     {
@@ -143,46 +145,31 @@ int controller_ListEmployee(LinkedList* pLinkedList)
  * \return Retorna 0 si se logra editar sino retorna -1
  *
  */
-int controller_generateNewList(LinkedList* pLinkedList,)
+int controller_generateNewList(LinkedList* pLinkedList)
 {
     limpiarPantalla();
     int retorno = -1;
-    int option;
-    int from = 0;
-    int to = 0;
-    LinkedList* pNewLinkedList;
-    function_type criterio;
+    char nombreArchivo[BUFFER];
+    void* pNewLinkedList;
 
     if(pLinkedList != NULL)
     {
         printf("\n<GENERAR LISTA>");
-        pNewLinkedList =  ll_newLinkedList();
-        input_getEnteros(&option,"\n1) Dividir lista\n2) Filtrar\n3) Copiar\n\nIngrese opcion: ","\nDato invalido",2);
-        switch(option)
-        {
-            case 1 :
-                input_getEnteros(&from,"\nSeleccione primer indice: ","\nDato invalido",2);
-                input_getEnteros(&to,"\nSeleccione segundo indice","\nDato invalido",2);
-                pNewLinkedList = ll_sublist(pLinkedList,from,to)
-            break;
-            case 2 :
-                printf("\nSeleccione criterio para filtrar")
-                criterio = employee_selectorCriterio()
-                pNewLinkedList = ll_filter(pLinkedList,criterio);
-            break;
-            case 3 :
-                pNewLinkedList = ll_clone(pLinkedList);
-            break;
-        }
+        pNewLinkedList = ll_newLinkedList();
 
         if(pNewLinkedList != NULL)
         {
-
+            if(!employee_generarLista(pLinkedList,&pNewLinkedList))
+            {
+                input_getDireccion(nombreArchivo,BUFFER,"\nIngrese nombre de archivo a guardar","Nombre invalido",2);
+                controller_saveAsText(nombreArchivo,pNewLinkedList);
+            }
         }
         else
         {
             ll_deleteLinkedList(pNewLinkedList);
         }
+    }
     return retorno;
 }
 
@@ -228,6 +215,7 @@ int controller_saveAsText(char* path , LinkedList* pLinkedList)
     if(pArchivo != NULL && !parser_SaveToText(pArchivo,pLinkedList))
     {
         printf("\n<GUARDAR TEXTO>");
+        printf("\nArchivo %s guardado",path);
         retorno = 0;
     }
     fclose(pArchivo);
@@ -249,6 +237,7 @@ int controller_saveAsBinary(char* path , LinkedList* pLinkedList)
     if(pArchivo != NULL && !parser_SaveToBinary(pArchivo,pLinkedList))
     {
         printf("\n<GUARDAR BINARIO>");
+        printf("\nArchivo %s guardado",path);
         retorno = 0;
     }
     fclose(pArchivo);

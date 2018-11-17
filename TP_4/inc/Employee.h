@@ -10,6 +10,7 @@ typedef struct
 }Employee;
 
 typedef int (*function_type)(void* thisA,void* thisB);
+typedef int (*criterio_type)(void* this);
 
 Employee* employee_new();
 Employee* employee_newConParametros(char* id,char* nombre,char* horasTrabajadas,char* sueldo);
@@ -27,6 +28,9 @@ int employee_sort(void* pArrayListEmployee);
 int employee_hardcode(void* pArrayListEmployee,char *bufferName,char* bufferHorasTrabajadas,char* bufferSueldo);
 int employee_calculoSueldo(void* this);
 void* employee_selectorCriterio();
+void* employee_ordenCriterio();
+int employee_searchEmpty(Employee* array[]);
+int employee_generarLista(void* pLinkedList,void* newList[]);
 
 int employee_setId(Employee* this,char* id);
 int employee_getId(Employee* this,int* id);
@@ -43,11 +47,5 @@ int employee_getSueldo(Employee* this,float* sueldo);
 int employee_setAll(Employee* this,char* id,char* name,char* hours,char* salary);
 int employee_getAll(Employee* this,char* name,int* hours,float* salary,int* id);
 
-void* employee_ordenCriterio();
-int employee_criterioNombre(void* thisA,void* thisB);
-int employee_criterioSueldo(void* thisA,void* thisB);
-int employee_criterioHoras(void* thisA,void* thisB);
-int employee_criterioId(void* thisA,void* thisB);
 
-int employee_searchEmpty(Employee* array[]);
 #endif // employee_H_INCLUDED
