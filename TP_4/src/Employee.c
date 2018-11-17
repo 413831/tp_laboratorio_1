@@ -207,6 +207,25 @@ static int copyId(Employee* this,char* id)
     }
     return retorno;
 }
+
+static int verification(LinkedList* pLinkedList,void* auxElement,int index)
+{
+    int retorno = -1;
+    char option[2];
+
+    if(pLinkedList != NULL && auxElement != NULL && index >= 0 && index <= ll_len(pLinkedList))
+    {
+        input_getLetras(option,2,"\nDesea modificar dato? S/N\n","\nError.Dato invalido",2);
+        if(!strcasecmp("s",option))
+        {
+            ll_set(pLinkedList,index,auxElement);
+            printf("\nEmployee modified :)");
+            retorno = 0;
+        }
+        pause();
+    }
+    return retorno;
+}
 ////////////SORT CRITERIOS///////////////
 
 
@@ -538,7 +557,6 @@ int employee_edit(void* pLinkedList)
 {
     int retorno = -1;
     int option;
-    char verification[2];
     char bufferId[BUFFER];
     int index;
     Employee* this = NULL;
@@ -559,7 +577,6 @@ int employee_edit(void* pLinkedList)
                 break;
             }
             input("ID",bufferId,BUFFER,isValidId);
-
             this = employee_getById(pLinkedList,atoi(bufferId));
             index = ll_indexOf(pLinkedList,this);
 
@@ -578,31 +595,15 @@ int employee_edit(void* pLinkedList)
             {
                 case 1 :
                     employee_modify(auxElement,"nombre",isValidName,employee_setNombre);
-                    input_getLetras(verification,2,"\nDesea modificar dato? S/N\n","\nError.Dato invalido",2);
-                    if(!strcasecmp("s",verification))
-                    {
-                        ll_set(pLinkedList,index,auxElement);
-                        printf("\nEmployee modified :)");
-                    }
-                    pause();
+                    verification(pLinkedList,auxElement,index);
                     break;
                 case 2 :
                     employee_modify(auxElement,"sueldo",isValidSueldo,employee_setSueldo);
-                    if(!strcasecmp("s",verification))
-                    {
-                        ll_set(pLinkedList,index,auxElement);
-                        printf("\nEmployee modified :)");
-                    }
-                    pause();
+                    verification(pLinkedList,auxElement,index);
                     break;
                 case 3 :
                     employee_modify(auxElement,"horas trabajadas",isValidHoras,employee_setHorasTrabajadas);
-                    if(!strcasecmp("s",verification))
-                    {
-                        ll_set(pLinkedList,index,auxElement);
-                        printf("\nEmployee modified :)");
-                    }
-                    pause();
+                    verification(pLinkedList,auxElement,index);
                     break;
                 case 4 :
                     break;
@@ -752,7 +753,6 @@ int employee_calculoSueldo(void* this)
         valorHora = auxSueldo / auxHoras;
         retorno = valorHora;
     }
-
     return retorno;
 }
 
@@ -806,13 +806,13 @@ int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],i
                 printf("\nSTEP 3");
 
                 auxLinkedList = ll_clone(pLinkedList);
-                ll_containsAll(pLinkedList,auxLinkedList);
-
+                if(ll_containsAll(pLinkedList,auxLinkedList))
+                {
                     printf("\nBACK-UP");
                     listaPrincipal[5] = auxLinkedList;
                     *index = 5;
                     retorno = 0;
-
+                }
                 break;
         }
     }
@@ -834,19 +834,19 @@ void* employee_selectorCriterio()
     switch(opcion)
     {
         case 1 :
-            printf("\nNombre");
+            printf("\nFiltrar por nombre");
             retorno = criterioNombre;
             break;
         case 2 :
-            printf("\nSueldo");
+            printf("\nFiltrar por sueldo");
             retorno = criterioSueldo;
             break;
         case 3 :
-            printf("\nHoras Trabajadas");
+            printf("\nFiltrar por horas trabajadas");
             retorno = criterioHoras;
             break;
         case 4 :
-            printf("\nID");
+            printf("\nFiltrar por ID");
             retorno = criterioId;
             break;
         default :
@@ -1091,7 +1091,6 @@ int employee_setAll(Employee* this,char* id,char* name,char* hours,char* salary)
             !employee_setHorasTrabajadas(this,hours) &&
             !employee_setSueldo(this,salary))
         {
-            printf("\nSTEP");
             retorno = 0;
         }
     }

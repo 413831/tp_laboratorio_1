@@ -129,7 +129,7 @@ int controller_ListEmployee(LinkedList* pLinkedList)
 {
     int retorno = -1;
 
-    if(pLinkedList != NULL)
+    if(pLinkedList != NULL && !ll_isEmpty(pLinkedList))
     {
         ll_map(pLinkedList,employee_show);
         printf("\nSize Linked List %d",ll_len(pLinkedList));
@@ -165,7 +165,6 @@ int controller_generateNewList(LinkedList* pLinkedList,LinkedList* listaPrincipa
         {
             if(!employee_generarLista(pLinkedList,listaPrincipal,&index))
             {
-                pNewLinkedList = listaPrincipal[index];
                 input_getPath(nombreArchivo,BUFFER,"\nIngrese nombre de archivo a guardar\n","Nombre invalido",2);
                 strcat(path,nombreArchivo);
                 controller_saveAsText(path,pNewLinkedList);
@@ -262,6 +261,7 @@ int controller_init()
     LinkedList* listaInactivos = ll_newLinkedList();
     char nombreArchivo[BUFFER];
     char path[BUFFER] = {"../files/"};
+    ll_initLinkedList(listaPrincipal);
 
     do
     {
@@ -358,9 +358,10 @@ int controller_init()
                     limpiarPantalla();
                     printf("\n<LISTAR>");
                     printf("\n1) Empleados activos\n2) Empleados inactivos \n3) Sublista\n4) Lista filtrada\n5) Back-up");
-                    input_getEnteros(&option,"Ingrese opcion: ","\nError",2);
+                    input_getEnteros(&option,"\nIngrese opcion: ","\nError",2);
                     if(option >= 1 && option <= 5)
                     {
+                        printf("\nLinkedList %p",listaPrincipal[option]);
                         controller_ListEmployee(listaPrincipal[option]);
                     }
                 }

@@ -690,22 +690,17 @@ int ll_map(LinkedList* this, int (*pFunc)(void*))
     return retorno;
 }
 
-int ll_addLinkedList(LinkedList* pListaPrincipal[],LinkedList* pLista)
+int ll_initLinkedList(LinkedList* pListaPrincipal[])
 {
     int retorno = -1;
     int i;
-    LinkedList* auxList;
 
-    if(pListaPrincipal != NULL && pLista != NULL)
+    if(pListaPrincipal != NULL)
     {
-        for(i=2;i < LEN_LL ;i++)
+        for(i=0;i < LEN_LL ;i++)
         {
-            auxList = pListaPrincipal[i];
-            if(ll_isEmpty(auxList))
-            {
-                pListaPrincipal[i] = pLista;
-                break;
-            }
+            pListaPrincipal[i] = NULL;
+            break;
         }
     }
     return retorno;

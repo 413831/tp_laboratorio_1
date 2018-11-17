@@ -270,7 +270,6 @@ int validacion_File(char* array,int size)
        retorno = 1;
        for(i=0;i < size && array[i] != '\0';i++)
        {
-
             if((array[0] == '.') &&
             (array[i] < 'a' || array[i] > 'z') &&
             (array[i] < 'A' || array[i] > 'Z') &&
