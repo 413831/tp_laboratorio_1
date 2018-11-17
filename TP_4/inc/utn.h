@@ -16,6 +16,7 @@ int input_getDNI(char input[],int size,char mensaje[],char msjError[],int reinte
 int input_getTelefono(char input[],int size,char mensaje[],char msjError[],int reintentos);
 int input_getCuit(char input[],int size,char mensaje[],char msjError[],int reintentos);
 int input_getDireccion(char input[],int size,char mensaje[],char msjError[],int reintentos);
+int input_getPath(char input[],int size,char mensaje[],char msjError[],int reintentos);
 /**
 *Funciones de CÁLCULOS
 */
@@ -31,6 +32,7 @@ int validacion_AlfaNumerico(char* array,int size);
 int validacion_Telefono(char* array,int size);
 int validacion_DNI(char* array,int size);
 int validacion_Cuit(char* array,int size);
+int validacion_File(char* array,int size);
 
 /**
 *Funciones de ORDENAMIENTO de Array

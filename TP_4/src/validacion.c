@@ -83,7 +83,6 @@ int validacion_Float(char* array,int size)
             }
        }
    }
-
    return retorno;
 }
 
@@ -141,9 +140,7 @@ int validacion_AlfaNumerico(char* array,int size)
             retorno = 0;
             break;
            }
-
        }
-
    }
    return retorno;
 }
@@ -180,14 +177,12 @@ int validacion_Telefono(char* array,int size)
                 break;
                 }
             }
-
             if(array[i] == '-')
             {
                 contadorSimbolos++;
             }
        }
    }
-
    return retorno;
 }
 
@@ -248,13 +243,46 @@ int validacion_Cuit(char* array,int size)
             {
                 if(array[2] != '-' || array[11] != '-' || contadorSimbolos > 2 || digitosIngresados > 13)
                 {
-                    printf("\nENTRO AL IF %d",i);
-                retorno = 0;
-                break;
+                    retorno = 0;
+                    break;
                 }
             }
 
             if(array[i] == '-')
+            {
+                contadorSimbolos++;
+            }
+       }
+   }
+   return retorno;
+}
+
+
+
+int validacion_File(char* array,int size)
+{
+   int i=0;
+   int retorno = 0;
+   int contadorSimbolos = 0;
+
+   if(array != NULL && size > 0)
+   {
+       retorno = 1;
+       for(i=0;i < size && array[i] != '\0';i++)
+       {
+
+            if((array[0] == '.') &&
+            (array[i] < 'a' || array[i] > 'z') &&
+            (array[i] < 'A' || array[i] > 'Z') &&
+            (array[i] < '0' || array[i] > '9') &&
+            (array[size-1] == '.') &&
+             contadorSimbolos > 1  )
+            {
+                retorno = 0;
+            break;
+            }
+
+            if(array[i] == '.')
             {
                 contadorSimbolos++;
             }

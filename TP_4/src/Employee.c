@@ -186,6 +186,27 @@ static int criterioId(void* this)
     }
     return retorno;
 }
+
+
+/**
+*\brief Se setea las horas trabajadas del elemento
+*\param this Es el elemento
+*\param horasTrabajadas Es la cantidad de horas para setear
+*\return Retorna 0 si setea elemento sino retorna -1
+*/
+static int copyId(Employee* this,char* id)
+{
+    int retorno=-1;
+    int auxId;
+
+    if(this!=NULL && isValidId(id))
+    {
+        auxId = atoi(id);
+        this->id = auxId;
+        retorno=0;
+    }
+    return retorno;
+}
 ////////////SORT CRITERIOS///////////////
 
 
@@ -475,6 +496,42 @@ int employee_delete(Employee* this)
 }
 
 /**
+*\brief Copia los campos de un elemento a otro
+*\param thisA Es el elemento hacia donde se va a copiar (destination)
+*\param thisB Es el elemento de donde se va a copiar (source)
+*\return Retorna 0 si logra copiar sino retorna -1
+*/
+int employee_copy(Employee* thisA,Employee* thisB)
+{
+    int retorno = -1;
+    char bufferName[BUFFER];
+    char bufferHorasTrabajadas[BUFFER];
+    char bufferSueldo[BUFFER];
+    char bufferId[BUFFER];
+    int auxId;
+    int auxHoras;
+    float auxSueldo;
+
+    if(thisA != NULL && thisB != NULL)
+    {
+        employee_getAll(thisB,bufferName,&auxHoras,&auxSueldo,&auxId);
+        employee_show(thisB);
+        sprintf(bufferId,"%d",auxId);
+        sprintf(bufferHorasTrabajadas,"%d",auxHoras);
+        sprintf(bufferSueldo,"%.2f",auxSueldo);
+
+        copyId(thisA,bufferId);
+        employee_setNombre(thisA,bufferName);
+        employee_setHorasTrabajadas(thisA,bufferHorasTrabajadas);
+        employee_setSueldo(thisA,bufferSueldo);
+
+        employee_show(thisA);
+        retorno = 0;
+    }
+    return retorno;
+}
+
+/**
 *\brief Se busca elemento por ID a modificar con opciones de campos
 *\param pLinkedList Es el array a recorrer
 *\return Retorna 0 si logra modificar campo sino retorna -1
@@ -484,41 +541,54 @@ int employee_edit(void* pLinkedList)
     int retorno = -1;
     int option;
     char bufferId[BUFFER];
+    int index;
     Employee* this = NULL;
+    Employee* auxElement = employee_new();
 
-    if(pLinkedList != NULL && !input("ID",bufferId,BUFFER,isValidId))
+    if(pLinkedList != NULL)
     {
-        this = employee_getById(pLinkedList,atoi(bufferId));
-        if(this != NULL)
+        do
         {
-             employee_show(this);
-            do
+            retorno = 0;
+            limpiarPantalla();
+            printf("\n<MODIFICAR DATOS>");
+            printf("\n1) Nombre\n2) Sueldo\n3) Horas trabajadas\n4) Volver");
+            input_getEnteros(&option,"\nIngrese opcion: ","\nError.Dato invalido",2);
+            input("ID",bufferId,BUFFER,isValidId);
+
+            this = employee_getById(pLinkedList,atoi(bufferId));
+            index = ll_indexOf(pLinkedList,this);
+
+            if(this == NULL)
             {
-                printf("\n1) Nombre\n2) Sueldo\n3) Horas trabajadas\n4) Volver");
-                input_getEnteros(&option,"\nIngrese opcion: ","\nError.Dato invalido",2);
-                switch(option)
-                {
-                    retorno = 0;
-                    case 1 :
-                        employee_modify(this,"nombre",isValidName,employee_setNombre);
-                        break;
-                    case 2 :
-                        employee_modify(this,"sueldo",isValidSueldo,employee_setSueldo);
-                        break;
-                    case 3 :
-                        employee_modify(this,"horas trabajadas",isValidHoras,employee_setHorasTrabajadas);
-                        break;
-                    case 4 :
-                        break;
-                    default :
-                        printf("\nOpcion invalida");
-                }
-            }while(option != 4);
-        }
-        else
-        {
-            printf("\nID no encontrado");
-        }
+                printf("\nID no encontrado");
+                continue;
+            }
+            else if(this != NULL && auxElement != NULL)
+            {
+                employee_copy(auxElement,this);
+                employee_show(auxElement);
+            }
+
+            switch(option)
+            {
+
+                case 1 :
+
+                    employee_modify(auxElement,"nombre",isValidName,employee_setNombre);
+                    break;
+                case 2 :
+                    employee_modify(auxElement,"sueldo",isValidSueldo,employee_setSueldo);
+                    break;
+                case 3 :
+                    employee_modify(auxElement,"horas trabajadas",isValidHoras,employee_setHorasTrabajadas);
+                    break;
+                case 4 :
+                    break;
+                default :
+                    printf("\nOpcion invalida");
+            }
+        }while(option != 4);
     }
     return retorno;
 }
@@ -674,7 +744,7 @@ int employee_calculoSueldo(void* this)
 * \param newList Es el puntero al LinkedList nuevo
 * \return Retorna 0 si el LinkedList no es NULL sino retorna -1
 */
-int employee_generarLista(void* pLinkedList,void* newList[])
+int employee_generarLista(void* pLinkedList,void* newList)
 {
     int retorno = -1;
     int option;
@@ -684,34 +754,43 @@ int employee_generarLista(void* pLinkedList,void* newList[])
     void* auxLinkedList  = ll_newLinkedList();
     input_getEnteros(&option,"\n1) Dividir lista\n2) Filtrar\n3) Copiar lista \n\nIngrese opcion: ","\nDato invalido",2);
 
-    switch(option)
+    if(pLinkedList != NULL)
     {
-        case 1 :
-            input_getEnteros(&from,"\nSeleccione primer indice: ","\nDato invalido",2);
-            input_getEnteros(&to,"\nSeleccione segundo indice","\nDato invalido",2);
-            auxLinkedList  = ll_subList(pLinkedList,from,to);
-            if(auxLinkedList != NULL)
-            {
-                *newList = auxLinkedList;
-            }
-        break;
-        case 2 :
-            printf("\nSeleccione criterio para filtrar");
-            criterio = employee_selectorCriterio();
-            auxLinkedList  = ll_filter(pLinkedList,criterio);
-            if(auxLinkedList != NULL)
-            {
-                *newList = auxLinkedList;
-            }
-        break;
-        case 3 :
-            auxLinkedList = ll_clone(pLinkedList);
-            if(auxLinkedList != NULL)
-            {
-                *newList = auxLinkedList;
-            }
-        break;
-        retorno = 0;
+        switch(option)
+        {
+            case 1 :
+                input_getEnteros(&from,"\nSeleccione primer indice: ","\nDato invalido",2);
+                input_getEnteros(&to,"\nSeleccione segundo indice: ","\nDato invalido",2);
+                auxLinkedList  = ll_subList(pLinkedList,from,to);
+                if(auxLinkedList != NULL)
+                {
+                    printf("\nSTEP 1");
+                    newList = auxLinkedList;
+                    retorno = 0;
+                }
+            break;
+            case 2 :
+                printf("\nSeleccione criterio para filtrar");
+                criterio = employee_selectorCriterio();
+                auxLinkedList  = ll_filter(pLinkedList,criterio);
+                if(auxLinkedList != NULL)
+                {
+                    printf("\nSTEP 2");
+                    newList = auxLinkedList;
+                    retorno = 0;
+                }
+            break;
+            case 3 :
+                auxLinkedList = ll_clone(pLinkedList);
+                if(auxLinkedList != NULL)
+                {
+                    printf("\nSTEP 3");
+                    newList = auxLinkedList;
+                    retorno = 0;
+                }
+            break;
+
+        }
     }
     return retorno;
 }
@@ -814,6 +893,9 @@ int employee_searchEmpty(Employee* array[])
     return retorno;
 }
 /////////////////////////////////////////////SETTERS & GETTERS///////////////////////////////////////////////////////////
+
+
+
 /**
 *\brief Se setea el ID del elemento
 *\param this Es el elemento
@@ -985,6 +1067,7 @@ int employee_setAll(Employee* this,char* id,char* name,char* hours,char* salary)
             !employee_setHorasTrabajadas(this,hours) &&
             !employee_setSueldo(this,salary))
         {
+            printf("\nSTEP");
             retorno = 0;
         }
     }

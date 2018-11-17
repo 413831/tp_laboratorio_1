@@ -384,3 +384,32 @@ int input_getDireccion(char input[],int size,char mensaje[],char msjError[],int 
     }
             return retorno;
 }
+
+
+int input_getPath(char input[],int size,char mensaje[],char msjError[],int reintentos)
+{
+    char buffer[size];
+    int retorno = 1;
+
+    if(input != NULL && size > 0 && mensaje != NULL &&
+       msjError != NULL && reintentos >= 0)
+    {
+        do
+        {
+            reintentos--;
+            printf("%s",mensaje);
+            if( input_getString(buffer,size) == 0 &&
+                validacion_File(buffer,size))
+            {
+                strncpy(input,buffer,size);
+                retorno = 0;
+                break;
+            }
+            else
+            {
+                printf("%s",msjError);
+            }
+        }while(reintentos>=0);
+    }
+            return retorno;
+}

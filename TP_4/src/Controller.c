@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../inc/Controller.h"
 #include "../inc/LinkedList.h"
 #include "../inc/Employee.h"
@@ -81,7 +82,6 @@ int controller_editEmployee(LinkedList* pLinkedList)
     limpiarPantalla();
     if(pLinkedList != NULL)
     {
-        printf("\n<MODIFICAR DATOS>");
         if(!employee_edit(pLinkedList))
         {
             printf("\nEmployee modified :)");
@@ -128,7 +128,6 @@ int controller_ListEmployee(LinkedList* pLinkedList)
 
     if(pLinkedList != NULL)
     {
-        printf("\n<LISTAR>");
         ll_map(pLinkedList,employee_show);
         printf("\nSize Linked List %d",ll_len(pLinkedList));
     }
@@ -159,10 +158,12 @@ int controller_generateNewList(LinkedList* pLinkedList)
 
         if(pNewLinkedList != NULL)
         {
-            if(!employee_generarLista(pLinkedList,&pNewLinkedList))
+            if(!employee_generarLista(pLinkedList,pNewLinkedList))
             {
-                input_getDireccion(nombreArchivo,BUFFER,"\nIngrese nombre de archivo a guardar","Nombre invalido",2);
+                printf("\nENTRO");
+                input_getPath(nombreArchivo,BUFFER,"\nIngrese nombre de archivo a guardar","Nombre invalido",2);
                 controller_saveAsText(nombreArchivo,pNewLinkedList);
+                retorno = 0;
             }
         }
         else
@@ -256,18 +257,19 @@ int controller_init()
     int flag = 0;
     LinkedList* listaEmpleados = ll_newLinkedList();
     LinkedList* listaInactivos = ll_newLinkedList();
+    char nombreArchivo[BUFFER];
+    char path[BUFFER] = {"../files/"};
 
     do
     {
-        printf("\n>>MENU<<\n1) Carga de archivo (modo texto)\n2) Carga de archivo (modo binario)");
+        printf("\n>>MENU<<\n1) Abrir archivo (modo texto)\n2) Carga de archivo (modo binario)");
         printf("\n3) Alta\n4) Editar\n5) Baja\n6) Listar activos o inactivos\n7) Ordenar");
-        printf("\n8) Guardar (modo texto)\n9) Guardar (modo binario)\n10) Salir");
+        printf("\n8) Guardar (modo texto)\n9) Guardar (modo binario)\n10) Generar listas\n11) Salir");
         input_getEnteros(&option,"\nIngrese opcion: ","\nDato invalido",2);
 
         switch(option)
         {
-            case 1: //CARGA TEXTO
-                //BUSCAR FUNCION PARA BORRAR
+            case 1: //ABRIR TEXTO
                 if(flag == 1)
                 {
                     printf("\nCarga realizada previamente (modo texto)");
@@ -278,14 +280,15 @@ int controller_init()
                     printf("\nCarga realizada previamente (modo binario)");
                     break;
                 }
-                printf("\nSize Linked List %d",ll_len(listaEmpleados));
-                if(!controller_loadFromText("../files/data.csv",listaEmpleados))
+                input_getPath(nombreArchivo,BUFFER,"\nIngrese nombre de archivo: ","Nombre invalido",2);
+                strcat(path,nombreArchivo);
+                if(!controller_loadFromText(path,listaEmpleados))
                 {
-                    printf("\nDatos cargados");
+                    printf("\nArchivo |%s| cargado.",nombreArchivo);
                     counter = ll_len(listaEmpleados);
                     flag = 1;
                 }
-                printf("\nSize Linked List %d",ll_len(listaEmpleados));
+                printf("\nTotal elementos: %d",ll_len(listaEmpleados));
                 break;
             case 2: // CARGA BINARIO
                 if(flag == 1)
@@ -298,20 +301,20 @@ int controller_init()
                     printf("\nCarga realizada previamente (modo binario)");
                     break;
                 }
-                printf("\nSize Linked List %d",ll_len(listaEmpleados));
+                printf("\nTotal elementos: %d",ll_len(listaEmpleados));
                 if(!controller_loadFromBinary("../files/data.bin",listaEmpleados))
                 {
                     printf("\nDatos cargados");
                     counter = ll_len(listaEmpleados);
                     flag = 2;
                 }
-                printf("\nSize Linked List %d",ll_len(listaEmpleados));
+                printf("\nElementos cargados: %d",ll_len(listaEmpleados));
                 break;
             case 3: //ALTA
                 if(counter > 0)
                 {
                     controller_addEmployee(listaEmpleados);
-                    printf("\nSize Linked List %d",ll_len(listaEmpleados));
+                    printf("\nTotal elementos: %d",ll_len(listaEmpleados));
                     counter = ll_len(listaEmpleados);
                 }
                 else
@@ -333,7 +336,7 @@ int controller_init()
                 if(counter > 0)
                 {
                     controller_removeEmployee(listaEmpleados,listaInactivos);
-                    printf("\nSize Linked List %d",ll_len(listaEmpleados));
+                    printf("\nTotal elementos: %d",ll_len(listaEmpleados));
                     counter = ll_len(listaEmpleados);
                 }
                 else
@@ -344,6 +347,7 @@ int controller_init()
             case 6: //LISTAR
                 if(counter > 0)
                 {
+                    printf("\n<LISTAR>");
                     input_getEnteros(&option,"\n1) Empleados activos\n2) Empleados inactivos \nIngrese opcion: ","\nError",2);
                     if(option == 1)
                     {
@@ -373,9 +377,11 @@ int controller_init()
             case 8: //GUARDAR TEXTO
                 if(counter > 0)
                 {
-                    if(!controller_saveAsText("../files/data.csv",listaEmpleados))
+                    input_getPath(nombreArchivo,BUFFER,"\nIngrese nombre de archivo: ","Nombre invalido",2);
+                    strcat(path,nombreArchivo);
+                    if(!controller_saveAsText(path,listaEmpleados))
                     {
-                        printf("\nArchivo guardado.");
+                        printf("\nArchivo |%s| guardado.",nombreArchivo);
                     }
                 }
                 else
@@ -396,7 +402,20 @@ int controller_init()
                     printf("\nNo hay datos cargados");
                 }
                 break;
-            case 10: //SALIR
+             case 10: //GENERAR LISTAS
+                if(counter > 0)
+                {
+                    if(!controller_generateNewList(listaEmpleados))
+                    {
+                        printf("\nLista generada.");
+                    }
+                }
+                else
+                {
+                    printf("\nNo hay datos cargados");
+                }
+                break;
+            case 11: //SALIR
                 printf("\nSALIR");
                 break;
             default :
@@ -404,6 +423,6 @@ int controller_init()
         }
         pause();
         limpiarPantalla();
-    }while(option != 10);
+    }while(option != 11);
     return 0;
 }

@@ -26,11 +26,12 @@ int employee_modify(Employee* this,
 int employee_show(void* this);
 int employee_sort(void* pArrayListEmployee);
 int employee_hardcode(void* pArrayListEmployee,char *bufferName,char* bufferHorasTrabajadas,char* bufferSueldo);
+int employee_copy(Employee* thisA,Employee* thisB);
 int employee_calculoSueldo(void* this);
 void* employee_selectorCriterio();
 void* employee_ordenCriterio();
 int employee_searchEmpty(Employee* array[]);
-int employee_generarLista(void* pLinkedList,void* newList[]);
+int employee_generarLista(void* pLinkedList,void* newList);
 
 int employee_setId(Employee* this,char* id);
 int employee_getId(Employee* this,int* id);
