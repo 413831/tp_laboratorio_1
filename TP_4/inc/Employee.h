@@ -1,3 +1,4 @@
+#include "../inc/LinkedList.h"
 #ifndef employee_H_INCLUDED
 #define employee_H_INCLUDED
 typedef struct
@@ -31,7 +32,7 @@ int employee_calculoSueldo(void* this);
 void* employee_selectorCriterio();
 void* employee_ordenCriterio();
 int employee_searchEmpty(Employee* array[]);
-int employee_generarLista(void* pLinkedList,void* newList);
+int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],int* index);
 
 int employee_setId(Employee* this,char* id);
 int employee_getId(Employee* this,int* id);

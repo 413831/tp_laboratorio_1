@@ -763,7 +763,7 @@ int employee_calculoSueldo(void* this)
 * \param newList Es el puntero al LinkedList nuevo
 * \return Retorna 0 si el LinkedList no es NULL sino retorna -1
 */
-int employee_generarLista(void* pLinkedList,void* newList)
+int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],int* index)
 {
     int retorno = -1;
     int option;
@@ -780,35 +780,40 @@ int employee_generarLista(void* pLinkedList,void* newList)
             case 1 :
                 input_getEnteros(&from,"\nSeleccione primer indice: ","\nDato invalido",2);
                 input_getEnteros(&to,"\nSeleccione segundo indice: ","\nDato invalido",2);
-                auxLinkedList  = ll_subList(pLinkedList,from,to);
+                auxLinkedList = ll_subList(pLinkedList,from,to);
+                printf("\nSUBLIST %p",auxLinkedList);
                 if(auxLinkedList != NULL)
                 {
-                    printf("\nSTEP 1");
-                    newList = auxLinkedList;
+                    printf("\nCROP");
+                    listaPrincipal[3] = auxLinkedList;
+                    *index = 3;
                     retorno = 0;
                 }
-            break;
+                break;
             case 2 :
                 printf("\nSeleccione criterio para filtrar");
                 criterio = employee_selectorCriterio();
                 auxLinkedList  = ll_filter(pLinkedList,criterio);
                 if(auxLinkedList != NULL)
                 {
-                    printf("\nSTEP 2");
-                    newList = auxLinkedList;
+                    printf("\nFILTER");
+                    listaPrincipal[4] = auxLinkedList;
+                    *index = 4;
                     retorno = 0;
                 }
-            break;
+                break;
             case 3 :
-                auxLinkedList = ll_clone(pLinkedList);
-                if(auxLinkedList != NULL)
-                {
-                    printf("\nSTEP 3");
-                    newList = auxLinkedList;
-                    retorno = 0;
-                }
-            break;
+                printf("\nSTEP 3");
 
+                auxLinkedList = ll_clone(pLinkedList);
+                ll_containsAll(pLinkedList,auxLinkedList);
+
+                    printf("\nBACK-UP");
+                    listaPrincipal[5] = auxLinkedList;
+                    *index = 5;
+                    retorno = 0;
+
+                break;
         }
     }
     return retorno;

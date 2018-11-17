@@ -4,6 +4,8 @@
 #include <errno.h>
 #include "../inc/LinkedList.h"
 
+#define LEN_LL 5
+
 static Node* getNode(LinkedList* this, int nodeIndex);
 static int addNode(LinkedList* this, int nodeIndex,void* pElement);
 static int startIterator(LinkedList* this,Node* first);
@@ -684,6 +686,27 @@ int ll_map(LinkedList* this, int (*pFunc)(void*))
             }
         }
         resetIterator(this);
+    }
+    return retorno;
+}
+
+int ll_addLinkedList(LinkedList* pListaPrincipal[],LinkedList* pLista)
+{
+    int retorno = -1;
+    int i;
+    LinkedList* auxList;
+
+    if(pListaPrincipal != NULL && pLista != NULL)
+    {
+        for(i=2;i < LEN_LL ;i++)
+        {
+            auxList = pListaPrincipal[i];
+            if(ll_isEmpty(auxList))
+            {
+                pListaPrincipal[i] = pLista;
+                break;
+            }
+        }
     }
     return retorno;
 }
