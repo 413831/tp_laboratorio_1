@@ -18,13 +18,17 @@
  */
 int controller_loadFromText(char* path , LinkedList* pLinkedList)
 {
-    FILE* pArchivo = fopen(path,"r");
     int retorno = -1;
+    FILE* pFile = fopen(path,"r");
+
     if(pLinkedList != NULL && path != NULL)
     {
-        retorno = parser_EmployeeFromText(pArchivo,pLinkedList);
+        if(!parser_EmployeeFromText(pFile,pLinkedList))
+        {
+            retorno = 0;
+            fclose(pFile);
+        }
     }
-    fclose(pArchivo);
     return retorno;
 }
 
@@ -84,7 +88,6 @@ int controller_editEmployee(LinkedList* pLinkedList)
     {
         if(!employee_edit(pLinkedList))
         {
-            printf("\nEmployee modified :)");
             retorno = 0;
         }
     }
@@ -288,6 +291,10 @@ int controller_init()
                     counter = ll_len(listaEmpleados);
                     flag = 1;
                 }
+                else
+                {
+                    printf("\nArchivo inexistente.");
+                }
                 printf("\nTotal elementos: %d",ll_len(listaEmpleados));
                 break;
             case 2: // CARGA BINARIO
@@ -377,8 +384,10 @@ int controller_init()
             case 8: //GUARDAR TEXTO
                 if(counter > 0)
                 {
-                    input_getPath(nombreArchivo,BUFFER,"\nIngrese nombre de archivo: ","Nombre invalido",2);
-                    strcat(path,nombreArchivo);
+                    if(!input_getPath(nombreArchivo,BUFFER,"\nIngrese nombre de archivo: ","Nombre invalido",2))
+                    {
+                        strcat(path,nombreArchivo);
+                    }
                     if(!controller_saveAsText(path,listaEmpleados))
                     {
                         printf("\nArchivo |%s| guardado.",nombreArchivo);

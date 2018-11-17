@@ -24,7 +24,7 @@ void limpiarPantalla()
 }
 void pause()
 {
-    printf("\nIngrese cualquier tecla para continuar...");
+    printf("\nPresione cualquier tecla para continuar...");
     limpiarMemoria();
     getchar();
 }
@@ -133,10 +133,8 @@ int input_getString(char input[],int size)
             buffer[length-1] = '\0';
         }
         strncpy(input,buffer,size);
-
         retorno = 0;
     }while(input == NULL && size < 0);
-
     return retorno;
 }
 
@@ -212,7 +210,7 @@ int input_getEnteros(int* input,char mensaje[],char msjError[],int reintentos)
             }
         }while(reintentos>=0);
     }
-            return retorno;
+    return retorno;
 }
 
 /**
@@ -252,7 +250,7 @@ int input_getFloat(float* input,char mensaje[],char msjError[],int reintentos)
             }
         }while(reintentos>=0);
     }
-            return retorno;
+    return retorno;
 }
 
 
@@ -274,7 +272,6 @@ int input_getDNI(char input[],int size,char mensaje[],char msjError[],int reinte
                 strncpy(input,buffer,size);//Se copia string cargado a variable local
                 retorno = 0;
                 break;
-
             }
             else
             {
@@ -283,8 +280,7 @@ int input_getDNI(char input[],int size,char mensaje[],char msjError[],int reinte
 
         }while(reintentos>=0);
     }
-
-            return retorno;
+    return retorno;
 }
 
 
@@ -306,7 +302,6 @@ int input_getTelefono(char input[],int size,char mensaje[],char msjError[],int r
                 strncpy(input,buffer,size);//Se copia string cargado a variable local
                 retorno = 0;
                 break;
-
             }
             else
             {
@@ -314,10 +309,8 @@ int input_getTelefono(char input[],int size,char mensaje[],char msjError[],int r
             }
 
         }while(reintentos>=0);
-
     }
-
-            return retorno;
+    return retorno;
 }
 
 
@@ -347,10 +340,8 @@ int input_getCuit(char input[],int size,char mensaje[],char msjError[],int reint
             }
 
         }while(reintentos>=0);
-
     }
-
-            return retorno;
+    return retorno;
 }
 
 int input_getDireccion(char input[],int size,char mensaje[],char msjError[],int reintentos)
@@ -382,7 +373,7 @@ int input_getDireccion(char input[],int size,char mensaje[],char msjError[],int 
         }while(reintentos>=0);
 
     }
-            return retorno;
+    return retorno;
 }
 
 
@@ -411,5 +402,5 @@ int input_getPath(char input[],int size,char mensaje[],char msjError[],int reint
             }
         }while(reintentos>=0);
     }
-            return retorno;
+    return retorno;
 }

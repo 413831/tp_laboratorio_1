@@ -515,7 +515,6 @@ int employee_copy(Employee* thisA,Employee* thisB)
     if(thisA != NULL && thisB != NULL)
     {
         employee_getAll(thisB,bufferName,&auxHoras,&auxSueldo,&auxId);
-        employee_show(thisB);
         sprintf(bufferId,"%d",auxId);
         sprintf(bufferHorasTrabajadas,"%d",auxHoras);
         sprintf(bufferSueldo,"%.2f",auxSueldo);
@@ -525,7 +524,6 @@ int employee_copy(Employee* thisA,Employee* thisB)
         employee_setHorasTrabajadas(thisA,bufferHorasTrabajadas);
         employee_setSueldo(thisA,bufferSueldo);
 
-        employee_show(thisA);
         retorno = 0;
     }
     return retorno;
@@ -540,6 +538,7 @@ int employee_edit(void* pLinkedList)
 {
     int retorno = -1;
     int option;
+    char verification[2];
     char bufferId[BUFFER];
     int index;
     Employee* this = NULL;
@@ -554,6 +553,11 @@ int employee_edit(void* pLinkedList)
             printf("\n<MODIFICAR DATOS>");
             printf("\n1) Nombre\n2) Sueldo\n3) Horas trabajadas\n4) Volver");
             input_getEnteros(&option,"\nIngrese opcion: ","\nError.Dato invalido",2);
+
+            if(option == 4)
+            {
+                break;
+            }
             input("ID",bufferId,BUFFER,isValidId);
 
             this = employee_getById(pLinkedList,atoi(bufferId));
@@ -572,16 +576,33 @@ int employee_edit(void* pLinkedList)
 
             switch(option)
             {
-
                 case 1 :
-
                     employee_modify(auxElement,"nombre",isValidName,employee_setNombre);
+                    input_getLetras(verification,2,"\nDesea modificar dato? S/N\n","\nError.Dato invalido",2);
+                    if(!strcasecmp("s",verification))
+                    {
+                        ll_set(pLinkedList,index,auxElement);
+                        printf("\nEmployee modified :)");
+                    }
+                    pause();
                     break;
                 case 2 :
                     employee_modify(auxElement,"sueldo",isValidSueldo,employee_setSueldo);
+                    if(!strcasecmp("s",verification))
+                    {
+                        ll_set(pLinkedList,index,auxElement);
+                        printf("\nEmployee modified :)");
+                    }
+                    pause();
                     break;
                 case 3 :
                     employee_modify(auxElement,"horas trabajadas",isValidHoras,employee_setHorasTrabajadas);
+                    if(!strcasecmp("s",verification))
+                    {
+                        ll_set(pLinkedList,index,auxElement);
+                        printf("\nEmployee modified :)");
+                    }
+                    pause();
                     break;
                 case 4 :
                     break;
@@ -606,14 +627,12 @@ int employee_modify(Employee* this,
                         int (*set)(Employee*,char*))//HACER MAS GENERICA MODIFICAR CUALQUIER CAMPO
 {
     int retorno = -1;
-    char option[2];
     char buffer[BUFFER];
 
     if(this != NULL && mensaje != NULL && validacion != NULL && set != NULL)
     {
         input(mensaje,buffer,BUFFER,(*validacion));
-        input_getLetras(option,2,"\nDesea modificar dato? S/N\n","\nError.Dato invalido",2);
-        if(buffer != NULL && !strcasecmp("s",option))
+        if(buffer != NULL)
         {
             (*set)(this,buffer);
             employee_show(this);
