@@ -335,7 +335,7 @@ int ll_clear(LinkedList* this)
 }
 
 
-/** \brief Elimina todos los elementos de la lista y la lista
+/** \brief Elimina una lista
  *          Se realiza un free de la lista
  * \param this LinkedList* Puntero a la lista
  * \return int Retorna  (-1) Error: si el puntero a la lista es NULL
@@ -699,7 +699,7 @@ int ll_initLinkedList(LinkedList* pListaPrincipal[])
     {
         for(i=0;i < LEN_LL ;i++)
         {
-            pListaPrincipal[i] = NULL;
+            pListaPrincipal[i] = ll_newLinkedList();
             break;
         }
     }

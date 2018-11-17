@@ -6,7 +6,7 @@
 #include "../inc/utn.h"
 
 #define BUFFER 4000
-
+#define LEN_LL 5
 /////////////////////////////////////////////////STATIC/////////////////////////////////////////////////////////////////////
 
 /**
@@ -771,7 +771,8 @@ int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],i
     int to = 0;
     criterio_type criterio;
     void* auxLinkedList  = ll_newLinkedList();
-    input_getEnteros(&option,"\n1) Dividir lista\n2) Filtrar\n3) Copiar lista \n\nIngrese opcion: ","\nDato invalido",2);
+    printf("\n1) Dividir lista\n2) Filtrar\n3) Copiar lista\n4) Borrar lista \n");
+    input_getEnteros(&option,"\nIngrese opcion: ","\nDato invalido",2);
 
     if(pLinkedList != NULL)
     {
@@ -781,7 +782,6 @@ int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],i
                 input_getEnteros(&from,"\nSeleccione primer indice: ","\nDato invalido",2);
                 input_getEnteros(&to,"\nSeleccione segundo indice: ","\nDato invalido",2);
                 auxLinkedList = ll_subList(pLinkedList,from,to);
-                printf("\nSUBLIST %p",auxLinkedList);
                 if(auxLinkedList != NULL)
                 {
                     printf("\nCROP");
@@ -803,8 +803,6 @@ int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],i
                 }
                 break;
             case 3 :
-                printf("\nSTEP 3");
-
                 auxLinkedList = ll_clone(pLinkedList);
                 if(ll_containsAll(pLinkedList,auxLinkedList))
                 {
@@ -812,6 +810,14 @@ int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],i
                     listaPrincipal[5] = auxLinkedList;
                     *index = 5;
                     retorno = 0;
+                }
+             case 4 :
+                printf("\n1) Empleados activos\n2) Empleados inactivos \n3) Sublista\n4) Lista filtrada\n5) Back-up");
+                input_getEnteros(index,"\nSeleccione numero de lista a borrar: ","\nDato invalido",2);
+                if(*index >= 0 && *index <= LEN_LL)
+                {
+                    ll_deleteLinkedList(listaPrincipal[*index]);
+                    printf("\nLista eliminada.");
                 }
                 break;
         }
