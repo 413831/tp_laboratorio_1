@@ -78,7 +78,11 @@ static int isValidId(char* id)
     return retorno;
 }
 
-
+/**
+*\brief Filtra elemento por el campo nombre segun parametro establecido por usuario
+*\param this Es el elemento a filtrar
+*\return Retorna 0 si es correcto sino retorna 1
+*/
 static int criterioNombre(void* this)
 {
     int retorno = -1;
@@ -106,6 +110,11 @@ static int criterioNombre(void* this)
     return retorno;
 }
 
+/**
+*\brief Filtra elemento por el campo sueldo segun parametro establecido por usuario
+*\param this Es el elemento a filtrar
+*\return Retorna 0 si es correcto sino retorna 1
+*/
 static int criterioSueldo(void* this)
 {
     int retorno = -1;
@@ -133,6 +142,11 @@ static int criterioSueldo(void* this)
     return retorno;
 }
 
+/**
+*\brief Filtra elemento por el campo horas trabajadas segun parametro establecido por usuario
+*\param this Es el elemento a filtrar
+*\return Retorna 0 si es correcto sino retorna 1
+*/
 static int criterioHoras(void* this)
 {
     int retorno = -1;
@@ -160,7 +174,11 @@ static int criterioHoras(void* this)
     return retorno;
 }
 
-
+/**
+*\brief Filtra elemento por el campo id segun parametro establecido por usuario
+*\param this Es el elemento a filtrar
+*\return Retorna 0 si es correcto sino retorna 1
+*/
 static int criterioId(void* this)
 {
     int retorno = -1;
@@ -209,24 +227,7 @@ static int copyId(Employee* this,char* id)
     return retorno;
 }
 
-static int verification(LinkedList* pLinkedList,void* auxElement,int index)
-{
-    int retorno = -1;
-    char option[2];
 
-    if(pLinkedList != NULL && auxElement != NULL && index >= 0 && index <= ll_len(pLinkedList))
-    {
-        input_getLetras(option,2,"\nDesea modificar dato? S/N\n","\nError.Dato invalido",2);
-        if(!strcasecmp("s",option))
-        {
-            ll_set(pLinkedList,index,auxElement);
-            printf("\nModificacion realizada.");
-            retorno = 0;
-        }
-        pause();
-    }
-    return retorno;
-}
 ////////////SORT CRITERIOS///////////////
 
 
@@ -549,6 +550,38 @@ int employee_copy(Employee* thisA,Employee* thisB)
     return retorno;
 }
 
+/**
+*\brief Reemplaza un elemento del LinkedList por otro
+*\param pLinkedList Es el puntero al LinkedList
+*\param auxElement Es el elemento con el que se va a reemplazar
+*\param index Es el indice donde se desea reemplazar elemento
+*\return Retorna 0 si logra reemplazar sino retorna -1
+*/
+int employee_replace(LinkedList* pLinkedList,void* auxElement,int index)
+{
+    int retorno = -1;
+    char option[2];
+
+    if(pLinkedList != NULL && auxElement != NULL && index >= 0 && index <= ll_len(pLinkedList))
+    {
+        input_getLetras(option,2,"\nDesea modificar dato? S/N\n","\nError.Dato invalido",2);
+        if(!strcasecmp("s",option))
+        {
+            ll_set(pLinkedList,index,auxElement);
+            printf("\nModificacion realizada.");
+            retorno = 0;
+        }
+        pause();
+    }
+    return retorno;
+}
+
+/**
+*\brief Reincorpora un empleado en el listado de activos
+*\param pListActives Es el puntero al listado de activos
+*\param pListInactives Es el puntero al listado de inactivos
+*\return Retorna 0 si logra reincorporar sino retorna -1
+*/
 int employee_insert(LinkedList* pListActives,LinkedList* pListInactives)
 {
     int retorno = -1;
@@ -798,9 +831,14 @@ int employee_calculoSueldo(void* this)
     return retorno;
 }
 
+/**
+*\brief Funcion para borrar listados de empleados, principal y filtrados
+*\param pLinkedList Es el puntero al listado principal que contiene todos los listados
+*\return Retorna 0 si el listado principal existe sino retorna -1
+*/
 int employee_borrarLista(LinkedList* pLinkedList[])
 {
-    int retorno;
+    int retorno = -1;
     int option;
     int list;
     char verification[2];
@@ -846,7 +884,7 @@ int employee_borrarLista(LinkedList* pLinkedList[])
 
 
 /**
-* \brief Generar una lista de empleados segun filtros
+* \brief Generar una lista de empleados segun opciones, sublist, filter, clone.
 * \param this Es el puntero al LinkedList original
 * \param newList Es el puntero al LinkedList nuevo
 * \return Retorna 0 si el LinkedList no es NULL sino retorna -1
@@ -994,30 +1032,6 @@ void* employee_ordenCriterio()
 }
 
 
-/**
-*\brief Se buscan empleados inhabilitados
-*\param array Es el array de empleados para recorrer
-*\param size Es el tamaño del array
-*\return Retorna el indice del elemento sino retorna -1
-*/
-int employee_searchEmpty(Employee* array[])
-{
-    int i=0;
-    int retorno =-1;
-    if(array!=NULL)
-    {
-        do
-        {
-           if(array[i]==NULL)
-            {
-                retorno=i;
-                break;
-            }
-            i++;
-        }while(array[i]!=NULL);
-    }
-    return retorno;
-}
 /////////////////////////////////////////////SETTERS & GETTERS///////////////////////////////////////////////////////////
 
 /**

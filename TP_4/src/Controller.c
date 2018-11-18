@@ -94,7 +94,7 @@ int controller_addEmployee(LinkedList* pLinkedList)
     return retorno;
 }
 
-/** \brief Modificar datos de empleado
+/** \brief Modifica datos de empleado
  *
  * \param pLinkedList Es el LinkedList del cual se va a editar un empleado
  * \return Retorna 0 si se logra editar sino retorna -1
@@ -108,7 +108,6 @@ int controller_editEmployee(LinkedList* pLinkedList)
     {
         if(!employee_edit(pLinkedList))
         {
-
             retorno = 0;
         }
     }
@@ -116,9 +115,8 @@ int controller_editEmployee(LinkedList* pLinkedList)
 }
 
 /** \brief Baja de empleado
- *
- * \param pLinkedList Es la LinkedList de empleados activos
- * \param arrayDismissed Es la LinkedList de empleados inactivos !!!!!!!!!!!!!!!!!!!!!!!!!
+ *          El listado de bajas se guarda automaticamente
+ * \param listaPrincipal Es el array de LinkedList para utilizar listados
  * \return Retorna 0 si se logra realizar la baja sino retorna -1
  *
  */
@@ -141,6 +139,12 @@ int controller_removeEmployee(LinkedList* listaPrincipal[])
     return retorno;
 }
 
+/** \brief Reincorpora un empleado del listado de inactivos hacia el de activos
+ *
+ * \param listaPrincipal Es el array de LinkedList para utilizar listados
+ * \return Retorna 0 si se logra realizar la baja sino retorna -1
+ *
+ */
 int controller_insertEmployee(LinkedList* listaPrincipal[])
 {
     int retorno = -1;
@@ -150,6 +154,7 @@ int controller_insertEmployee(LinkedList* listaPrincipal[])
         if(!employee_insert(listaPrincipal[1],listaPrincipal[2]))
         {
             printf("\nEmpleado incorporado.");
+            retorno = 0;
         }
     }
     return retorno;
@@ -178,9 +183,9 @@ int controller_ListEmployee(LinkedList* pLinkedList)
     return retorno;
 }
 
-/** \brief Generar una nueva lista a partir de la primer lista
- *
- * \param pLinkedList Es el LinkedList del cual se va a editar un empleado
+/** \brief Genera una nueva lista a partir de la primer lista
+ *          la nueva lista se guarda como archivo
+ * \param listaPrincipal Es el array de LinkedList para utilizar listados
  * \return Retorna 0 si se logra editar sino retorna -1
  *
  */
@@ -208,7 +213,7 @@ int controller_generateNewList(LinkedList* listaPrincipal[])
     return retorno;
 }
 
-/** \brief Eliminar una lista
+/** \brief Eliminar una lista o todas las listas
  *
  * \param pLinkedList Es el LinkedList del cual se va a editar un empleado
  * \return Retorna 0 si se logra editar sino retorna -1
@@ -259,7 +264,7 @@ int controller_sortEmployee(LinkedList* pLinkedList)
 
 
 /** \brief Carga la lista temporal para deshacer todos los cambios
- *
+ *          Se reemplaza lista de activos por lista temporal
  * \param pLinkedList Es la LinkedList que se desea deshacer cambios
  * \param pLinkedListTemp Es la LinkedList de donde se toman los datos
  * \return retorna 0 si se logra ordenar sino retorna -1
@@ -282,7 +287,7 @@ int controller_undoList(LinkedList* listaPrincipal[])
     return retorno;
 }
 
-/** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
+/** \brief Guarda los datos de los empleados en archivo en la carpeta /files (modo texto).
  *
  * \param path Ruta donde se guardara el archivo
  * \param pLinkedList Es la LinkedList con los elementos a guardar
@@ -303,7 +308,7 @@ int controller_saveAsText(char* path , LinkedList* pLinkedList)
     return retorno;
 }
 
-/** \brief Guarda los datos de los empleados en el archivo data.bin (modo binario).
+/** \brief Guarda los datos de los empleados en archivo en la carpeta /files (modo binario).
  *
  * \param path Ruta donde se guardara el archivo
  * \param pLinkedList Es la LinkedList con los elementos a guardar
@@ -331,11 +336,11 @@ int controller_saveAsBinary(char* path , LinkedList* pLinkedList)
 int controller_init()
 {
     int option;
-    int counter = 0;
+    int counter = 0;//variable de seguridad del len del linkedlist
     int flag = 0;
-    LinkedList* listaPrincipal[LEN_LL];
-    char nombreArchivo[BUFFER];
-    char path[BUFFER];
+    LinkedList* listaPrincipal[LEN_LL];//Array estatico que agrupa 6 linkedlist
+    char nombreArchivo[BUFFER];//auxiliar para escribir nombre de archivo
+    char path[BUFFER];//ruta para guardar el archivo
 
     ll_initLinkedList(listaPrincipal);
     /*  lista[0] - temporal
@@ -347,7 +352,7 @@ int controller_init()
     */
     do
     {
-        if(flag == 1)
+        if(flag == 1)//Se guarda el backup en un Linkedlist temporal cada vez que se abra una archivo
         {
             listaPrincipal[0] = ll_clone(listaPrincipal[1]);
             controller_saveAsBinary("../files/temp.bin",listaPrincipal[0]);
@@ -363,14 +368,14 @@ int controller_init()
         switch(option)
         {
             case 1: //ABRIR ARCHIVO
-                strcpy(path,"../files/");
+                strcpy(path,"../files/");//Seteo el path predeterminado
                 if(!input_getEnteros(&option,"\n1) Abrir modo texto\n2) Abrir en modo binario\n>> ","\nError",2))
                 {
                     if(!input_getPath(nombreArchivo,BUFFER,"\nIngrese nombre de archivo: ","Nombre invalido",2))
                     {
-                        strcat(path,nombreArchivo);
+                        strcat(path,nombreArchivo);//Union entre nombre de archivo y path
                     }
-                    if(!controller_loadFromText(path,listaPrincipal[1]))
+                    if(!controller_loadFromText(path,listaPrincipal[1]))//Cargo el archivo
                     {
                         printf("\nArchivo |%s| cargado.",nombreArchivo);
                         counter = ll_len(listaPrincipal[1]);
@@ -393,7 +398,7 @@ int controller_init()
                 if(counter > 0)
                 {
                     limpiarPantalla();
-                    printf("<LISTAR>");
+                    printf("<LISTAR>");//Selecciono lista para mostrar
                     printf("\n1) Empleados activos\n2) Empleados inactivos \n3) Sublista\n4) Lista filtrada\n5) Back-up");
                     input_getEnteros(&option,"\nIngrese opcion: ","\nError",2);
                     if(option >= 1 && option <= 5 )
@@ -409,7 +414,7 @@ int controller_init()
             case 3: //ALTA
                 if(counter > 0)
                 {
-                    controller_addEmployee(listaPrincipal[1]);
+                    controller_addEmployee(listaPrincipal[1]);//Realizo un alta en la lista de activos
                     printf("\nTotal empleados: %d",ll_len(listaPrincipal[1]));
                     counter = ll_len(listaPrincipal[1]);//Cantidad de empleados
                 }
@@ -431,7 +436,7 @@ int controller_init()
             case 5: //BAJA
                 if(counter > 0)
                 {
-                    controller_removeEmployee(listaPrincipal);
+                    controller_removeEmployee(listaPrincipal);//Se realiza una baja en activos y alta en inactivos
                     printf("\nTotal empleados: %d",ll_len(listaPrincipal[1]));
                     counter = ll_len(listaPrincipal[1]);//Cantidad de empleados
                 }
@@ -453,6 +458,7 @@ int controller_init()
             case 7 : //GUARDAR ARCHIVO
                 if(counter > 0)
                 {
+                    strcpy(path,"../files/");//Seteo el path predeterminado
                     input_getPath(nombreArchivo,BUFFER,"\nGuardar como: ","Nombre invalido",2);
                     strcat(path,nombreArchivo);
 
@@ -496,7 +502,7 @@ int controller_init()
                 }
                 break;
             case 10 : //INSERTAR EMPLEADO
-                if(ll_len(listaPrincipal[2]) > 0)
+                if(ll_len(listaPrincipal[2]) > 0)//Verifico si existen empleados de baja
                 {
                     controller_insertEmployee(listaPrincipal);
                     counter = ll_len(listaPrincipal[1]);
