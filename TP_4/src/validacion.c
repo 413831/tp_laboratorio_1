@@ -270,15 +270,15 @@ int validacion_File(char* array,int size)
        retorno = 1;
        for(i=0;i < size && array[i] != '\0';i++)
        {
-            if((array[0] == '.') &&
-            (array[i] < 'a' || array[i] > 'z') &&
-            (array[i] < 'A' || array[i] > 'Z') &&
-            (array[i] < '0' || array[i] > '9') &&
-            (array[size-1] == '.') &&
-             contadorSimbolos > 1  )
+            if(array[0] == '.' &&
+                (array[i] < 'a' || array[i] > 'z') &&
+                (array[i] < 'A' || array[i] > 'Z') &&
+                (array[i] < '0' || array[i] > '9') &&
+                (array[size-1] == '.' &&
+                contadorSimbolos > 1))
             {
                 retorno = 0;
-            break;
+                break;
             }
 
             if(array[i] == '.')

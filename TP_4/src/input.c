@@ -88,6 +88,7 @@ int input(char* message,char* value,int size, int (*validation)(char*))
 
     if(value != NULL)
     {
+        limpiarMemoria();
         do
         {
             printf("\nIngrese %s: ",message);

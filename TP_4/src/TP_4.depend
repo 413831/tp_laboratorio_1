@@ -66,18 +66,19 @@
 	<ctype.h>
 	"../inc/utn.h"
 
-1542506391 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/Controller.c
+1542559637 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/Controller.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<errno.h>
+	<time.h>
 	"../inc/Controller.h"
 	"../inc/LinkedList.h"
 	"../inc/Employee.h"
 	"../inc/utn.h"
 	"../inc/parser.h"
 
-1542499461 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/inc/Controller.h
+1542559617 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/inc/Controller.h
 	"../inc/LinkedList.h"
 	"../inc/Employee.h"
 
@@ -90,7 +91,7 @@
 
 1542387105 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/inc/parser.h
 
-1542506087 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/Employee.c
+1542507951 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/Employee.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -98,20 +99,20 @@
 	"../inc/LinkedList.h"
 	"../inc/utn.h"
 
-1542465872 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/input.c
+1542547898 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/input.c
 	<stdio_ext.h>
 	<stdlib.h>
 	<string.h>
 	"../inc/utn.h"
 
-1542496576 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/LinkedList.c
+1542556319 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/LinkedList.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<errno.h>
 	"../inc/LinkedList.h"
 
-1542387105 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/main.c
+1542551924 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/main.c
 	<stdio.h>
 	<stdlib.h>
 	"../inc/Controller.h"
@@ -128,7 +129,7 @@
 	"../inc/utn.h"
 	"../inc/parser.h"
 
-1542471778 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/validacion.c
+1542556304 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/validacion.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

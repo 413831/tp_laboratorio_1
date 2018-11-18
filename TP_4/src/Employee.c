@@ -90,7 +90,7 @@ static int criterioNombre(void* this)
     {
         if(flag == 0)
         {
-            input("\n>>Filtrar listado por un nombre\nIngrese nombre: ",paramName,BUFFER,isValidName);
+            input("\n>>Ingrese nombre: ",paramName,BUFFER,isValidName);
             flag = 1;
         }
         employee_getNombre(this,elementName);
@@ -117,7 +117,7 @@ static int criterioSueldo(void* this)
     {
         if(flag == 0)
         {
-            input("\n>>Filtrar sueldos mayores a cifra\nIngrese cifra: ",paramSueldo,BUFFER,isValidSueldo);
+            input("\n>>Sueldos mayores a cifra\nIngrese cifra: ",paramSueldo,BUFFER,isValidSueldo);
             flag = 1;
         }
         employee_getSueldo(this,&elementSalary);
@@ -870,11 +870,14 @@ int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],i
                     auxLinkedList = ll_subList(pLinkedList,from,to);
                     if(auxLinkedList != NULL)
                     {
-                        printf("\nCROP");
                         listaPrincipal[3] = auxLinkedList;
                         *index = 3;
                         retorno = 0;
                     }
+                }
+                else
+                {
+                    printf("\nIndice invalido.");
                 }
                 break;
             case 2 :
@@ -883,7 +886,6 @@ int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],i
                 auxLinkedList  = ll_filter(pLinkedList,criterio);
                 if(auxLinkedList != NULL)
                 {
-                    printf("\nFILTER");
                     listaPrincipal[4] = auxLinkedList;
                     *index = 4;
                     retorno = 0;
@@ -894,7 +896,6 @@ int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],i
                 auxLinkedList = ll_clone(pLinkedList);
                 if(ll_containsAll(pLinkedList,auxLinkedList))
                 {
-                    printf("\nBACK-UP");
                     listaPrincipal[5] = auxLinkedList;
                     *index = 5;
                     retorno = 0;
