@@ -220,7 +220,7 @@ static int verification(LinkedList* pLinkedList,void* auxElement,int index)
         if(!strcasecmp("s",option))
         {
             ll_set(pLinkedList,index,auxElement);
-            printf("\nEmployee modified :)");
+            printf("\nModificacion realizada.");
             retorno = 0;
         }
         pause();
@@ -798,42 +798,48 @@ int employee_calculoSueldo(void* this)
     return retorno;
 }
 
-int employee_borrarLista(LinkedList* pLinkedList)
+int employee_borrarLista(LinkedList* pLinkedList[])
 {
     int retorno;
     int option;
+    int list;
     char verification[2];
 
-    if(pLinkedList != NULL && !ll_isEmpty(pLinkedList))
+    if(pLinkedList != NULL)
     {
-        printf("\n1) Vaciar lista\n2) Eliminar lista\n3) Volver");
+        printf("\n1) Vaciar lista\n2) Eliminar todas las listas\n3) Volver");
         input_getEnteros(&option,"\nIngrese opcion: ","\nDato invalido",2);
 
         switch(option)
         {
             case 1 :
+                printf("\n1) Empleados activos\n2) Empleados inactivos \n3) Sublista\n4) Lista filtrada\n5) Todas las listas");
+                input_getEnteros(&list,"\nSeleccione lista: ","\nError",2);
                 input_getLetras(verification,2,"\nATENCION!\nDesea vaciar lista? S/N\n","\nError.",2);
-                if(!strcasecmp("s",verification))
+                if(list >= 1 && list <= 5 && !ll_isEmpty(pLinkedList[list]) && !strcasecmp("s",verification))
                 {
-                    if(!ll_clear(pLinkedList))
+                    if(!ll_clear(pLinkedList[list]))
                     {
                         printf("\nLista vaciada.");//BORRAR IF
                     }
                 }
                 break;
             case 2 :
-                input_getLetras(verification,2,"\nATENCION!\nDesea eliminar lista? S/N\n","\nError.",2);
+                printf("\nATENCION! Las sublistas no se recuperan.");
+                input_getLetras(verification,2,"\nDesea eliminar todas las listas? S/N\n","\nError.",2);
                 if(!strcasecmp("s",verification))
                 {
-                    if(ll_deleteLinkedList(pLinkedList))
+                    if(!ll_freeLinkedList(pLinkedList))
                     {
-                        printf("\nLista eliminada.");
+                        ll_initLinkedList(pLinkedList);
+                        printf("\nListas eliminadas.");
                     }
                 }
             case 3 :
                 break;
         }
         retorno = 0;
+
     }
     return retorno;
 }
@@ -927,18 +933,22 @@ void* employee_selectorCriterio()
     {
         case 1 :
             printf("\nFiltrar por nombre");
+            criterioNombre(NULL);
             retorno = criterioNombre;
             break;
         case 2 :
             printf("\nFiltrar por sueldo");
+            criterioSueldo(NULL);
             retorno = criterioSueldo;
             break;
         case 3 :
             printf("\nFiltrar por horas trabajadas");
+            criterioHoras(NULL);
             retorno = criterioHoras;
             break;
         case 4 :
             printf("\nFiltrar por ID");
+            criterioId(NULL);
             retorno = criterioId;
             break;
         default :

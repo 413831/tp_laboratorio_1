@@ -34,7 +34,7 @@ void* employee_selectorCriterio();
 void* employee_ordenCriterio();
 int employee_searchEmpty(Employee* array[]);
 int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],int* index);
-int employee_borrarLista(LinkedList* pLinkedList);
+int employee_borrarLista(LinkedList* pLinkedList[]);
 
 int employee_setId(Employee* this,char* id);
 int employee_getId(Employee* this,int* id);

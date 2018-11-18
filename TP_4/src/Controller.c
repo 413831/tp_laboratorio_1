@@ -108,7 +108,7 @@ int controller_editEmployee(LinkedList* pLinkedList)
     {
         if(!employee_edit(pLinkedList))
         {
-            printf("\nModificacion realizada.");
+
             retorno = 0;
         }
     }
@@ -214,12 +214,13 @@ int controller_generateNewList(LinkedList* listaPrincipal[])
  * \return Retorna 0 si se logra editar sino retorna -1
  *
  */
-int controller_deleteList(LinkedList* pLinkedList)
+int controller_deleteList(LinkedList* pLinkedList[])
 {
     int retorno = -1;
 
     if(pLinkedList != NULL)
     {
+        printf("<BORRAR LISTA>");
         if(!employee_borrarLista(pLinkedList))
         {
             retorno = 0;
@@ -293,6 +294,7 @@ int controller_saveAsText(char* path , LinkedList* pLinkedList)
     FILE* pArchivo = fopen(path,"w");
     int retorno = -1;
 
+    printf("<GUARDAR TEXTO>");
     if(pArchivo != NULL && !parser_SaveToText(pArchivo,pLinkedList))
     {
         retorno = 0;
@@ -448,16 +450,18 @@ int controller_init()
                     printf("\nNo hay datos cargados");
                 }
                 break;
-            case 7 : //GUARDAR TEXTO
+            case 7 : //GUARDAR ARCHIVO
                 if(counter > 0)
                 {
-                    printf("<GUARDAR TEXTO>");
-                    input_getPath(nombreArchivo,BUFFER,"\nIngrese nombre de archivo: ","Nombre invalido",2);
-
+                    input_getPath(nombreArchivo,BUFFER,"\nGuardar como: ","Nombre invalido",2);
                     strcat(path,nombreArchivo);
 
-                    input_getEnteros(&option,"\n1) Abrir modo texto\n2) Abrir en modo binario: ","\nError",2);
-                    if(!controller_saveAsText(path,listaPrincipal[1]))
+                    input_getEnteros(&option,"\n1) Modo texto\n2) Modo binario: ","\nError",2);
+                    if(option == 1 && !controller_saveAsText(path,listaPrincipal[1]))
+                    {
+                        printf("\nArchivo |%s| guardado.",nombreArchivo);
+                    }
+                    else if(option == 2 && !controller_saveAsBinary(path,listaPrincipal[1]))
                     {
                         printf("\nArchivo |%s| guardado.",nombreArchivo);
                     }
@@ -484,11 +488,7 @@ int controller_init()
                 if(counter > 0)
                 {
                     limpiarPantalla();
-                    printf("<BORRAR LISTA>");
-                    printf("\n1) Empleados activos\n2) Empleados inactivos \n3) Sublista\n4) Lista filtrada\n5) Back-up");
-                    input_getEnteros(&option,"\nIngrese opcion: ","\nError",2);
-
-                    controller_deleteList(listaPrincipal[option]);
+                    controller_deleteList(listaPrincipal);
                 }
                 else
                 {
@@ -496,7 +496,7 @@ int controller_init()
                 }
                 break;
             case 10 : //INSERTAR EMPLEADO
-                if(ll_len(listaPrincipal[2] > 0)
+                if(ll_len(listaPrincipal[2]) > 0)
                 {
                     controller_insertEmployee(listaPrincipal);
                     counter = ll_len(listaPrincipal[1]);
@@ -511,6 +511,7 @@ int controller_init()
                 {
                     if(!controller_undoList(listaPrincipal))
                     {
+                        printf("\nCambios descartados.");
                         counter = ll_len(listaPrincipal[1]);
                     }
                 }

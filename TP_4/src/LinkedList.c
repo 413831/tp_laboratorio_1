@@ -598,7 +598,7 @@ int ll_sort(LinkedList* this, int (*pFunc)(void*,void*), int order)
 
             for(i=0;i<ll_len(this)-1;i++)
             {
-                elementA = auxElement;//Se setea el elemento auxiliar como el primer para comparar
+                elementA = auxElement;//Se setea el elemento auxiliar como el primero para comparar
                 elementB = getNext(this);//Se hace el get del siguiente elemento al auxiliar
 
                 if(elementA != NULL && elementB != NULL)
@@ -620,8 +620,9 @@ int ll_sort(LinkedList* this, int (*pFunc)(void*,void*), int order)
                     }
                 }
             }
+            resetIterator(this);
         }while(flagSwap == 1);
-        resetIterator(this);
+
         returnAux = 0;
     }
     return returnAux;
@@ -701,6 +702,23 @@ int ll_initLinkedList(LinkedList* pListaPrincipal[])
         {
             pListaPrincipal[i] = ll_newLinkedList();
         }
+        retorno = 0;
+    }
+    return retorno;
+}
+
+int ll_freeLinkedList(LinkedList* pListaPrincipal[])
+{
+    int retorno = -1;
+    int i;
+
+    if(pListaPrincipal != NULL)
+    {
+        for(i=1;i < LEN_LL ;i++)
+        {
+            ll_deleteLinkedList(pListaPrincipal[i]);
+        }
+        retorno = 0;
     }
     return retorno;
 }
