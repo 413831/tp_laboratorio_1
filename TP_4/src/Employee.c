@@ -549,6 +549,47 @@ int employee_copy(Employee* thisA,Employee* thisB)
     return retorno;
 }
 
+int employee_insert(LinkedList* pListActives,LinkedList* pListInactives)
+{
+    int retorno = -1;
+    char bufferId[BUFFER];
+    Employee* auxEmployee;
+    Employee* prevEmployee;
+    int index;
+    int idIngresado;
+
+    if(pListActives != NULL && pListInactives != NULL)
+    {
+        printf("\n<CAMBIAR STATUS EMPLEADO>");
+        ll_map(pListInactives,employee_show);//Muestro los datos del empleado inactivo
+        printf("\nSeleccione ID de empleado");
+
+        input("ID",bufferId,BUFFER,isValidId);
+        idIngresado= atoi(bufferId);
+
+        auxEmployee = employee_getById(pListInactives,idIngresado);//Obtengo el empleado inactivo seleccionado
+        if(auxEmployee != NULL)
+        {
+            employee_show(auxEmployee);
+
+            do//Se busca el anterior al ID ingresado hasta encontrar elemento valido
+            {
+                prevEmployee = employee_getById(pListActives,idIngresado-1);
+                idIngresado--;
+            }
+            while(prevEmployee == NULL);
+
+            index = ll_indexOf(pListActives,prevEmployee);
+            ll_push(pListActives,index+1,auxEmployee);//Se reincorpora el empleado inactivo
+            index = ll_indexOf(pListInactives,auxEmployee);//Busco indice del empleado inactivo en listado de bajas
+            ll_remove(pListInactives,index);
+            retorno = 0;
+        }
+    }
+    return retorno;
+}
+
+
 /**
 *\brief Se busca elemento por ID a modificar con opciones de campos
 *\param pLinkedList Es el array a recorrer
@@ -977,8 +1018,7 @@ int employee_searchEmpty(Employee* array[])
 int employee_setId(Employee* this,char* id)
 {
     int retorno=-1;
-    static int proximoId=0;
-    static int mayorId = proximoId;
+    static int proximoId= 0;
     int auxId = atoi(id);
 
     if(this!=NULL && auxId==0)//Se carga primer ID y en el ALTA

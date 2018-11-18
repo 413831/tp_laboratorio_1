@@ -129,8 +129,10 @@ int controller_insertEmployee(LinkedList* pListActives,LinkedList* pListInactive
 
     if(pListActives != NULL && pListInactives != NULL)
     {
-        ll_map(pListInactives,employee_show);
-
+        if(!employee_insert(pListActives,pListInactives))
+        {
+            printf("\nEmpleado incorporado.");
+        }
     }
     return retorno;
 }
@@ -303,8 +305,8 @@ int controller_init()
     do
     {
         printf("\n>>MENU<<\n1) Abrir archivo (modo texto)\n2) Carga de archivo (modo binario)");
-        printf("\n3) Alta\n4) Editar\n5) Baja\n6) Listar activos o inactivos\n7) Ordenar");
-        printf("\n8) Guardar (modo texto)\n9) Guardar (modo binario)\n10) Generar listas\n11) Eliminar lista\n12) Salir");
+        printf("\n3) Alta\n4) Editar\n5) Baja\n6) Listar activos o inactivos\n7) Ordenar\n8) Guardar (modo texto)");
+        printf("\n9) Guardar (modo binario)\n10) Generar listas\n11) Eliminar lista\n12) Reincorporar empleado\n13) Salir");
         input_getEnteros(&option,"\nIngrese opcion: ","\nDato invalido",2);
 
         switch(option)
@@ -477,7 +479,7 @@ int controller_init()
             case 12 :
                 if(counter > 0)
                 {
-                    controller_readdEmployee(listaEmpleados);
+                    controller_insertEmployee(listaPrincipal[1],listaPrincipal[2]);
                     counter = ll_len(listaEmpleados);
                 }
                 else

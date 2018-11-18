@@ -28,6 +28,7 @@ int employee_show(void* this);
 int employee_sort(void* pArrayListEmployee);
 int employee_hardcode(void* pArrayListEmployee,char *bufferName,char* bufferHorasTrabajadas,char* bufferSueldo);
 int employee_copy(Employee* thisA,Employee* thisB);
+int employee_insert(LinkedList* pListActives,LinkedList* pListInactives);
 int employee_calculoSueldo(void* this);
 void* employee_selectorCriterio();
 void* employee_ordenCriterio();
