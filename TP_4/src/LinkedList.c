@@ -4,7 +4,7 @@
 #include <errno.h>
 #include "../inc/LinkedList.h"
 
-#define LEN_LL 5
+#define LEN_LL 6
 
 static Node* getNode(LinkedList* this, int nodeIndex);
 static int addNode(LinkedList* this, int nodeIndex,void* pElement);
@@ -31,7 +31,7 @@ static int startIterator(LinkedList* this,Node* first)
 }
 
 /***
- * \brief Resetea la variable itNode (iterador) setandola en NULL
+ * \brief Resetea la variable itNode (iterador) seteandola en NULL
  * \param this Es el Linkedlist del cual se realiza el set del itNode
  * \return Retorna 0 si this es diferente a NULL sino retorna -1
 */
@@ -325,7 +325,7 @@ int ll_clear(LinkedList* this)
 
     if(this != NULL)
     {
-        for(i=0;i<ll_len(this);i++)
+        for(i=ll_len(this)-1;i>=0;i--)
         {
             ll_remove(this,i);
         }
@@ -700,7 +700,6 @@ int ll_initLinkedList(LinkedList* pListaPrincipal[])
         for(i=0;i < LEN_LL ;i++)
         {
             pListaPrincipal[i] = ll_newLinkedList();
-            break;
         }
     }
     return retorno;

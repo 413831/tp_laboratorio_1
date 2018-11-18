@@ -17,7 +17,7 @@ Employee* employee_new();
 Employee* employee_newConParametros(char* id,char* nombre,char* horasTrabajadas,char* sueldo);
 Employee* employee_getById(void* pArrayListEmployee,int idIngresado);
 int employee_add(void* pArrayListEmployee);
-int employee_remove(void* pLinkedList,void* pListInactive);
+int employee_remove(void* pLinkedList,void* pListInactives);
 int employee_delete(Employee* this);
 int employee_edit(void* pArrayListEmployee);
 int employee_modify(Employee* this,
@@ -33,6 +33,7 @@ void* employee_selectorCriterio();
 void* employee_ordenCriterio();
 int employee_searchEmpty(Employee* array[]);
 int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],int* index);
+int employee_borrarLista(LinkedList* pLinkedList);
 
 int employee_setId(Employee* this,char* id);
 int employee_getId(Employee* this,int* id);

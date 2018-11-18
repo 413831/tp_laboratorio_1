@@ -66,30 +66,31 @@
 	<ctype.h>
 	"../inc/utn.h"
 
-1542477694 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/Controller.c
+1542498521 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/Controller.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	<errno.h>
 	"../inc/Controller.h"
 	"../inc/LinkedList.h"
 	"../inc/Employee.h"
 	"../inc/utn.h"
 	"../inc/parser.h"
 
-1542469540 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/inc/Controller.h
+1542499461 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/inc/Controller.h
 	"../inc/LinkedList.h"
 	"../inc/Employee.h"
 
 1542472678 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/inc/LinkedList.h
 
-1542469614 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/inc/Employee.h
+1542499545 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/inc/Employee.h
 	"../inc/LinkedList.h"
 
 1542414788 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/inc/utn.h
 
 1542387105 /home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/inc/parser.h
 
-1542479098 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/Employee.c
+1542498684 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/Employee.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -103,7 +104,7 @@
 	<string.h>
 	"../inc/utn.h"
 
-1542477264 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/LinkedList.c
+1542496576 source:/home/alexei/Documents/UTN/tp_laboratorio_1/TP_4/src/LinkedList.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

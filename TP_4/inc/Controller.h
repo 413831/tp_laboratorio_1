@@ -5,7 +5,7 @@ int controller_loadFromText(char* path , LinkedList* pLinkedList);
 int controller_loadFromBinary(char* path , LinkedList* pLinkedList);
 int controller_addEmployee(LinkedList* pLinkedList);
 int controller_editEmployee(LinkedList* pLinkedList);
-int controller_removeEmployee(LinkedList* pLinkedList,LinkedList* pListInactive);
+int controller_removeEmployee(LinkedList* pListActives,LinkedList* pListInactives);
 int controller_ListEmployee(LinkedList* pLinkedList);
 
 int controller_generateNewList(LinkedList* pLinkedList,LinkedList* listaPrincipal[]);

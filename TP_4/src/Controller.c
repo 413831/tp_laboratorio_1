@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include "../inc/Controller.h"
 #include "../inc/LinkedList.h"
 #include "../inc/Employee.h"
@@ -8,7 +9,9 @@
 #include "../inc/parser.h"
 
 #define BUFFER 4000
-#define LEN_LL 5
+#define LEN_LL 6
+
+extern int errno ;
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
  *
  * \param path Ruta del archivo para leer
@@ -101,23 +104,37 @@ int controller_editEmployee(LinkedList* pLinkedList)
  * \return Retorna 0 si se logra realizar la baja sino retorna -1
  *
  */
-int controller_removeEmployee(LinkedList* pLinkedList,LinkedList* pListInactive)
+int controller_removeEmployee(LinkedList* pListActives,LinkedList* pListInactives)
 {
     int retorno = -1;
+    char path[BUFFER] = {"../files/bajas.csv"};
 
     limpiarPantalla();
-    if(pLinkedList != NULL)
+    if(pListActives != NULL)
     {
         printf("\n<BAJA>");
-        if(!employee_remove(pLinkedList,pListInactive))
+        if(!employee_remove(pListActives,pListInactives))
         {
+            controller_saveAsText(path,pListInactives);
             printf("\nEmployee removed :(");
             retorno = 0;
         }
     }
     return retorno;
-    return 1;
 }
+
+int controller_insertEmployee(LinkedList* pListActives,LinkedList* pListInactives)
+{
+    int retorno = -1;
+
+    if(pListActives != NULL && pListInactives != NULL)
+    {
+        ll_map(pListInactives,employee_show);
+
+    }
+    return retorno;
+}
+
 
 /** \brief Listar empleados
  *
@@ -129,7 +146,7 @@ int controller_ListEmployee(LinkedList* pLinkedList)
 {
     int retorno = -1;
 
-    if(pLinkedList != NULL)
+    if(pLinkedList != NULL && !ll_isEmpty(pLinkedList))
     {
         ll_map(pLinkedList,employee_show);
         printf("\nSize Linked List %d",ll_len(pLinkedList));
@@ -141,7 +158,7 @@ int controller_ListEmployee(LinkedList* pLinkedList)
     return retorno;
 }
 
-/** \brief Modificar datos de empleado
+/** \brief Generar una nueva lista a partir de la primer lista
  *
  * \param pLinkedList Es el LinkedList del cual se va a editar un empleado
  * \return Retorna 0 si se logra editar sino retorna -1
@@ -175,6 +192,29 @@ int controller_generateNewList(LinkedList* pLinkedList,LinkedList* listaPrincipa
     return retorno;
 }
 
+/** \brief Eliminar una lista
+ *
+ * \param pLinkedList Es el LinkedList del cual se va a editar un empleado
+ * \return Retorna 0 si se logra editar sino retorna -1
+ *
+ */
+int controller_deleteList(LinkedList* pLinkedList)
+{
+    int retorno = -1;
+
+    if(pLinkedList != NULL)
+    {
+        if(!employee_borrarLista(pLinkedList))
+        {
+            retorno = 0;
+        }
+    }
+    else
+    {
+        printf("\nLista inexistente.");
+    }
+    return retorno;
+}
 
 /** \brief Ordenar empleados por criterio y orden
  *
@@ -216,7 +256,6 @@ int controller_saveAsText(char* path , LinkedList* pLinkedList)
 
     if(pArchivo != NULL && !parser_SaveToText(pArchivo,pLinkedList))
     {
-        printf("\n<GUARDAR TEXTO>");
         printf("\nArchivo %s guardado",path);
         retorno = 0;
     }
@@ -238,7 +277,6 @@ int controller_saveAsBinary(char* path , LinkedList* pLinkedList)
 
     if(pArchivo != NULL && !parser_SaveToBinary(pArchivo,pLinkedList))
     {
-        printf("\n<GUARDAR BINARIO>");
         printf("\nArchivo %s guardado",path);
         retorno = 0;
     }
@@ -258,17 +296,15 @@ int controller_init()
     int flag = 0;
     LinkedList* listaPrincipal[LEN_LL];
     LinkedList* listaEmpleados = ll_newLinkedList();
-    LinkedList* listaInactivos = ll_newLinkedList();
     char nombreArchivo[BUFFER];
     char path[BUFFER] = {"../files/"};
-    ll_initLinkedList(listaPrincipal);
-    int isEmpty;
 
+    ll_initLinkedList(listaPrincipal);
     do
     {
         printf("\n>>MENU<<\n1) Abrir archivo (modo texto)\n2) Carga de archivo (modo binario)");
         printf("\n3) Alta\n4) Editar\n5) Baja\n6) Listar activos o inactivos\n7) Ordenar");
-        printf("\n8) Guardar (modo texto)\n9) Guardar (modo binario)\n10) Generar listas\n11) Salir");
+        printf("\n8) Guardar (modo texto)\n9) Guardar (modo binario)\n10) Generar listas\n11) Eliminar lista\n12) Salir");
         input_getEnteros(&option,"\nIngrese opcion: ","\nDato invalido",2);
 
         switch(option)
@@ -290,14 +326,14 @@ int controller_init()
                 {
                     printf("\nArchivo |%s| cargado.",nombreArchivo);
                     listaPrincipal[1] = listaEmpleados;
-                    counter = ll_len(listaEmpleados);
+                    counter = ll_len(listaPrincipal[1]);
                     flag = 1;
                 }
                 else
                 {
                     printf("\nArchivo inexistente.");
                 }
-                printf("\nTotal elementos: %d",ll_len(listaEmpleados));
+                printf("\nTotal elementos: %d",ll_len(listaPrincipal[1]));
                 break;
             case 2: // CARGA BINARIO
                 if(flag == 1)
@@ -310,20 +346,20 @@ int controller_init()
                     printf("\nCarga realizada previamente (modo binario)");
                     break;
                 }
-                printf("\nTotal elementos: %d",ll_len(listaEmpleados));
-                if(!controller_loadFromBinary("../files/data.bin",listaEmpleados))
+                printf("\nTotal elementos: %d",ll_len(listaPrincipal[1]));
+                if(!controller_loadFromBinary("../files/data.bin",listaPrincipal[1]))
                 {
                     printf("\nDatos cargados");
-                    counter = ll_len(listaEmpleados);
+                    counter = ll_len(listaPrincipal[1]);
                     flag = 2;
                 }
-                printf("\nElementos cargados: %d",ll_len(listaEmpleados));
+                printf("\nElementos cargados: %d",ll_len(listaPrincipal[1]));
                 break;
             case 3: //ALTA
                 if(counter > 0)
                 {
-                    controller_addEmployee(listaEmpleados);
-                    printf("\nTotal elementos: %d",ll_len(listaEmpleados));
+                    controller_addEmployee(listaPrincipal[1]);
+                    printf("\nTotal elementos: %d",ll_len(listaPrincipal[1]));
                     counter = ll_len(listaEmpleados);
                 }
                 else
@@ -334,7 +370,7 @@ int controller_init()
             case 4: //MODIFICACION
                 if(counter > 0)
                 {
-                    controller_editEmployee(listaEmpleados);
+                    controller_editEmployee(listaPrincipal[1]);
                 }
                 else
                 {
@@ -344,8 +380,8 @@ int controller_init()
             case 5: //BAJA
                 if(counter > 0)
                 {
-                    controller_removeEmployee(listaEmpleados,listaInactivos);
-                    printf("\nTotal elementos: %d",ll_len(listaEmpleados));
+                    controller_removeEmployee(listaPrincipal[1],listaPrincipal[2]);
+                    printf("\nTotal elementos: %d",ll_len(listaPrincipal[1]));
                     counter = ll_len(listaEmpleados);
                 }
                 else
@@ -360,12 +396,8 @@ int controller_init()
                     printf("\n<LISTAR>");
                     printf("\n1) Empleados activos\n2) Empleados inactivos \n3) Sublista\n4) Lista filtrada\n5) Back-up");
                     input_getEnteros(&option,"\nIngrese opcion: ","\nError",2);
-                    isEmpty = ll_isEmpty(listaPrincipal[option]);
-                    printf("\nIsEmpty %d",isEmpty);
-                    if(option >= 1 && option <= 5 && isEmpty == 0)
-                    {
-                        controller_ListEmployee(listaPrincipal[option]);
-                    }
+
+                    controller_ListEmployee(listaPrincipal[option]);
                 }
                 else
                 {
@@ -385,6 +417,7 @@ int controller_init()
             case 8: //GUARDAR TEXTO
                 if(counter > 0)
                 {
+                    printf("\n<GUARDAR TEXTO>");
                     if(!input_getPath(nombreArchivo,BUFFER,"\nIngrese nombre de archivo: ","Nombre invalido",2))
                     {
                         strcat(path,nombreArchivo);
@@ -402,6 +435,7 @@ int controller_init()
             case 9: //GUARDAR BINARIO
                 if(counter > 0)
                 {
+                    printf("\n<GUARDAR BINARIO>");
                     if(!controller_saveAsBinary(".../files/data.bin",listaEmpleados))
                     {
                         printf("\nArchivo guardado.");
@@ -425,7 +459,33 @@ int controller_init()
                     printf("\nNo hay datos cargados");
                 }
                 break;
-            case 11: //SALIR
+            case 11: //BORRAR LISTAS
+                if(counter > 0)
+                {
+                    limpiarPantalla();
+                    printf("\n<BORRAR LISTA>");
+                    printf("\n1) Empleados activos\n2) Empleados inactivos \n3) Sublista\n4) Lista filtrada\n5) Back-up");
+                    input_getEnteros(&option,"\nIngrese opcion: ","\nError",2);
+
+                    controller_deleteList(listaPrincipal[option]);
+                }
+                else
+                {
+                    printf("\nNo hay datos cargados");
+                }
+                break;
+            case 12 :
+                if(counter > 0)
+                {
+                    controller_readdEmployee(listaEmpleados);
+                    counter = ll_len(listaEmpleados);
+                }
+                else
+                {
+                    printf("\nNo hay datos cargados");
+                }
+                break;
+            case 13: //SALIR
                 printf("\nSALIR");
                 break;
             default :
@@ -433,6 +493,6 @@ int controller_init()
         }
         pause();
         limpiarPantalla();
-    }while(option != 11);
+    }while(option != 13);
     return 0;
 }

@@ -6,7 +6,8 @@
 #include "../inc/utn.h"
 
 #define BUFFER 4000
-#define LEN_LL 5
+#define LEN_LL 6
+
 /////////////////////////////////////////////////STATIC/////////////////////////////////////////////////////////////////////
 
 /**
@@ -466,7 +467,7 @@ int employee_add(void* pLinkedList)
 *\param pArray Es el array para recorrer
 *\return Retorna 0 si existe el ID sino retorna -1
 */
-int employee_remove(void* pLinkedList,void* pListInactive)
+int employee_remove(void* pLinkedList,void* pListInactives)
 {
     Employee* this = NULL;
     int retorno = -1;
@@ -485,8 +486,8 @@ int employee_remove(void* pLinkedList,void* pListInactive)
             {
                 index = ll_indexOf(pLinkedList,this);
                 this = ll_pop(pLinkedList,index);//Revisar BAJA LOGICA
-                ll_add(pListInactive,this);
 
+                ll_add(pListInactives,this);
                 retorno = 0;
             }
         }
@@ -756,6 +757,46 @@ int employee_calculoSueldo(void* this)
     return retorno;
 }
 
+int employee_borrarLista(LinkedList* pLinkedList)
+{
+    int retorno;
+    int option;
+    char verification[2];
+
+    if(pLinkedList != NULL && !ll_isEmpty(pLinkedList))
+    {
+        printf("\n1) Vaciar lista\n2) Eliminar lista\n3) Volver");
+        input_getEnteros(&option,"\nIngrese opcion: ","\nDato invalido",2);
+
+        switch(option)
+        {
+            case 1 :
+                input_getLetras(verification,2,"\nATENCION!\nDesea vaciar lista? S/N\n","\nError.",2);
+                if(!strcasecmp("s",verification))
+                {
+                    if(!ll_clear(pLinkedList))
+                    {
+                        printf("\nLista vaciada.");//BORRAR IF
+                    }
+                }
+                break;
+            case 2 :
+                input_getLetras(verification,2,"\nATENCION!\nDesea eliminar lista? S/N\n","\nError.",2);
+                if(!strcasecmp("s",verification))
+                {
+                    if(ll_deleteLinkedList(pLinkedList))
+                    {
+                        printf("\nLista eliminada.");
+                    }
+                }
+            case 3 :
+                break;
+        }
+        retorno = 0;
+    }
+    return retorno;
+}
+
 
 /**
 * \brief Generar una lista de empleados segun filtros
@@ -769,25 +810,30 @@ int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],i
     int option;
     int from = 0;
     int to = 0;
+    int len;
     criterio_type criterio;
     void* auxLinkedList  = ll_newLinkedList();
-    printf("\n1) Dividir lista\n2) Filtrar\n3) Copiar lista\n4) Borrar lista \n");
+    printf("\n1) Dividir lista\n2) Filtrar lista\n3) Copiar lista\n4) Volver\n");
     input_getEnteros(&option,"\nIngrese opcion: ","\nDato invalido",2);
 
     if(pLinkedList != NULL)
     {
+        len = ll_len(pLinkedList);
         switch(option)
         {
             case 1 :
                 input_getEnteros(&from,"\nSeleccione primer indice: ","\nDato invalido",2);
                 input_getEnteros(&to,"\nSeleccione segundo indice: ","\nDato invalido",2);
-                auxLinkedList = ll_subList(pLinkedList,from,to);
-                if(auxLinkedList != NULL)
+                if(from >= 0 && from < len && to >= 1 && to < len)
                 {
-                    printf("\nCROP");
-                    listaPrincipal[3] = auxLinkedList;
-                    *index = 3;
-                    retorno = 0;
+                    auxLinkedList = ll_subList(pLinkedList,from,to);
+                    if(auxLinkedList != NULL)
+                    {
+                        printf("\nCROP");
+                        listaPrincipal[3] = auxLinkedList;
+                        *index = 3;
+                        retorno = 0;
+                    }
                 }
                 break;
             case 2 :
@@ -803,6 +849,7 @@ int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],i
                 }
                 break;
             case 3 :
+                printf("\nRealizando back-up...");
                 auxLinkedList = ll_clone(pLinkedList);
                 if(ll_containsAll(pLinkedList,auxLinkedList))
                 {
@@ -811,14 +858,11 @@ int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],i
                     *index = 5;
                     retorno = 0;
                 }
-             case 4 :
-                printf("\n1) Empleados activos\n2) Empleados inactivos \n3) Sublista\n4) Lista filtrada\n5) Back-up");
-                input_getEnteros(index,"\nSeleccione numero de lista a borrar: ","\nDato invalido",2);
-                if(*index >= 0 && *index <= LEN_LL)
-                {
-                    ll_deleteLinkedList(listaPrincipal[*index]);
-                    printf("\nLista eliminada.");
-                }
+                break;
+            case 4 :
+                break;
+            default :
+                printf("\nError.Opcion incorrecta");
                 break;
         }
     }
@@ -924,8 +968,6 @@ int employee_searchEmpty(Employee* array[])
 }
 /////////////////////////////////////////////SETTERS & GETTERS///////////////////////////////////////////////////////////
 
-
-
 /**
 *\brief Se setea el ID del elemento
 *\param this Es el elemento
@@ -936,6 +978,7 @@ int employee_setId(Employee* this,char* id)
 {
     int retorno=-1;
     static int proximoId=0;
+    static int mayorId = proximoId;
     int auxId = atoi(id);
 
     if(this!=NULL && auxId==0)//Se carga primer ID y en el ALTA
@@ -949,6 +992,16 @@ int employee_setId(Employee* this,char* id)
         proximoId=auxId;
         this->id=proximoId;
         retorno=0;
+    }
+    else if(this!=NULL && auxId<proximoId)
+    {
+        this->id=auxId;
+        retorno = 0;
+    }
+    else if(this!=NULL && auxId > -1)
+    {
+        proximoId = 0;//Reset
+        retorno = 0;
     }
     return retorno;
 }
