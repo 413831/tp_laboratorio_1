@@ -19,6 +19,9 @@ Employee* employee_getById(void* pArrayListEmployee,int idIngresado);
 int employee_add(void* pArrayListEmployee);
 int employee_remove(void* pLinkedList,void* pListInactives);
 int employee_delete(Employee* this);
+int employee_copy(Employee* thisA,Employee* thisB);
+int employee_replace(LinkedList* pLinkedList,void* auxElement,int index);
+int employee_insert(LinkedList* pListActives,LinkedList* pListInactives);
 int employee_edit(void* pArrayListEmployee);
 int employee_modify(Employee* this,
                         char* mensaje,
@@ -26,15 +29,11 @@ int employee_modify(Employee* this,
                         int (*set)(Employee*,char*));
 int employee_show(void* this);
 int employee_sort(void* pArrayListEmployee);
-int employee_hardcode(void* pArrayListEmployee,char *bufferName,char* bufferHorasTrabajadas,char* bufferSueldo);
-int employee_copy(Employee* thisA,Employee* thisB);
-int employee_replace(LinkedList* pLinkedList,void* auxElement,int index);
-int employee_insert(LinkedList* pListActives,LinkedList* pListInactives);
-int employee_calculoSueldo(void* this);
-void* employee_selectorCriterio();
 void* employee_ordenCriterio();
 int employee_generarLista(LinkedList* pLinkedList,LinkedList* listaPrincipal[],int* index);
+void* employee_selectorCriterio();
 int employee_borrarLista(LinkedList* pLinkedList[]);
+int employee_hardcode(void* pArrayListEmployee,char *bufferName,char* bufferHorasTrabajadas,char* bufferSueldo);
 
 int employee_setId(Employee* this,char* id);
 int employee_getId(Employee* this,int* id);

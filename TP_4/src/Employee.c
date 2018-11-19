@@ -94,16 +94,16 @@ static int criterioNombre(void* this)
     {
         if(flag == 0)
         {
-            input("\n>>Ingrese nombre: ",paramName,BUFFER,isValidName);
+            input("\n>>Ingrese nombre: ",paramName,BUFFER,isValidName);//Solicito nombre para comparar;
             flag = 1;
         }
-        employee_getNombre(this,elementName);
-        if(!strcmp(elementName,paramName))
+        employee_getNombre(this,elementName);//Obtengo nombre del elemento
+        if(!strcmp(elementName,paramName))//Comparo ambos datos
         {
             retorno = 0;
         }
     }
-    else
+    else//Si el elemento es NULL se resetea el flag para solicitar nuevamente parametro
     {
         flag = 0;//RESET
     }
@@ -130,12 +130,12 @@ static int criterioSueldo(void* this)
             flag = 1;
         }
         employee_getSueldo(this,&elementSalary);
-        if(elementSalary > atof(paramSueldo))
+        if(elementSalary > atof(paramSueldo))//Comparo el sueldo del elemento contra el numero ingresado
         {
             retorno = 0;
         }
     }
-    else
+    else//Si el elemento es NULL se resetea el flag para solicitar nuevamente parametro
     {
         flag = 0;//RESET
     }
@@ -162,12 +162,12 @@ static int criterioHoras(void* this)
             flag = 1;
         }
         employee_getHorasTrabajadas(this,&elementHours);
-        if(elementHours > atoi(paramHoras))
+        if(elementHours > atoi(paramHoras))//Se comparan horas trabajadas del elemento contra la cantidad ingresada
         {
             retorno = 0;
         }
     }
-    else
+    else//Si el elemento es NULL se resetea el flag para solicitar nuevamente parametro
     {
         flag = 0;//RESET
     }
@@ -190,16 +190,16 @@ static int criterioId(void* this)
     {
         if(flag == 0)
         {
-             input("\n>>Filtrar por ID mayor a numero\nIngrese numero: ",paramId,BUFFER,isValidHoras);
+             input("\n>>Filtrar por ID mayor a numero\nIngrese numero: ",paramId,BUFFER,isValidId);
              flag = 1;
         }
         employee_getId(this,&elementId);
-        if(elementId > atoi(paramId))
+        if(elementId > atoi(paramId))//Se compara el Id del elemento contra el Id ingresado
         {
             retorno = 0;
         }
     }
-    else
+    else//Si el elemento es NULL se resetea el flag para solicitar nuevamente parametro
     {
         flag = 0;//RESET
     }
@@ -388,7 +388,7 @@ Employee* employee_new()
 Employee* employee_newConParametros(char* id,char* nombre,char* horasTrabajadas,char* sueldo)
 {
     Employee* this;
-    this=employee_new();
+    this = employee_new();
 
     if(isValidId(id) &&
        isValidName(nombre) &&
@@ -414,8 +414,8 @@ Employee* employee_newConParametros(char* id,char* nombre,char* horasTrabajadas,
 Employee* employee_getById(void* pLinkedList,int idIngresado)
 {
     Employee* retorno = NULL;
-    int index;
     Employee* auxEmployee;
+    int index;
     int auxID = 0;
 
     if(pLinkedList != NULL)
@@ -424,7 +424,7 @@ Employee* employee_getById(void* pLinkedList,int idIngresado)
         {
             auxEmployee = ll_get(pLinkedList,index);//Obtengo el elemento del array en posicion index
             employee_getId(auxEmployee,&auxID);//Obtengo el ID del elemento
-            if(auxID == idIngresado)
+            if(auxID == idIngresado)//Comparo el Id del elemento con el Id ingresado
             {
                 retorno = auxEmployee;
                 break;
@@ -441,12 +441,11 @@ Employee* employee_getById(void* pLinkedList,int idIngresado)
 */
 int employee_add(void* pLinkedList)
 {
-    Employee* this = NULL;
     int retorno = -1;
-
     char bufferName[BUFFER];
     char bufferHorasTrabajadas[BUFFER];
     char bufferSueldo[BUFFER];
+    Employee* this = NULL;
 
     if( !input("nombre",bufferName,BUFFER,isValidName) &&
         !input("horas trabajadas",bufferHorasTrabajadas,BUFFER,isValidHoras) &&
@@ -470,25 +469,25 @@ int employee_add(void* pLinkedList)
 */
 int employee_remove(void* pLinkedList,void* pListInactives)
 {
-    Employee* this = NULL;
     int retorno = -1;
+    int index;
     char bufferId[BUFFER];
     char option[2];
-    int index;
+    Employee* this = NULL;
 
     if(!input("ID",bufferId,BUFFER,isValidId))
     {
-        this = employee_getById(pLinkedList,atoi(bufferId));
+        this = employee_getById(pLinkedList,atoi(bufferId));//Busco el elemento del Id ingresado
         if(this != NULL)
         {
-            employee_show(this);
+            employee_show(this);//Muestro datos del elemento
             input_getLetras(option,2,"\nATENCION!\nDesea dar de baja a empleado? S/N\n","\nError.Dato invalido",2);
             if(!strcasecmp("s",option))
             {
                 index = ll_indexOf(pLinkedList,this);
-                this = ll_pop(pLinkedList,index);//Revisar BAJA LOGICA
+                this = ll_pop(pLinkedList,index);//Se saca el elemento del LinkedList
 
-                ll_add(pListInactives,this);
+                ll_add(pListInactives,this);//Se agrega el elemento a la otra LinkedList
                 retorno = 0;
             }
         }
@@ -670,15 +669,15 @@ int employee_edit(void* pLinkedList)
             {
                 case 1 :
                     employee_modify(auxElement,"nombre",isValidName,employee_setNombre);
-                    verification(pLinkedList,auxElement,index);
+                    employee_replace(pLinkedList,auxElement,index);
                     break;
                 case 2 :
                     employee_modify(auxElement,"sueldo",isValidSueldo,employee_setSueldo);
-                    verification(pLinkedList,auxElement,index);
+                    employee_replace(pLinkedList,auxElement,index);
                     break;
                 case 3 :
                     employee_modify(auxElement,"horas trabajadas",isValidHoras,employee_setHorasTrabajadas);
-                    verification(pLinkedList,auxElement,index);
+                    employee_replace(pLinkedList,auxElement,index);
                     break;
                 case 4 :
                     break;
@@ -784,104 +783,41 @@ int employee_sort(void* pLinkedList)
     return retorno;
 }
 
+
 /**
-*\brief Se realiza un alta forzada
-*\param pLinkedList Es la LinkedList para realizar el alta
-*\param bufferName Es el nombre a cargar en el elemento
-*\param bufferHorasTrabajadas Es la cantidad de horas trabajadas para cargar en el elemento
-*\param bufferSueldo Es el sueldo para cargar en el elemento
-*\return Retorna 0 si el array es diferente a NULL sino retorna -1
+*\brief Funcion selector de criterio para ordenar
+*\return Retorna puntero a funcion segun criterio seleccionado si no es correcto retorna NULL
 */
-int employee_hardcode(void* pLinkedList,char *bufferName,char* bufferHorasTrabajadas,char* bufferSueldo)
+void* employee_ordenCriterio()
 {
-    Employee* this = NULL;
-    int retorno = -1;
+    int opcion;
 
-    this = employee_newConParametros("0",bufferName,bufferHorasTrabajadas,bufferSueldo);
+    void* retorno = NULL;
+    input_getEnteros(&opcion,"\nSeleccione opcion\n1) Nombre\n2) Sueldo\n3) Horas\n4) ID\n","\nOpcion incorrecta",2);
 
-    if(this != NULL)
+    switch(opcion)
     {
-        employee_show(this);
-        ll_add(pLinkedList,this);
-        retorno = 0;;
+        case 1 :
+            printf("\nNombre");
+            retorno = employee_criterioNombre;
+            break;
+        case 2 :
+            printf("\nSueldo");
+            retorno = employee_criterioSueldo;
+            break;
+        case 3 :
+            printf("\nHoras Trabajadas");
+            retorno = employee_criterioHoras;
+            break;
+        case 4 :
+            printf("\nID");
+            retorno = employee_criterioId;
+            break;
+        default :
+            printf("\nOpcion incorrecta");
     }
     return retorno;
 }
-
-/**
-*\brief Calcula el valor de la hora trabajada
-*\param pLinkedList Es la LinkedList para realizar el alta
-*\return Retorna el valor de la hora trabajada sino retorna -1
-*/
-int employee_calculoSueldo(void* this)
-{
-    int retorno = -1;
-    int auxHoras;
-    float auxSueldo;
-    int valorHora;
-
-    if(this != NULL)
-    {
-        employee_getHorasTrabajadas(this,&auxHoras);
-        employee_getSueldo(this,&auxSueldo);
-
-        valorHora = auxSueldo / auxHoras;
-        retorno = valorHora;
-    }
-    return retorno;
-}
-
-/**
-*\brief Funcion para borrar listados de empleados, principal y filtrados
-*\param pLinkedList Es el puntero al listado principal que contiene todos los listados
-*\return Retorna 0 si el listado principal existe sino retorna -1
-*/
-int employee_borrarLista(LinkedList* pLinkedList[])
-{
-    int retorno = -1;
-    int option;
-    int list;
-    char verification[2];
-
-    if(pLinkedList != NULL)
-    {
-        printf("\n1) Vaciar lista\n2) Eliminar todas las listas\n3) Volver");
-        input_getEnteros(&option,"\nIngrese opcion: ","\nDato invalido",2);
-
-        switch(option)
-        {
-            case 1 :
-                printf("\n1) Empleados activos\n2) Empleados inactivos \n3) Sublista\n4) Lista filtrada\n5) Todas las listas");
-                input_getEnteros(&list,"\nSeleccione lista: ","\nError",2);
-                input_getLetras(verification,2,"\nATENCION!\nDesea vaciar lista? S/N\n","\nError.",2);
-                if(list >= 1 && list <= 5 && !ll_isEmpty(pLinkedList[list]) && !strcasecmp("s",verification))
-                {
-                    if(!ll_clear(pLinkedList[list]))
-                    {
-                        printf("\nLista vaciada.");//BORRAR IF
-                    }
-                }
-                break;
-            case 2 :
-                printf("\nATENCION! Las sublistas no se recuperan.");
-                input_getLetras(verification,2,"\nDesea eliminar todas las listas? S/N\n","\nError.",2);
-                if(!strcasecmp("s",verification))
-                {
-                    if(!ll_freeLinkedList(pLinkedList))
-                    {
-                        ll_initLinkedList(pLinkedList);
-                        printf("\nListas eliminadas.");
-                    }
-                }
-            case 3 :
-                break;
-        }
-        retorno = 0;
-
-    }
-    return retorno;
-}
-
 
 /**
 * \brief Generar una lista de empleados segun opciones, sublist, filter, clone.
@@ -995,42 +931,80 @@ void* employee_selectorCriterio()
     return retorno;
 }
 
-
 /**
-*\brief Funcion selector de criterio para ordenar
-*\return Retorna puntero a funcion segun criterio seleccionado si no es correcto retorna NULL
+*\brief Funcion para borrar listados de empleados, principal y filtrados
+*\param pLinkedList Es el puntero al listado principal que contiene todos los listados
+*\return Retorna 0 si el listado principal existe sino retorna -1
 */
-void* employee_ordenCriterio()
+int employee_borrarLista(LinkedList* pLinkedList[])
 {
-    int opcion;
+    int retorno = -1;
+    int option;
+    int list;
+    char verification[2];
 
-    void* retorno = NULL;
-    input_getEnteros(&opcion,"\nSeleccione opcion\n1) Nombre\n2) Sueldo\n3) Horas\n4) ID\n","\nOpcion incorrecta",2);
-
-    switch(opcion)
+    if(pLinkedList != NULL)
     {
-        case 1 :
-            printf("\nNombre");
-            retorno = employee_criterioNombre;
-            break;
-        case 2 :
-            printf("\nSueldo");
-            retorno = employee_criterioSueldo;
-            break;
-        case 3 :
-            printf("\nHoras Trabajadas");
-            retorno = employee_criterioHoras;
-            break;
-        case 4 :
-            printf("\nID");
-            retorno = employee_criterioId;
-            break;
-        default :
-            printf("\nOpcion incorrecta");
+        printf("\n1) Vaciar lista\n2) Eliminar todas las listas\n3) Volver");
+        input_getEnteros(&option,"\nIngrese opcion: ","\nDato invalido",2);
+
+        switch(option)
+        {
+            case 1 :
+                printf("\n1) Empleados activos\n2) Empleados inactivos \n3) Sublista\n4) Lista filtrada\n5) Todas las listas");
+                input_getEnteros(&list,"\nSeleccione lista: ","\nError",2);
+                input_getLetras(verification,2,"\nATENCION!\nDesea vaciar lista? S/N\n","\nError.",2);
+                if(list >= 1 && list <= 5 && !ll_isEmpty(pLinkedList[list]) && !strcasecmp("s",verification))
+                {
+                    if(!ll_clear(pLinkedList[list]))
+                    {
+                        printf("\nLista vaciada.");//BORRAR IF
+                    }
+                }
+                break;
+            case 2 :
+                printf("\nATENCION! Las sublistas no se recuperan.");
+                input_getLetras(verification,2,"\nDesea eliminar todas las listas? S/N\n","\nError.",2);
+                if(!strcasecmp("s",verification))
+                {
+                    if(!ll_freeLinkedList(pLinkedList))
+                    {
+                        ll_initLinkedList(pLinkedList);
+                        printf("\nListas eliminadas.");
+                    }
+                }
+            case 3 :
+                break;
+        }
+        retorno = 0;
+
     }
     return retorno;
 }
 
+/**
+*\brief Se realiza un alta forzada
+*\param pLinkedList Es la LinkedList para realizar el alta
+*\param bufferName Es el nombre a cargar en el elemento
+*\param bufferHorasTrabajadas Es la cantidad de horas trabajadas para cargar en el elemento
+*\param bufferSueldo Es el sueldo para cargar en el elemento
+*\return Retorna 0 si el array es diferente a NULL sino retorna -1
+*/
+int employee_hardcode(void* pLinkedList,char *bufferName,char* bufferHorasTrabajadas,char* bufferSueldo)
+{
+    Employee* this = NULL;
+    int retorno = -1;
+
+    this = employee_newConParametros("0",bufferName,bufferHorasTrabajadas,bufferSueldo);
+
+    if(this != NULL)
+    {
+        employee_show(this);
+        ll_add(pLinkedList,this);
+        retorno = 0;;
+    }
+    return retorno;
+}
 
 /////////////////////////////////////////////SETTERS & GETTERS///////////////////////////////////////////////////////////
 

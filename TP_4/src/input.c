@@ -14,6 +14,7 @@ static void limpiarMemoria()
     //fflush(stdin);  //WINDOWS
     __fpurge(stdin);  //LINUX
 }
+
 /**
  *\brief Limpia los datos mostrados en consola
 */
@@ -22,6 +23,10 @@ void limpiarPantalla()
     //system("cls"); //WINDOWS
     system("clear"); //LINUX
 }
+
+/**
+ *\brief Pausa el programa para ver el contenido
+*/
 void pause()
 {
     printf("\nPresione cualquier tecla para continuar...");
@@ -181,8 +186,6 @@ int input_getLetras(char input[],int size,char mensaje[],char msjError[],int rei
  * \param size Es el tamaño del string recibido
  * \param mensaje Es el mensaje a ser mostrado
  * \param msjError Es el mensaje de error a ser mostrado
- * \param minimo Es el minimo valor permitido para ingresar
- * \param maximo Es el maximo valor permitido para ingresar
  * \param reintentos Es la cantidad de reintentos posibles para ingresar
  * \return Retorna 0 si se pudo pedir y validar string si no retorna error
  */
@@ -220,12 +223,9 @@ int input_getEnteros(int* input,char mensaje[],char msjError[],int reintentos)
  * \param size Es el tamaño del string recibido
  * \param mensaje Es el mensaje a ser mostrado
  * \param msjError Es el mensaje de error a ser mostrado
- * \param minimo Es el minimo valor permitido para ingresar
- * \param maximo Es el maximo valor permitido para ingresar
  * \param reintentos Es la cantidad de reintentos posibles para ingresar
  * \return Retorna 0 si se pudo pedir y validar string si no retorna error
  */
-
 int input_getFloat(float* input,char mensaje[],char msjError[],int reintentos)
 {
     char buffer[BUFFER];
@@ -254,7 +254,15 @@ int input_getFloat(float* input,char mensaje[],char msjError[],int reintentos)
     return retorno;
 }
 
-
+/**
+ * \brief Solicita ingresar numero de DNI
+ * \param input Array donde se cargará el texto ingresado
+ * \param size Es el tamaño del string recibido
+ * \param mensaje Es el mensaje a ser mostrado
+ * \param msjError Es el mensaje de error a ser mostrado
+ * \param reintentos Es la cantidad de reintentos posibles para ingresar
+ * \return Retorna 0 si se pudo pedir y validar string si no retorna error
+ */
 int input_getDNI(char input[],int size,char mensaje[],char msjError[],int reintentos)
 {
     char buffer[size];
@@ -284,7 +292,15 @@ int input_getDNI(char input[],int size,char mensaje[],char msjError[],int reinte
     return retorno;
 }
 
-
+/**
+ * \brief Solicita ingresar numero de telefono
+ * \param input Array donde se cargará el texto ingresado
+ * \param size Es el tamaño del string recibido
+ * \param mensaje Es el mensaje a ser mostrado
+ * \param msjError Es el mensaje de error a ser mostrado
+ * \param reintentos Es la cantidad de reintentos posibles para ingresar
+ * \return Retorna 0 si se pudo pedir y validar string si no retorna error
+ */
 int input_getTelefono(char input[],int size,char mensaje[],char msjError[],int reintentos)
 {
     char buffer[size];
@@ -314,7 +330,15 @@ int input_getTelefono(char input[],int size,char mensaje[],char msjError[],int r
     return retorno;
 }
 
-
+/**
+ * \brief Solicita ingresar numero de CUIT
+ * \param input Array donde se cargará el texto ingresado
+ * \param size Es el tamaño del string recibido
+ * \param mensaje Es el mensaje a ser mostrado
+ * \param msjError Es el mensaje de error a ser mostrado
+ * \param reintentos Es la cantidad de reintentos posibles para ingresar
+ * \return Retorna 0 si se pudo pedir y validar string si no retorna error
+ */
 int input_getCuit(char input[],int size,char mensaje[],char msjError[],int reintentos)
 {
     char buffer[size];
@@ -345,6 +369,15 @@ int input_getCuit(char input[],int size,char mensaje[],char msjError[],int reint
     return retorno;
 }
 
+/**
+ * \brief Solicita ingresar una direccion
+ * \param input Array donde se cargará el texto ingresado
+ * \param size Es el tamaño del string recibido
+ * \param mensaje Es el mensaje a ser mostrado
+ * \param msjError Es el mensaje de error a ser mostrado
+ * \param reintentos Es la cantidad de reintentos posibles para ingresar
+ * \return Retorna 0 si se pudo pedir y validar string si no retorna error
+ */
 int input_getDireccion(char input[],int size,char mensaje[],char msjError[],int reintentos)
 {
     char buffer[size];
@@ -377,7 +410,15 @@ int input_getDireccion(char input[],int size,char mensaje[],char msjError[],int 
     return retorno;
 }
 
-
+/**
+ * \brief Solicita ingresar un nombre valido de archivo
+ * \param input Array donde se cargará el texto ingresado
+ * \param size Es el tamaño del string recibido
+ * \param mensaje Es el mensaje a ser mostrado
+ * \param msjError Es el mensaje de error a ser mostrado
+ * \param reintentos Es la cantidad de reintentos posibles para ingresar
+ * \return Retorna 0 si se pudo pedir y validar string si no retorna error
+ */
 int input_getPath(char input[],int size,char mensaje[],char msjError[],int reintentos)
 {
     char buffer[size];

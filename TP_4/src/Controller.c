@@ -14,6 +14,11 @@
 
 extern int errno ;
 
+/**
+* \brief Muestra la fecha actual y el horario
+* \param void
+* \return Retorna fecha y hora en formato string sino retorna NULL
+*/
 static char* fecha()
 {
     char* retorno = NULL;
@@ -24,12 +29,12 @@ static char* fecha()
     info = localtime( &rawtime );//Se obtiene formato para fecha y hora
     retorno = asctime(info);
 
-   // printf("%s", asctime(info));//Se muestra informacion
+    // printf("%s", asctime(info));//Se muestra informacion
     return retorno;
 }
 
-/** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
- *
+/**
+ * \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
  * \param path Ruta del archivo para leer
  * \param pLinkedList Es el LinkedList
  * \return retorna 0 si el array no es null y el archivo existe sino retorna -1
@@ -52,8 +57,8 @@ int controller_loadFromText(char* path , LinkedList* pLinkedList)
     return retorno;
 }
 
-/** \brief Carga los datos de los empleados desde el archivo data.bin (modo binario).
- *
+/**
+ * \brief Carga los datos de los empleados desde el archivo data.bin (modo binario).
  * \param path Ruta del archivo para leer
  * \param pLinkedList Es el LinkedList
  * \return retorna 0 si el array no es null y el archivo existe sino retorna -1
@@ -71,8 +76,8 @@ int controller_loadFromBinary(char* path , LinkedList* pLinkedList)
     return retorno;
 }
 
-/** \brief Alta de empleados
- *
+/**
+ * \brief Alta de empleados
  * \param pLinkedList Es el LinkedList donde se agregara el empleado
  * \return Retorna 0 si se logra hacer el alta sino retorna -1
  *
@@ -94,8 +99,8 @@ int controller_addEmployee(LinkedList* pLinkedList)
     return retorno;
 }
 
-/** \brief Modifica datos de empleado
- *
+/**
+ * \brief Modifica datos de empleado
  * \param pLinkedList Es el LinkedList del cual se va a editar un empleado
  * \return Retorna 0 si se logra editar sino retorna -1
  *
@@ -139,8 +144,8 @@ int controller_removeEmployee(LinkedList* listaPrincipal[])
     return retorno;
 }
 
-/** \brief Reincorpora un empleado del listado de inactivos hacia el de activos
- *
+/**
+ * \brief Reincorpora un empleado del listado de inactivos hacia el de activos
  * \param listaPrincipal Es el array de LinkedList para utilizar listados
  * \return Retorna 0 si se logra realizar la baja sino retorna -1
  *
@@ -161,8 +166,8 @@ int controller_insertEmployee(LinkedList* listaPrincipal[])
 }
 
 
-/** \brief Listar empleados
- *
+/**
+ * \brief Listar empleados
  * \param pLinkedList Es la LinkedList de la cual se desea listar los elementos
  * \return retorna 0 si la LinkedList es diferente a NULL sino retorna -1
  *
@@ -213,8 +218,8 @@ int controller_generateNewList(LinkedList* listaPrincipal[])
     return retorno;
 }
 
-/** \brief Eliminar una lista o todas las listas
- *
+/**
+ * \brief Eliminar una lista o todas las listas
  * \param pLinkedList Es el LinkedList del cual se va a editar un empleado
  * \return Retorna 0 si se logra editar sino retorna -1
  *
@@ -238,8 +243,8 @@ int controller_deleteList(LinkedList* pLinkedList[])
     return retorno;
 }
 
-/** \brief Ordenar empleados por criterio y orden
- *
+/**
+ * \brief Ordenar empleados por criterio y orden
  * \param pLinkedList Es la LinkedList que se desea ordenar
  * \return retorna 0 si se logra ordenar sino retorna -1
  *
@@ -287,8 +292,8 @@ int controller_undoList(LinkedList* listaPrincipal[])
     return retorno;
 }
 
-/** \brief Guarda los datos de los empleados en archivo en la carpeta /files (modo texto).
- *
+/**
+ * \brief Guarda los datos de los empleados en archivo en la carpeta /files (modo texto).
  * \param path Ruta donde se guardara el archivo
  * \param pLinkedList Es la LinkedList con los elementos a guardar
  * \return Retorna 0 si se logra guardar sino retorna -1
@@ -308,8 +313,8 @@ int controller_saveAsText(char* path , LinkedList* pLinkedList)
     return retorno;
 }
 
-/** \brief Guarda los datos de los empleados en archivo en la carpeta /files (modo binario).
- *
+/**
+ * \brief Guarda los datos de los empleados en archivo en la carpeta /files (modo binario).
  * \param path Ruta donde se guardara el archivo
  * \param pLinkedList Es la LinkedList con los elementos a guardar
  * \return Retorna 0 si se logra guardar sino retorna -1
@@ -328,10 +333,10 @@ int controller_saveAsBinary(char* path , LinkedList* pLinkedList)
     return retorno;
 }
 
-/** \brief Menu con opciones para trabajar con la LinkedList
- *
+/**
+ * \brief Menu con opciones para trabajar con la LinkedList
+ * \param void
  * \return Retorna 0 siempre
- *
  */
 int controller_init()
 {
@@ -340,7 +345,7 @@ int controller_init()
     int flag = 0;
     LinkedList* listaPrincipal[LEN_LL];//Array estatico que agrupa 6 linkedlist
     char nombreArchivo[BUFFER];//auxiliar para escribir nombre de archivo
-    char path[BUFFER];//ruta para guardar el archivo
+    char path[BUFFER];//ruta para guardar el archivo. ../files/ Es la carpeta de archivos predeterminada
 
     ll_initLinkedList(listaPrincipal);
     /*  lista[0] - temporal
@@ -462,7 +467,7 @@ int controller_init()
                     input_getPath(nombreArchivo,BUFFER,"\nGuardar como: ","Nombre invalido",2);
                     strcat(path,nombreArchivo);
 
-                    input_getEnteros(&option,"\n1) Modo texto\n2) Modo binario: ","\nError",2);
+                    input_getEnteros(&option,"\n1) Modo texto\n2) Modo binario: ","\nError",2);//Selecciono modo de archivo
                     if(option == 1 && !controller_saveAsText(path,listaPrincipal[1]))
                     {
                         printf("\nArchivo |%s| guardado.",nombreArchivo);
