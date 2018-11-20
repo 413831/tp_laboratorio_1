@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <ctype.h>
-#include "utn.h"
+#include "../inc/utn.h"
 
 
 
