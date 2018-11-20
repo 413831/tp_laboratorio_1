@@ -35,7 +35,7 @@ int validacion_Int(char* array,int size)
 
     if((array != NULL && size > 0 && strlen(array) > 0) &&
        (array[0] == '-' || array[0] == '+' ||
-       (array[0] > '0' && array[0] <= '9')))//Verifico que el primer digito sea valido
+       (array[0] >= '0' && array[0] <= '9')))//Verifico que el primer digito sea valido
     {
         retorno = 1;
         for(i=1;i < size && array[i] != '\0';i++)//Verifico los digitos restantes
@@ -63,7 +63,7 @@ int validacion_Float(char* array,int size)
 
     if((array != NULL && size > 0 && strlen(array) > 0) &&
        (array[0] == '-' || array[0] == '+' ||
-       (array[0] > '0' && array[0] <= '9')))//Verifico que el primer digito sea valido
+       (array[0] >= '0' && array[0] <= '9')))//Verifico que el primer digito sea valido
     {
         retorno = 1;
         for(i=1;i < size && array[i] != '\0';i++)//Verifico los digitos restantes
