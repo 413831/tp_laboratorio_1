@@ -773,6 +773,7 @@ int employee_sort(void* pLinkedList)
         if(criterio != NULL)
         {
             input_getEnteros(&orden,"\n-Seleccione orden\n Descendente (0)\n Ascendente (1)","Error.",2);
+
             if(orden == 0 || orden == 1)
             {
                 ll_sort(pLinkedList,criterio,orden);
@@ -793,7 +794,7 @@ void* employee_ordenCriterio()
     int opcion;
 
     void* retorno = NULL;
-    input_getEnteros(&opcion,"\nSeleccione opcion\n1) Nombre\n2) Sueldo\n3) Horas\n4) ID\n","\nOpcion incorrecta",2);
+    input_getEnteros(&opcion,"\nSeleccione opcion\n1) Nombre\n2) Sueldo\n3) Horas\n4) ID\n5) Volver\n","\nOpcion incorrecta",2);
 
     switch(opcion)
     {
@@ -812,6 +813,9 @@ void* employee_ordenCriterio()
         case 4 :
             printf("\nID");
             retorno = employee_criterioId;
+            break;
+        case 5 :
+            return retorno;
             break;
         default :
             printf("\nOpcion incorrecta");

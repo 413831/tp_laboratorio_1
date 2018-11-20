@@ -192,7 +192,7 @@ int input_getLetras(char input[],int size,char mensaje[],char msjError[],int rei
 int input_getEnteros(int* input,char mensaje[],char msjError[],int reintentos)
 {
     char buffer[BUFFER];
-    int retorno = 1;
+    int retorno = -1;
 
     if(input != NULL  && mensaje != NULL &&
        msjError != NULL && reintentos >= 0)
@@ -229,7 +229,7 @@ int input_getEnteros(int* input,char mensaje[],char msjError[],int reintentos)
 int input_getFloat(float* input,char mensaje[],char msjError[],int reintentos)
 {
     char buffer[BUFFER];
-    int retorno = 1;
+    int retorno = -1;
 
     if(input != NULL && mensaje != NULL &&
        msjError != NULL && reintentos >= 0)
@@ -266,7 +266,7 @@ int input_getFloat(float* input,char mensaje[],char msjError[],int reintentos)
 int input_getDNI(char input[],int size,char mensaje[],char msjError[],int reintentos)
 {
     char buffer[size];
-    int retorno = 1;
+    int retorno = -1;
 
     if(input != NULL && size > 0 && mensaje != NULL &&
        msjError != NULL && reintentos >= 0)
@@ -304,7 +304,7 @@ int input_getDNI(char input[],int size,char mensaje[],char msjError[],int reinte
 int input_getTelefono(char input[],int size,char mensaje[],char msjError[],int reintentos)
 {
     char buffer[size];
-    int retorno = 1;
+    int retorno = -1;
 
     if(input != NULL && size > 0 && mensaje != NULL &&
        msjError != NULL && reintentos >= 0)
@@ -342,7 +342,7 @@ int input_getTelefono(char input[],int size,char mensaje[],char msjError[],int r
 int input_getCuit(char input[],int size,char mensaje[],char msjError[],int reintentos)
 {
     char buffer[size];
-    int retorno = 1;
+    int retorno = -1;
 
     if(input != NULL && size > 0 && mensaje != NULL &&
        msjError != NULL && reintentos >= 0)
@@ -381,7 +381,7 @@ int input_getCuit(char input[],int size,char mensaje[],char msjError[],int reint
 int input_getDireccion(char input[],int size,char mensaje[],char msjError[],int reintentos)
 {
     char buffer[size];
-    int retorno = 1;
+    int retorno = -1;
 
     if(input != NULL && size > 0 && mensaje != NULL &&
        msjError != NULL && reintentos >= 0)
@@ -422,7 +422,7 @@ int input_getDireccion(char input[],int size,char mensaje[],char msjError[],int 
 int input_getPath(char input[],int size,char mensaje[],char msjError[],int reintentos)
 {
     char buffer[size];
-    int retorno = 1;
+    int retorno = -1;
 
     if(input != NULL && size > 0 && mensaje != NULL &&
        msjError != NULL && reintentos >= 0)
@@ -440,7 +440,7 @@ int input_getPath(char input[],int size,char mensaje[],char msjError[],int reint
             }
             else
             {
-                printf("%s",msjError);
+                printf("\n%s",msjError);
             }
         }while(reintentos>=0);
     }

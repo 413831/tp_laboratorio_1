@@ -291,7 +291,8 @@ int validacion_File(char* array,int size)
      if((array != NULL && size > 0 && strlen(array) > 0 &&
         (array[0] >= 'a' && array[0] <= 'z')) ||
         (array[0] >= 'A' && array[0] <= 'Z') ||
-        (array[0] >= '0' && array[0] <= '9')) //Verifico que el primer digito sea valido
+        (array[0] >= '0' && array[0] <= '9') ||
+        array[0] != '\0') //Verifico que el primer digito sea valido
     {
         retorno = 1;
         for(i=1;i < size && array[i] != '\0';i++)//Verifico los digitos restantes

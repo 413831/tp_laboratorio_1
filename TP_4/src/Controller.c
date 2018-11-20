@@ -259,10 +259,6 @@ int controller_sortEmployee(LinkedList* pLinkedList)
         {
             retorno = 0;
         }
-        else
-        {
-            printf("\nError.");
-        }
     }
     return retorno;
 }
@@ -365,8 +361,8 @@ int controller_init()
         }
 
         printf("%s\n>>>MENU PRINCIPAL<<<\n",fecha());
-        printf("\n1) Abrir archivo (modo texto)\n2) Listar\n3) Alta\n4) Editar\n5) Baja");
-        printf("\n6) Ordenar\n7) Guardar (modo texto) \n8) Generar listas\n9) Eliminar lista");
+        printf("\n1) Abrir archivo\n2) Listar\n3) Alta\n4) Editar\n5) Baja");
+        printf("\n6) Ordenar\n7) Guardar\n8) Generar listas\n9) Eliminar lista");
         printf("\n10) Reincorporar empleado\n11) Deshacer cambios\n12) Salir");
         input_getEnteros(&option,"\nIngrese opcion: ","\nDato invalido",2);
 
@@ -374,23 +370,27 @@ int controller_init()
         {
             case 1: //ABRIR ARCHIVO
                 strcpy(path,"../files/");//Seteo el path predeterminado
-                if(!input_getEnteros(&option,"\n1) Abrir modo texto\n2) Abrir en modo binario\n>> ","\nError",2))
+                if(!input_getEnteros(&option,"\n1) Abrir modo texto\n2) Abrir en modo binario\n3) Volver\n>> ","\nError",2))
                 {
+                    if(option == 3){
+                        break;
+                    }
+
                     if(!input_getPath(nombreArchivo,BUFFER,"\nIngrese nombre de archivo: ","Nombre invalido",2))
                     {
                         strcat(path,nombreArchivo);//Union entre nombre de archivo y path
-                    }
-                    if(!controller_loadFromText(path,listaPrincipal[1]))//Cargo el archivo
-                    {
-                        printf("\nArchivo |%s| cargado.",nombreArchivo);
-                        counter = ll_len(listaPrincipal[1]);
-                        flag = 1;
-                    }
-                    else if(option == 2 && !controller_loadFromBinary(path,listaPrincipal[1]))
-                    {
-                        printf("\nArchivo |%s| cargado.",nombreArchivo);
-                        counter = ll_len(listaPrincipal[1]);
-                        flag = 1;
+                        if(!controller_loadFromText(path,listaPrincipal[1]))//Cargo el archivo
+                        {
+                            printf("\nArchivo |%s| cargado.",nombreArchivo);
+                            counter = ll_len(listaPrincipal[1]);
+                            flag = 1;
+                        }
+                        else if(option == 2 && !controller_loadFromBinary(path,listaPrincipal[1]))
+                        {
+                            printf("\nArchivo |%s| cargado.",nombreArchivo);
+                            counter = ll_len(listaPrincipal[1]);
+                            flag = 1;
+                        }
                     }
                     else
                     {
@@ -405,8 +405,14 @@ int controller_init()
                     limpiarPantalla();
                     printf("<LISTAR>");//Selecciono lista para mostrar
                     printf("\n1) Empleados activos\n2) Empleados inactivos \n3) Sublista\n4) Lista filtrada\n5) Back-up");
+                    printf("\n6) Volver");
                     input_getEnteros(&option,"\nIngrese opcion: ","\nError",2);
-                    if(option >= 1 && option <= 5 )
+
+                    if(option == 6)
+                    {
+                        break;
+                    }
+                    else if(option >= 1 && option <= 5 )
                     {
                         controller_ListEmployee(listaPrincipal[option]);
                     }
@@ -464,17 +470,30 @@ int controller_init()
                 if(counter > 0)
                 {
                     strcpy(path,"../files/");//Seteo el path predeterminado
-                    input_getPath(nombreArchivo,BUFFER,"\nGuardar como: ","Nombre invalido",2);
-                    strcat(path,nombreArchivo);
+                    if(!input_getEnteros(&option,"\n1) Modo texto\n2) Modo binario:\n3) Volver\n","\nError",2))
+                    {   //Selecciono modo de archivo
+                        if(option == 3){
+                            break;
+                        }
 
-                    input_getEnteros(&option,"\n1) Modo texto\n2) Modo binario: ","\nError",2);//Selecciono modo de archivo
-                    if(option == 1 && !controller_saveAsText(path,listaPrincipal[1]))
-                    {
-                        printf("\nArchivo |%s| guardado.",nombreArchivo);
-                    }
-                    else if(option == 2 && !controller_saveAsBinary(path,listaPrincipal[1]))
-                    {
-                        printf("\nArchivo |%s| guardado.",nombreArchivo);
+                        if(!input_getPath(nombreArchivo,BUFFER,"\nGuardar como: ","Nombre invalido",2))
+                        {
+                            strcat(path,nombreArchivo);
+
+
+                            if(option == 1 && !controller_saveAsText(path,listaPrincipal[1]))
+                            {
+                                printf("\nArchivo |%s| guardado.",nombreArchivo);
+                            }
+                            else if(option == 2 && !controller_saveAsBinary(path,listaPrincipal[1]))
+                            {
+                                printf("\nArchivo |%s| guardado.",nombreArchivo);
+                            }
+                            else if(option == 3)
+                            {
+                                break;
+                            }
+                        }
                     }
                 }
                 else
@@ -528,7 +547,6 @@ int controller_init()
                 }
                 break;
             case 12 : //SALIR
-                printf("SALIR");
                 break;
             default :
                 printf("\nOpcion incorrecta");
