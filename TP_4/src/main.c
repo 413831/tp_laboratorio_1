@@ -6,7 +6,7 @@
 #include "../inc/utn.h"
 #include "../inc/parser.h"
 
-
+//Archivo de prueba data.csv
 int main()
 {
     controller_init();
