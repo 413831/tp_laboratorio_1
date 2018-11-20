@@ -22,13 +22,13 @@ struct Node
 {
     void* pElement;
     struct Node* pNextNode;//Enganche al siguiente nodo
-    //Agregar itNode
+
 }typedef Node;
 
 struct LinkedList
 {
     Node* pFirstNode;//Dirección de memoria a nodo
-    Node* itNode;
+    Node* itNode;//Variable para iterator
     int size;//Cuantos nodos tiene adentro
 }typedef LinkedList;
 #endif

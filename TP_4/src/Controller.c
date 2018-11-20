@@ -353,7 +353,7 @@ int controller_init()
     */
     do
     {
-        if(flag == 1)//Se guarda el backup en un Linkedlist temporal cada vez que se abra una archivo
+        if(flag == 1)//Se guarda el backup en un Linkedlist temporal cada vez que se abre una archivo
         {
             listaPrincipal[0] = ll_clone(listaPrincipal[1]);
             controller_saveAsBinary("../files/temp.bin",listaPrincipal[0]);
