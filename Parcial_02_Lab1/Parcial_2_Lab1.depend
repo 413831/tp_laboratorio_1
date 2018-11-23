@@ -1,0 +1,73 @@
+# depslib dependency file v1.0
+1542925356 source:/home/alumno/Documentos/Parcial_2_Lab1/input.c
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+	"utn.h"
+
+1542925341 /home/alumno/Documentos/Parcial_2_Lab1/utn.h
+
+1542932477 source:/home/alumno/Documentos/Parcial_2_Lab1/LinkedList.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<errno.h>
+	"LinkedList.h"
+
+1542934449 /home/alumno/Documentos/Parcial_2_Lab1/LinkedList.h
+
+1542934640 source:/home/alumno/Documentos/Parcial_2_Lab1/main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"utn.h"
+	"Venta.h"
+	"parser.h"
+	"Controller.h"
+
+1542920842 source:/home/alumno/Documentos/Parcial_2_Lab1/validacion.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"utn.h"
+
+1542930242 source:/home/alumno/Documentos/Parcial_2_Lab1/parser.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Venta.h"
+	"utn.h"
+	"parser.h"
+
+1542925596 /home/alumno/Documentos/Parcial_2_Lab1/Venta.h
+	"LinkedList.h"
+
+1542925235 /home/alumno/Documentos/Parcial_2_Lab1/parser.h
+
+1542933606 source:/home/alumno/Documentos/Parcial_2_Lab1/Venta.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"utn.h"
+	"Venta.h"
+
+1542934527 source:/home/alumno/Documentos/Parcial_2_Lab1/Controller.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<errno.h>
+	<time.h>
+	"Controller.h"
+	"LinkedList.h"
+	"Venta.h"
+	"utn.h"
+	"parser.h"
+
+1542928845 /home/alumno/Documentos/Parcial_2_Lab1/Controller.h
+	"LinkedList.h"
+	"Venta.h"
+
